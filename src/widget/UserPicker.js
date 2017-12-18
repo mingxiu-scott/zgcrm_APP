@@ -34,6 +34,29 @@ export default class UserPicker extends Component {
 
         let pickerData = PostUrl.subUserList;
 
+        if (pickerData == null){
+            let url = PostUrl.getUsersListsJsonUrl;
+            let formData = new FormData();
+            formData.append('tokenVal', PostUrl.tokenVal);
+            formData.append('userId', PostUrl.userId);
+
+            var opts = {
+                method:"POST",
+                body:formData
+            }
+            fetch(url,opts)
+                .then((response) => {
+                    return response.json();
+                })
+                .then((responseText) => {
+                    PostUrl.subUserList = responseText
+                })
+                .catch((error) => {
+                    alert(error)
+                })
+            pickerData = PostUrl.subUserList;
+        }
+
         for(var key in pickerData){
 
             pickerKey.push(key);

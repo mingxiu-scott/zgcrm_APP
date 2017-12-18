@@ -99,7 +99,7 @@ class ReturnListScene extends PureComponent {
     }
 
     _changeStateData(){
-        this._getReturnJson(this.state.select_uid, this.state.u_name);
+        this._getReturnJson(this.state.select_uid, this.state.date, this.state.u_name);
     }
 
     _searchCustom(data){

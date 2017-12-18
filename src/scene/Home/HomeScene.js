@@ -37,21 +37,6 @@ class HomeScene extends PureComponent {
     static navigationOptions = {
         headerTitle: '工作台',
     };
-    _logOut(){
-        Alert.alert('提示','你确定注销账号吗？',[{
-            text: '确定',onPress:()=>{
-                AsyncStorage.removeItem('uid',function (error) {
-                    if (error){
-                        return;
-                    }
-                    Alert.alert('提示','注销成功');
-                });
-                this.props.navigation.navigate('LoginScreen');
-            }
-        },{
-            text: '取消',
-        }]);
-    }
 
     componentDidMount(){
         BackHandler.addEventListener('hardwareBackPress',function(){
@@ -128,12 +113,11 @@ class HomeScene extends PureComponent {
                         </Text>
                         <Text style={styles.contentText }>录任务</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.TOStyle}
-                                      onPress = {this._logOut.bind(this)}>
-                        <Text style={styles.contentText }>注销</Text>
+                    <TouchableOpacity style={styles.TOStyle}>
+                        <Text style={styles.contentText }/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TOStyle}>
-                        <Text style={styles.contentText }></Text>
+                        <Text style={styles.contentText }/>
                     </TouchableOpacity>
                 </View>
 
@@ -226,7 +210,7 @@ class HomeScene extends PureComponent {
                         <Text style={styles.contentText }>任务列表</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TOStyle}>
-                        <Text style={styles.contentText }></Text>
+                        <Text style={styles.contentText }/>
                     </TouchableOpacity>
                 </View>
 

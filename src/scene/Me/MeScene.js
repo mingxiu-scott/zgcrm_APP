@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Text, ScrollView, TouchableOpacity, Alert,ListView, Image, StatusBar, FlatList, StyleSheet, TextInput } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity,AsyncStorage, Alert,ListView, Image, StatusBar, FlatList, StyleSheet, TextInput } from 'react-native'
 import { StackNavigator, NavigationActions } from 'react-navigation'
 
 import MyIcon from '../../widget/MyIcon'
@@ -22,6 +22,23 @@ class MeScene extends PureComponent {
             check_pass : '',
         }
     }
+
+    _logOut(){
+        Alert.alert('提示','你确定注销账号吗？',[{
+            text: '确定',onPress:()=>{
+                AsyncStorage.removeItem('uid',function (error) {
+                    if (error){
+                        return;
+                    }
+                    Alert.alert('提示','注销成功');
+                });
+                this.props.navigation.navigate('LoginScreen');
+            }
+        },{
+            text: '取消',
+        }]);
+    }
+
 
     componentWillMount(){
         this._getUserJson(PostUrl.userId);
@@ -156,6 +173,11 @@ class MeScene extends PureComponent {
                             <Text style={styles.valueLabel}>电话号码</Text>
                             <Text style={styles.valueText}> {this.state.data.u_telphone}</Text>
                         </View>
+                        <TouchableOpacity onPress={this._logOut.bind(this)}>
+                            <View style={styles.valueRow}>
+                                <Text style={styles.valueLabel}>退出登录</Text>
+                            </View>
+                        </TouchableOpacity>
 
                     </View>
                     <Text style = {{marginTop:10,marginLeft:15,fontSize:17,marginBottom:10,color:'red'}}>修改密码:</Text>

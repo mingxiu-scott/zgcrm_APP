@@ -27,7 +27,6 @@ class LoginScreen extends PureComponent{
             }
         });
        if (mess != null){
-
            this._getSubUserList(mess);
            PostUrl.userId = mess;
            this._jumpToHome();
@@ -195,6 +194,7 @@ const styles = StyleSheet.create({
         marginRight:50,
         margin:3,
         backgroundColor:'white',
+        justifyContent: 'center',
     },
     buttonLoginView:{
         height:50
