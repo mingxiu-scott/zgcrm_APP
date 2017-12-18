@@ -119,8 +119,9 @@ class EditTaskScene extends PureComponent {
     }
 
     postRequest(){
-        if (this.state.date == '' || this.state.t_name == '' || this.state.t_status == ''){
+        if (this.state.date == '' || this.state.t_name == ''){
             Alert.alert('提示','必填项不能为空');
+            return;
         }
 
         let url = PostUrl.editTasksJsonUrl;
@@ -221,6 +222,7 @@ class EditTaskScene extends PureComponent {
                                        style={styles.TextInputs} underlineColorAndroid="transparent"
                                        onChangeText={(text)=>this.setState({c_name:text})}
                                        defaultValue={this.state.c_name}
+                                       editable={false}
                             />
                         </View>
 

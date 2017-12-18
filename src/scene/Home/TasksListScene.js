@@ -66,7 +66,7 @@ class TasksListScene extends PureComponent{
 
     _getTaskListJson(userId, date){
 
-        UserPicker.closeUserPicker()
+        UserPicker.closeUserPicker();
 
         let url = PostUrl.getTaskJsonUrl;
         let formData = new FormData();
@@ -107,7 +107,7 @@ class TasksListScene extends PureComponent{
                 <TouchableOpacity
                     onPress={() => {
 
-                        UserPicker.closeUserPicker()
+                        UserPicker.closeUserPicker();
 
                         navigate('EditTaskScene', {
                             t_id: rowData.t_id,
@@ -168,9 +168,7 @@ class TasksListScene extends PureComponent{
                     />
                 </View>
             );
-
         }
-
     }
 }
 

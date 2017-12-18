@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
-import { View, Text,TouchableOpacity,Alert, AsyncStorage,Image, ImageBackground,StyleSheet, TextInput,ToastAndroid, Navigator, } from 'react-native'
+import { View, Text,TouchableOpacity,Alert, AsyncStorage,ImageBackground,StyleSheet, TextInput } from 'react-native'
 
 import RootScene from '../../RootScene'
 import MyIcon from '../../widget/MyIcon'
 import PostUrl from "../../widget/PostUrl";
-import { StackNavigator } from 'react-navigation'
+import { StackNavigator ,NavigationActions} from 'react-navigation'
 
 
 class LoginScreen extends PureComponent{
@@ -85,7 +85,6 @@ class LoginScreen extends PureComponent{
                             //TODO：存储出错
                             return;
                         }
-                        //Alert.alert('提示','登录成功'+responseText.u_id);
                     });
 
                     this._getSubUserList(responseText.u_id);
@@ -123,7 +122,15 @@ class LoginScreen extends PureComponent{
     }
 
     _jumpToHome(){
-        this.props.navigation.navigate('RootScene');
+
+      const reAction =  NavigationActions.reset({
+            index: 0,
+            actions: [
+                NavigationActions.navigate({routeName:'RootScene'})//要跳转到的页面名字
+            ]
+        });
+
+        this.props.navigation.dispatch(reAction);
     }
 
     render(){

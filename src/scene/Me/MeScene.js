@@ -1,18 +1,18 @@
 import React, { PureComponent } from 'react'
-import { View, Text, ScrollView, TouchableOpacity,AsyncStorage, Alert,ListView, Image, StatusBar, FlatList, StyleSheet, TextInput } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity,AsyncStorage, Alert, TextInput } from 'react-native'
 import { StackNavigator, NavigationActions } from 'react-navigation'
 
-import MyIcon from '../../widget/MyIcon'
 import NavStyle from '../../widget/NavStyle'
 import PostUrl from  '../../widget/PostUrl'
-import ListStyle from '../../widget/ListStyle'
 import styles from '../../widget/FormStyle'
 
 
 class MeScene extends PureComponent {
+
     static navigationOptions = {
         headerTitle: '我',
     }
+
     constructor(props){
         super(props);
         this.state ={
@@ -32,13 +32,22 @@ class MeScene extends PureComponent {
                     }
                     Alert.alert('提示','注销成功');
                 });
+
+                //跳转后清空路由
                 this.props.navigation.navigate('LoginScreen');
+                const reAction =  NavigationActions.reset({
+                    index: 0,
+                    actions: [
+                        NavigationActions.navigate({routeName:'LoginScreen'})//要跳转到的页面名字
+                    ]
+                });
+
+                this.props.navigation.dispatch(reAction);
             }
         },{
             text: '取消',
         }]);
     }
-
 
     componentWillMount(){
         this._getUserJson(PostUrl.userId);
@@ -235,8 +244,6 @@ class MeScene extends PureComponent {
     }
 
 }
-
-
 
 
 const MeStack = StackNavigator({

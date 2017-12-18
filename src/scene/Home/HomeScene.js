@@ -172,10 +172,10 @@ class HomeScene extends PureComponent {
                         <Text style={styles.contentText }>回款记录</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TOStyle}>
-                        <Text style={styles.contentText }></Text>
+                        <Text style={styles.contentText }/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TOStyle}>
-                        <Text style={styles.contentText }></Text>
+                        <Text style={styles.contentText }/>
                     </TouchableOpacity>
                 </View>
 
