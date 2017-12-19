@@ -6,13 +6,40 @@ import NavStyle from '../../widget/NavStyle'
 import PostUrl from  '../../widget/PostUrl'
 import styles from '../../widget/FormStyle'
 
-
 class MeScene extends PureComponent {
 
-    static navigationOptions = {
+    static navigationOptions =  ({navigation}) =>({
         headerTitle: '我',
-    }
+        headerRight: (
+            <TouchableOpacity
+                style={{padding: 10, marginRight:5, marginTop:3}}
+                onPress={()=> Alert.alert('提示','你确定注销账号吗？',[{
+                    text: '确定',onPress:()=>{
+                        AsyncStorage.removeItem('uid',function (error) {
+                            if (error){
+                                return;
+                            }
+                            Alert.alert('提示','注销成功');
+                        });
 
+                        //跳转后清空路由
+                        navigation.navigate('LoginScreen');
+                        const reAction =  NavigationActions.reset({
+                            index: 0,
+                            actions: [
+                                NavigationActions.navigate({routeName:'LoginScreen'})//要跳转到的页面名字
+                            ]
+                        });
+                        navigation.dispatch(reAction);
+                    }
+                },{
+                    text: '取消',
+                }])}
+            >
+                <Text style={{color:'white'}}>退出</Text>
+            </TouchableOpacity>
+        ),
+    });
     constructor(props){
         super(props);
         this.state ={
@@ -22,37 +49,9 @@ class MeScene extends PureComponent {
             check_pass : '',
         }
     }
-
-    _logOut(){
-        Alert.alert('提示','你确定注销账号吗？',[{
-            text: '确定',onPress:()=>{
-                AsyncStorage.removeItem('uid',function (error) {
-                    if (error){
-                        return;
-                    }
-                    Alert.alert('提示','注销成功');
-                });
-
-                //跳转后清空路由
-                this.props.navigation.navigate('LoginScreen');
-                const reAction =  NavigationActions.reset({
-                    index: 0,
-                    actions: [
-                        NavigationActions.navigate({routeName:'LoginScreen'})//要跳转到的页面名字
-                    ]
-                });
-
-                this.props.navigation.dispatch(reAction);
-            }
-        },{
-            text: '取消',
-        }]);
-    }
-
     componentWillMount(){
         this._getUserJson(PostUrl.userId);
     }
-
     _getUserJson(userId){
 
         let url = PostUrl.getUsersJson;
@@ -163,7 +162,6 @@ class MeScene extends PureComponent {
                 <ScrollView>
 
                     <View>
-
                         <View style={styles.valueRow}>
                             <Text style={styles.valueLabel}>用户名</Text>
                             <Text style={styles.valueText}> {this.state.data.u_username}</Text>
@@ -182,12 +180,6 @@ class MeScene extends PureComponent {
                             <Text style={styles.valueLabel}>电话号码</Text>
                             <Text style={styles.valueText}> {this.state.data.u_telphone}</Text>
                         </View>
-                        <TouchableOpacity onPress={this._logOut.bind(this)}>
-                            <View style={styles.valueRow}>
-                                <Text style={styles.valueLabel}>退出登录</Text>
-                            </View>
-                        </TouchableOpacity>
-
                     </View>
                     <Text style = {{marginTop:10,marginLeft:15,fontSize:17,marginBottom:10,color:'red'}}>修改密码:</Text>
                     <View>
@@ -236,7 +228,6 @@ class MeScene extends PureComponent {
                             <Text style={styles.submitBtnText}>确认修改</Text>
                         </TouchableOpacity>
                     </View>
-
                 </ScrollView>
 
             );
@@ -253,7 +244,6 @@ const MeStack = StackNavigator({
 },{
     navigationOptions: {
         headerTitleStyle: NavStyle.stackNavHeaderStyle,
-
         headerStyle: NavStyle.stackNavStyle,
     },
 });

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Text, ScrollView ,TouchableOpacity,Alert, ListView, Image, StatusBar, FlatList, StyleSheet, TextInput, Button,DeviceEventEmitter } from 'react-native'
+import { View, Text, ScrollView ,TouchableOpacity,Alert,Switch, ListView, Image, StatusBar, FlatList, StyleSheet, TextInput, Button,DeviceEventEmitter } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import styles from '../../widget/FormStyle'
@@ -88,7 +88,7 @@ class EditTaskScene extends PureComponent {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         let url = PostUrl.getTaskInfoJsonUrl;
         let formData = new FormData();
         formData.append('tokenVal', PostUrl.tokenVal);
@@ -110,7 +110,7 @@ class EditTaskScene extends PureComponent {
                     t_name: responseText.dataValue.t_name,
                     c_name: responseText.dataValue.c_name,
                     t_desc: responseText.dataValue.t_desc,
-                    status: responseText.dataValue.t_status,
+                    status: responseText.dataValue.t_status == 1 ? true:false,
                 })
             })
             .catch((error) => {
@@ -180,13 +180,12 @@ class EditTaskScene extends PureComponent {
     }
 
     set_t_status(status){
-        this.setState({t_status:status});
+        this.setState({status:status});
     }
 
     render(){
 
         if (this.state.date == ''){
-            this.state.status == 1 ? true: false;
             return (
                 <Text>loading...</Text>
             )
@@ -228,7 +227,7 @@ class EditTaskScene extends PureComponent {
 
                         <View style={styles.fristformRow}>
                             <Text style={[styles.lineHeightAllDate,styles.lineHeightAll,{lineHeight:35}]}>任务状态*</Text>
-                            <MySwitch style={[styles.textInput]} set_t_status={status=>this.set_t_status(status)} value={this.state.status} />
+                            <MySwitch style={[styles.textInput]} set_t_status={status=>this.set_t_status(this.state.status)} state={this.state.status} />
                         </View>
 
                         <View style={styles.formRow}>
@@ -249,7 +248,6 @@ class EditTaskScene extends PureComponent {
                 </ScrollView>
             );
         }
-
     }
 }
 

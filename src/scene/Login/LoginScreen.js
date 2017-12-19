@@ -223,6 +223,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
     }
 })
+
 const LoginStack = StackNavigator({
     LoginScreen:{
         screen:LoginScreen,

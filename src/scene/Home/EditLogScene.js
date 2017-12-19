@@ -1,13 +1,10 @@
 import React, { PureComponent } from 'react'
-import { View, Text, ScrollView, TouchableOpacity,Alert, ListView, Image, StatusBar, FlatList, StyleSheet, TextInput, Button, RadiModal, DeviceEventEmitter } from 'react-native'
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { View, Text, ScrollView, TouchableOpacity,Alert, TextInput, DeviceEventEmitter } from 'react-native'
 
 import styles from '../../widget/FormStyle'
 import MyIcon from '../../widget/MyIcon'
 import MyDatePicker from '../../widget/MyDatePicker'
 import PostUrl from '../../widget/PostUrl'
-
-import Moment from 'moment'
 
 
 class EditLogScene extends PureComponent {

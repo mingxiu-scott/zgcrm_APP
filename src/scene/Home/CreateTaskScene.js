@@ -32,11 +32,11 @@ class CreateTaskScene extends PureComponent {
         };
     }
     postRequest(){
+
         if (this.state.t_date == '' || this.state.t_name == '' || this.state.t_status == ''){
             Alert.alert('提示','必填项不能为空');
             return;
         }
-
         this._set_submitBtnDisabled();
 
         let url = PostUrl.createTasksJsonUrl;
@@ -154,7 +154,7 @@ class CreateTaskScene extends PureComponent {
 
                 <View style={styles.fristformRow}>
                     <Text style={[styles.lineHeightAllDate,styles.lineHeightAll,{lineHeight:35}]}>任务状态*</Text>
-                    <MySwitch style={[styles.textInput]} set_t_status={status=>this.set_t_status(status)}/>
+                    <MySwitch style={[styles.textInput]} set_t_status={status=>this.set_t_status(status)} status={this.state.status} />
                 </View>
 
                 <View style={styles.formRow}>
