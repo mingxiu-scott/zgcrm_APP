@@ -98,7 +98,8 @@ const FormStyle = StyleSheet.create({
         position:'absolute',
         right: 0,
         height:40,
-        textAlign:'right'
+        textAlign:'right',
+        paddingRight: 15
     },
     TextInputsRows: {
         width:400,

@@ -23,7 +23,7 @@ export default class UserPicker extends Component {
             userList: null,
             keyList: null,
             valueList: null,
-            userName: 'me',
+            userName: '我',
         }
     }
 
