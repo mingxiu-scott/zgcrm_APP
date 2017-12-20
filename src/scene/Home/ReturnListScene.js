@@ -138,6 +138,7 @@ class ReturnListScene extends PureComponent {
                                 underlineColorAndroid='transparent' //设置下划线背景色
                                 onChangeText = {this._searchCustom.bind(this)}
                                 value = {this.state.u_name}
+                                placeholder={'请输入客户名'}  //占位符
                             />
                         </View>
 
@@ -158,6 +159,7 @@ class ReturnListScene extends PureComponent {
                                 underlineColorAndroid='transparent' //设置下划线背景色
                                 onChangeText = {this._searchCustom.bind(this)}
                                 value = {this.state.u_name}
+                                placeholder={'请输入客户名'}  //占位符
                             />
                         </View>
 

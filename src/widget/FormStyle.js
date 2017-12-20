@@ -62,6 +62,17 @@ const FormStyle = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
     },
+    formRowContents:{
+        backgroundColor:'#fff',
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderBottomWidth:1,
+        borderBottomColor:'#e4e4e4',
+        height: 150,
+        justifyContent: 'center',
+    },
     lineHeightAll:{
         fontSize: 16,
     },
@@ -99,6 +110,14 @@ const FormStyle = StyleSheet.create({
         right: 0,
         height:40,
         textAlign:'right',
+        paddingRight: 15
+    },
+    TextInputContents:{
+        width:320,
+        position:'absolute',
+        right: 0,
+        height:140,
+        textAlign:'justify',
         paddingRight: 15
     },
     TextInputsRows: {

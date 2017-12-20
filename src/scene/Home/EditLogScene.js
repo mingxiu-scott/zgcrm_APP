@@ -185,11 +185,12 @@ class EditLogScene extends PureComponent {
                             />
                             </View>
                         </View>
-                        <View style={styles.formRow}>
+                        <View style={styles.formRowContents}>
                             <Text style={styles.lineHeightAll}>内容</Text>
-                            <TextInput style={styles.TextInputs} placeholder="内容" underlineColorAndroid="transparent"
+                            <TextInput style={styles.TextInputContents} placeholder="内容" underlineColorAndroid="transparent"
                                        onChangeText={(text) => this.setState({l_desc: text})}
                                        defaultValue={this.state.data.l_desc}
+                                       multiline = {true}
                             />
                         </View>
                         <View style={styles.formBtnRow}>

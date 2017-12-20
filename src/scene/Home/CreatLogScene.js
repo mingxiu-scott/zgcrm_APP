@@ -107,10 +107,11 @@ class CreatLogScene extends PureComponent {
                         <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime(date)} />
                     </View>
                 </View>
-                <View style={styles.formRow}>
+                <View style={styles.formRowContents}>
                     <Text style={styles.lineHeightAll}>内容</Text>
-                    <TextInput style={styles.TextInputs} placeholder="内容" underlineColorAndroid="transparent"
-                               onChangeText={(text) => this.setState({l_desc: text})} />
+
+                    <TextInput style={styles.TextInputContents} placeholder="内容" underlineColorAndroid="transparent"
+                               onChangeText={(text) => this.setState({l_desc: text})}  multiline ={true} />
                 </View>
 
                 <View style={styles.formBtnRow}>
