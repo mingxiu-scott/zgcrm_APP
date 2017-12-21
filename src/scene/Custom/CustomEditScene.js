@@ -284,7 +284,6 @@ class CustomEditScene extends PureComponent {
                             <TextInput
                                 style={styles.TextInputs}
                                 placeholder="生日"
-                                keyboardType='numeric'
                                 underlineColorAndroid="transparent"
                                 maxLength={12}
                                 onChangeText={(text) => this.setState({c_birthday: text})}

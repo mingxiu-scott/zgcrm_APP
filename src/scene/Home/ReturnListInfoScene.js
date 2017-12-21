@@ -95,8 +95,8 @@ class ReturnListInfoScene extends PureComponent{
 
                 if (responseText.code == 'success'){
 
-                    DeviceEventEmitter.emit('changeReturnInfo', (data) => { this._changeStateData(data) })
-
+                    DeviceEventEmitter.emit('changeReturnInfo', (data) => { this._changeStateData(data) });
+                    DeviceEventEmitter.emit('changeLogInfo','aa');
                     this.setState({
                         status : 1
                     })

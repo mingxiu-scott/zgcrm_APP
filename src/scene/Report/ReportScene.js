@@ -36,10 +36,9 @@ class ReportScene extends PureComponent {
     }
 
     componentWillMount() {
-
         DeviceEventEmitter.addListener('changeLogInfo', (data) => {
             this._getReportJson(this.state.select_uid, this.state.date)
-        })
+        });
 
         this._getReportJson(PostUrl.userId, this.state.date)
     }

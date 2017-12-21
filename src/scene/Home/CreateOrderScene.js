@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Text, ScrollView, TouchableOpacity,TextInput, Alert} from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity,TextInput,DeviceEventEmitter, Alert} from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import styles from '../../widget/FormStyle'
@@ -100,6 +100,7 @@ class CreateOrderScene extends PureComponent{
                 if (responseText.code != 'success'){
                     this._set_submitBtn();
                 }
+                DeviceEventEmitter.emit('changeLogInfo','aa');
                 Alert.alert('提示', responseText.message);
             })
             .catch((error) => {
@@ -208,7 +209,6 @@ class CreateOrderScene extends PureComponent{
                         style={styles.TextInputs}
                         placeholder='年-月-日'
                         underlineColorAndroid="transparent"
-                        keyboardType='numeric'
                         onChangeText={(text) => this.setState({o_endTime: text})}
                     />
                 </View>

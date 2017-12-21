@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Text, ScrollView, TouchableOpacity, ListView, Image, StatusBar, FlatList, StyleSheet, TextInput, Button,Alert } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, DeviceEventEmitter,ListView, Image, StatusBar, FlatList, StyleSheet, TextInput, Button,Alert } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import styles from '../../widget/FormStyle'
@@ -75,6 +75,7 @@ class CreateFollowScene extends PureComponent {
                 if (responseText.code != 'success'){
                     this._set_submitBtn();
                 }
+                DeviceEventEmitter.emit('changeLogInfo','aa');
                 Alert.alert('提示', responseText.message);
             })
             .catch((error) => {

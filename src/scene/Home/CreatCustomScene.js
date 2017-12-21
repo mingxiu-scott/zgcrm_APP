@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Text, ScrollView, TouchableOpacity, Alert, TextInput, RadiModal } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Alert, TextInput,DeviceEventEmitter, RadiModal } from 'react-native'
 import styles from '../../widget/FormStyle'
 import MyDatePicker from '../../widget/MyDatePicker'
 import PostUrl from '../../widget/PostUrl'
@@ -104,6 +104,8 @@ class CreatCustomScene extends PureComponent {
                 if (responseText.code != 'success'){
                     this._set_submitBtn();
                 }
+                DeviceEventEmitter.emit('changeCustomInfo','aaa');
+                DeviceEventEmitter.emit('changeLogInfo','aa');
                 Alert.alert('提示', responseText.message);
             })
             .catch((error) => {
@@ -243,7 +245,6 @@ class CreatCustomScene extends PureComponent {
                     <TextInput
                         style={styles.TextInputs}
                         placeholder="生日"
-                        keyboardType='numeric'
                         underlineColorAndroid="transparent"
                         maxLength={12}
                         onChangeText={(text) => this.setState({c_birthday: text})}
