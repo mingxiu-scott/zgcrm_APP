@@ -4,7 +4,6 @@ import { View, Text, ScrollView, TouchableOpacity, TextInput,Alert } from 'react
 import styles from '../../widget/FormStyle'
 import MyIcon from '../../widget/MyIcon'
 import PostUrl from "../../widget/PostUrl";
-import MeScene from './MeScene'
 
 class ChangePassScene extends PureComponent {
 
@@ -24,7 +23,7 @@ class ChangePassScene extends PureComponent {
             <TouchableOpacity
                 style={{padding: 10, marginLeft:5, marginTop:3}}
                 onPress={()=> {
-                    navigation.navigate('MeScene');
+                    navigation.goBack();
                 }}
             >
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
@@ -144,4 +143,6 @@ class ChangePassScene extends PureComponent {
         );
     }
 }
+
+
 export default ChangePassScene;

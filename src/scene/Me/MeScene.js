@@ -147,6 +147,9 @@ class MeScene extends PureComponent {
 const MeStack = StackNavigator({
     MeScene: {
         screen: MeScene,
+    },
+    ChangePassScene:{
+        screen:ChangePassScene,
     }
 },{
     navigationOptions: {

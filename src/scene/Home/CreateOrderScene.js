@@ -121,7 +121,7 @@ class CreateOrderScene extends PureComponent{
         this.setState({
             o_customName: customInfo.c_name,
             o_cid: customInfo.c_id,
-        })
+        });
     }
 
     set_c_gettime(date){

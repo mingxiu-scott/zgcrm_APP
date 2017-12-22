@@ -26,7 +26,6 @@ class CreatCustomScene extends PureComponent {
             c_source: '',
             c_desc: '',
             c_age: '',
-
             submitBtnSytle: styles.submitBtn,
             submitBtnDisabled: false,
         }
@@ -35,7 +34,7 @@ class CreatCustomScene extends PureComponent {
     static navigationOptions = {
         headerTitle: '录客户',
         tabBarVisible: false,
-    }
+    };
 
     postRequest() {
         if (

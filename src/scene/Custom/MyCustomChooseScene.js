@@ -95,7 +95,6 @@ class MyCustomChooseScene extends PureComponent {
             </TouchableOpacity>
         );
     }
-
     render() {
 
         if (!this.state.data){
@@ -148,10 +147,7 @@ class MyCustomChooseScene extends PureComponent {
                 </View>
             );
         }
-
     }
-
-
 }
 
 const customerStyles=StyleSheet.create({
