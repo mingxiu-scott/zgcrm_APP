@@ -19,6 +19,7 @@ import FlowsListScene from './FlowsListScene'
 import CustomListScene from './CustomListScene'
 import MyCustomChooseScene from '../Custom/MyCustomChooseScene'
 import CustomSubInfoScene from '../Custom/CustomSubInfoScene'
+import ChangePassScene from '../Me/ChangePassScene'
 
 import OrderListEditScene from './OrderListEditScene'
 import OrderListInfo from './OrderListInfoScene';
@@ -130,7 +131,7 @@ class HomeScene extends PureComponent {
                         onPress={ () => navigate('CustomListScene')}
                     >
                         <Text style={styles.myIconText}>
-                            <MyIcon sorceName={'sliders'} sorceColor={'#50AAF0'} sorceSize={myIconSize}/>
+                            <MyIcon sorceName={'users'} sorceColor={'#50AAF0'} sorceSize={myIconSize}/>
                         </Text>
                         <Text style={styles.contentText }>下属客户</Text>
                     </TouchableOpacity>
@@ -144,10 +145,10 @@ class HomeScene extends PureComponent {
                         <Text style={styles.contentText }>跟进记录</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TOStyle}>
-                        <Text style={styles.contentText }></Text>
+                        <Text style={styles.contentText }/>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TOStyle}>
-                        <Text style={styles.contentText }></Text>
+                        <Text style={styles.contentText }/>
                     </TouchableOpacity>
                 </View>
 
@@ -330,6 +331,9 @@ const HomeStack = StackNavigator({
     },
     CustomSubInfoScene: {
         screen: CustomSubInfoScene,
+    },
+    ChangePassScene:{
+        screen:ChangePassScene,
     }
 },{
     navigationOptions: {

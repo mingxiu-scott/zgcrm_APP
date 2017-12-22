@@ -5,6 +5,9 @@ import { StackNavigator, NavigationActions } from 'react-navigation'
 import NavStyle from '../../widget/NavStyle'
 import PostUrl from  '../../widget/PostUrl'
 import styles from '../../widget/FormStyle'
+import ChangePassScene from './ChangePassScene'
+
+import MyIcon from '../../widget/MyIcon'
 
 class MeScene extends PureComponent {
 
@@ -88,67 +91,6 @@ class MeScene extends PureComponent {
             });
     }
 
-    _changePassword() {
-
-        if (
-            this.state.old_pass == '' ||
-            this.state.new_pass == '' ||
-            this.state.check_pass == ''
-        ) {
-            Alert.alert('提示','必填项不可为空');
-            return;
-        }
-
-        if (this.state.new_pass != this.state.check_pass){
-            Alert.alert('提示','两次输入的密码不一致');
-            return;
-        }
-
-        let url = PostUrl.changePassJson;
-
-        let formData = new FormData();
-
-        formData.append('old_pass', this.state.old_pass);
-        formData.append('new_pass', this.state.new_pass);
-        formData.append('check_pass',this.state.check_pass);
-        formData.append('userId',PostUrl.userId);
-
-
-        let sign =
-            '{old_pass:"' + this.state.old_pass + '"},' +
-            '{new_pass:"' + this.state.new_pass + '"},'+
-            '{check_pass:"' + this.state.check_pass + '"},';
-
-        sign += PostUrl.signCode;
-
-        var forge = require('node-forge');
-        var md = forge.md.md5.create();
-        md.update(sign, 'utf8');
-        let signVal = md.digest().toHex();
-
-        formData.append('signVal', signVal);
-
-        var opts = {
-            method: 'POST',
-            body: formData,
-        }
-        fetch(url, opts)
-            .then((response) => {
-                return response.json();
-            })
-            .then((responseText) => {
-
-                this.setState({
-                    old_pass: null,
-                    new_pass : '',
-                    check_pass : '',
-                })
-                Alert.alert('提示', responseText.message);
-            })
-            .catch((error) => {
-                alert(error)
-            })
-    }
 
     render() {
         if (this.state.data == null){
@@ -158,6 +100,8 @@ class MeScene extends PureComponent {
                 </View>
             );
         }else {
+            const { navigate } = this.props.navigation;
+
             return(
                 <ScrollView>
 
@@ -181,53 +125,18 @@ class MeScene extends PureComponent {
                             <Text style={styles.valueText}> {this.state.data.u_telphone}</Text>
                         </View>
                     </View>
-                    <Text style = {{marginTop:10,marginLeft:15,fontSize:17,marginBottom:10,color:'red'}}>修改密码:</Text>
-                    <View>
-                        <View style={styles.formRow}>
-                            <Text style={styles.lineHeightAll}>
-                                旧密码*
-                            </Text>
-                            <TextInput
-                                style={styles.TextInputs}
-                                value={this.state.old_pass}
-                                underlineColorAndroid="transparent"
-                                maxLength={10}
-                                onChangeText={(text) => this.setState({old_pass: text})}
-                                secureTextEntry={true}
-                            />
+
+                    <TouchableOpacity style={{marginTop:20}}
+                                      onPress={()=>{
+                                          navigate('ChangePassScene',{u_id: PostUrl.userId})
+                                      }}
+                    >
+                        <View style={styles.valueRow}>
+                            <Text style={styles.valueLabel}>修改密码</Text>
+                            <MyIcon  sorceName={'angle-right'} sorceColor={'#7C868F'} sorceSize={20}/>
                         </View>
-                        <View style={styles.formRow}>
-                            <Text style={styles.lineHeightAll}>
-                                新密码*
-                            </Text>
-                            <TextInput
-                                style={styles.TextInputs}
-                                value={this.state.new_pass}
-                                underlineColorAndroid="transparent"
-                                maxLength={10}
-                                onChangeText={(text) => this.setState({new_pass: text})}
-                                secureTextEntry={true}
-                            />
-                        </View>
-                        <View style={styles.formRow}>
-                            <Text style={styles.lineHeightAll}>
-                                再次确认密码*
-                            </Text>
-                            <TextInput
-                                style={styles.TextInputs}
-                                value={this.state.check_pass}
-                                underlineColorAndroid="transparent"
-                                maxLength={10}
-                                onChangeText={(text) => this.setState({check_pass: text})}
-                                secureTextEntry={true}
-                            />
-                        </View>
-                    </View>
-                    <View style={styles.formBtnRow}>
-                        <TouchableOpacity style={styles.submitBtn} onPress={this._changePassword.bind(this)}>
-                            <Text style={styles.submitBtnText}>确认修改</Text>
-                        </TouchableOpacity>
-                    </View>
+                    </TouchableOpacity>
+
                 </ScrollView>
 
             );
@@ -235,16 +144,15 @@ class MeScene extends PureComponent {
     }
 
 }
-
-
 const MeStack = StackNavigator({
     MeScene: {
         screen: MeScene,
-    },
+    }
 },{
     navigationOptions: {
         headerTitleStyle: NavStyle.stackNavHeaderStyle,
         headerStyle: NavStyle.stackNavStyle,
+        headerBackTitleStyle: NavStyle.stackBackStyle,
     },
 });
 export default MeStack;

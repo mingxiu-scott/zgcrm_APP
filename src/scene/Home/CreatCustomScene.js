@@ -4,6 +4,8 @@ import styles from '../../widget/FormStyle'
 import MyDatePicker from '../../widget/MyDatePicker'
 import PostUrl from '../../widget/PostUrl'
 
+import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'
+
 import Moment from 'moment'
 
 class CreatCustomScene extends PureComponent {
@@ -13,9 +15,10 @@ class CreatCustomScene extends PureComponent {
         this.state = {
             c_gettime: Moment(new Date()).format("YYYY-MM-DD"),
             c_name: '',
-            c_sex: '女',
+            c_sex: '男',
             c_telphone: '',
             c_bankname: '',
+            c_bankcard:'',
             c_idcard: '',
             c_address: '',
             c_called: '',
@@ -35,14 +38,10 @@ class CreatCustomScene extends PureComponent {
     }
 
     postRequest() {
-
         if (
             this.state.c_gettime == '' ||
             this.state.c_name == '' ||
-            this.state.c_telphone == '' ||
-            this.state.c_bankname == '' ||
-            this.state.c_bankcard == '' ||
-            this.state.c_idcard == ''
+            this.state.c_telphone == ''
         ) {
             Alert.alert('提示','必填项不可为空');
             return;
@@ -113,8 +112,17 @@ class CreatCustomScene extends PureComponent {
             })
     }
 
+    onSelect(index,value){
+        this.setState({
+            c_sex:value
+        })
+    }
+
     set_c_gettime(date){
         this.setState({c_gettime: date})
+    }
+    set_c_gettime2(data){
+        this.setState({c_birthday:data})
     }
 
     _set_submitBtnDisabled(){
@@ -168,46 +176,24 @@ class CreatCustomScene extends PureComponent {
                     />
                 </View>
                 <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>身份证编号*</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="身份证编号"
-                        underlineColorAndroid="transparent"
-                        keyboardType='numeric'
-                        maxLength={18}
-                        onChangeText={(text) => this.setState({c_idcard: text})}
-                    />
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>银行卡开户行*</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="银行卡开户行"
-                        underlineColorAndroid="transparent"
-                        maxLength={20}
-                        onChangeText={(text) => this.setState({c_bankname: text})}
-                    />
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>银行卡号*</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="银行卡号"
-                        underlineColorAndroid="transparent"
-                        keyboardType='numeric'
-                        maxLength={19}
-                        onChangeText={(text) => this.setState({c_bankcard: text})}
-                    />
-                </View>
-                <View style={styles.formRow}>
                     <Text style={styles.lineHeightAll}>性别</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        value={this.state.c_sex}
-                        maxLength={1}
-                        underlineColorAndroid="transparent"
-                        onChangeText={(text) => this.setState({c_sex: text})}
-                    />
+                    <RadioGroup style={{
+                        position:'absolute',
+                        right:0,
+                        flexDirection:'row',
+                        flexWrap:'wrap',
+                        alignItems:'flex-start',
+                        flex: 1,}}
+                                selectedIndex={0}
+                                onSelect ={(index,value)=>this.onSelect(index,value)}
+                    >
+                        <RadioButton  value={'男'} slected={true}>
+                            <Text>男</Text>
+                        </RadioButton>
+                        <RadioButton  value={'女'}>
+                            <Text>女</Text>
+                        </RadioButton>
+                    </RadioGroup>
                 </View>
                 <View style={styles.formRow}>
                     <Text style={styles.lineHeightAll}>家庭住址</Text>
@@ -240,15 +226,13 @@ class CreatCustomScene extends PureComponent {
                         onChangeText={(text) => this.setState({c_age: text})}
                     />
                 </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>生日</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="生日"
-                        underlineColorAndroid="transparent"
-                        maxLength={12}
-                        onChangeText={(text) => this.setState({c_birthday: text})}
-                    />
+                <View style={styles.fristformRow}>
+                    <View style={styles.lineHeightAllDate}>
+                        <Text style={styles.lineHeightAll}>生日</Text>
+                    </View>
+                    <View style={{alignItems: "flex-end"}}>
+                        <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime2(date)} />
+                    </View>
                 </View>
                 <View style={styles.formRow}>
                     <Text style={styles.lineHeightAll}>客户来源</Text>
@@ -263,7 +247,7 @@ class CreatCustomScene extends PureComponent {
                 <View style={styles.formRow}>
                     <Text style={styles.lineHeightAll}>备注</Text>
                     <TextInput
-                        style={styles.TextInputsRows}
+                        style={styles.TextInputs}
                         placeholder="备注"
                         underlineColorAndroid="transparent"
                         multiline={true}

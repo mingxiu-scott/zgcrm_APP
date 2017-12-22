@@ -20,14 +20,13 @@ class CreateOrderScene extends PureComponent{
             o_name:'',
             o_money:'',
             o_cycle:'',
-            o_endTime:'',
+            o_endTime:Moment(new Date()).format("YYYY-MM-DD"),
             o_returnMoney:'',
             o_welfare:'',
             o_remark:'',
 
             submitBtnSytle: styles.submitBtn,
             submitBtnDisabled: false,
-
         }
     }
 
@@ -59,7 +58,9 @@ class CreateOrderScene extends PureComponent{
         formData.append('o_returnMoney',this.state.o_returnMoney);
         formData.append('o_welfare',this.state.o_welfare);
         formData.append('o_remark',this.state.o_remark);
-
+        formData.append('c_idcard',this.state.c_idcard);
+        formData.append('c_bankname',this.state.c_bankname);
+        formData.append('c_bankcard',this.state.c_bankcard);
 
         let sign =
             '{o_gettime:"' + this.state.o_gettime + '"},' +
@@ -70,7 +71,10 @@ class CreateOrderScene extends PureComponent{
             '{o_endTime:"' + this.state.o_endTime + '"},' +
             '{o_returnMoney:"' + this.state.o_returnMoney + '"},' +
             '{o_welfare:"' + this.state.o_welfare + '"},' +
-            '{o_remark:"' + this.state.o_remark + '"},' ;
+            '{o_remark:"' + this.state.o_remark + '"},'+
+            '{c_idcard:"' + this.state.c_idcard + '"},' +
+            '{c_bankname:"' + this.state.c_bankname + '"},' +
+            '{c_bankcard:"' + this.state.c_bankcard + '"},' ;
 
         sign += PostUrl.signCode;
 
@@ -85,7 +89,6 @@ class CreateOrderScene extends PureComponent{
         formData.append('customId',this.state.o_cid);
         formData.append('userId', PostUrl.userId);
         formData.append('storId',PostUrl.storId);
-        formData.append('goodId',PostUrl.goodId);
 
         var opts = {
             method:'POST',
@@ -125,6 +128,9 @@ class CreateOrderScene extends PureComponent{
         this.setState({c_gettime: date})
     }
 
+    set_c_gettime2(data){
+        this.setState({o_endTime:data})
+    }
     _set_submitBtnDisabled(){
         this.setState({
             submitBtnDisabled: true,
@@ -140,9 +146,7 @@ class CreateOrderScene extends PureComponent{
     }
 
     render() {
-
         const { navigate } = this.props.navigation;
-
         return (
             <ScrollView>
             <View>
@@ -164,6 +168,38 @@ class CreateOrderScene extends PureComponent{
                     >
                         <Text>{this.state.o_customName}</Text>
                     </TouchableOpacity>
+                </View>
+                <View style={styles.formRow}>
+                    <Text style={styles.lineHeightAll}>身份证号*</Text>
+                    <TextInput
+                        style={styles.TextInputs}
+                        placeholder="身份证号"
+                        underlineColorAndroid="transparent"
+                        keyboardType='numeric'
+                        maxLength={18}
+                        onChangeText={(text) => this.setState({c_idcard: text})}
+                    />
+                </View>
+                <View style={styles.formRow}>
+                    <Text style={styles.lineHeightAll}>银行卡开户行*</Text>
+                    <TextInput
+                        style={styles.TextInputs}
+                        placeholder="银行卡开户行"
+                        underlineColorAndroid="transparent"
+                        maxLength={20}
+                        onChangeText={(text) => this.setState({c_bankname: text})}
+                    />
+                </View>
+                <View style={styles.formRow}>
+                    <Text style={styles.lineHeightAll}>银行卡号*</Text>
+                    <TextInput
+                        style={styles.TextInputs}
+                        placeholder="银行卡号"
+                        underlineColorAndroid="transparent"
+                        keyboardType='numeric'
+                        maxLength={19}
+                        onChangeText={(text) => this.setState({c_bankcard: text})}
+                    />
                 </View>
                 <View style={styles.formRow}>
                     <Text style={styles.lineHeightAll}>
@@ -201,16 +237,13 @@ class CreateOrderScene extends PureComponent{
                         onChangeText={(text) => this.setState({o_cycle: text})}
                     />
                 </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>
-                        到期时间*
-                    </Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder='年-月-日'
-                        underlineColorAndroid="transparent"
-                        onChangeText={(text) => this.setState({o_endTime: text})}
-                    />
+                <View style={styles.fristformRow}>
+                    <View style={styles.lineHeightAllDate}>
+                        <Text style={styles.lineHeightAll}>到期日期*</Text>
+                    </View>
+                    <View style={{alignItems: "flex-end"}}>
+                        <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime2(date)} />
+                    </View>
                 </View>
                 <View style={styles.formRow}>
                     <Text style={styles.lineHeightAll}>
@@ -252,7 +285,5 @@ class CreateOrderScene extends PureComponent{
         );
     }
 }
-
-
 
 export default CreateOrderScene;
