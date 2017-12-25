@@ -85,7 +85,7 @@ export default class UserPicker extends Component {
             pickerCancelBtnText: '取消',
             pickerTitleText: '用户',
             onPickerConfirm: (pickedValue, pickedIndex) => {
-                let userId = this.state.keyList[pickedIndex]
+                let userId = this.state.keyList[pickedIndex];
                 this._set_userInfo(userId, pickedValue)
             },
             onPickerCancel: (pickedValue, pickedIndex) => {

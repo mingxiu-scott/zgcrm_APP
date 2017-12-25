@@ -18,7 +18,8 @@ class MyDatePicker extends PureComponent{
     render(){
         return (
             <DatePicker
-                style={{width:100, borderWidth:0,justifyContent: 'center',alignItems:'flex-end'}}
+                style={{width:100,height:35, borderWidth:1,justifyContent: 'center',alignItems:'flex-end',borderColor: '#e3e3e3'}}
+                // style={{flex:1, borderWidth:1,borderColor: '#e3e3e3',justifyContent: 'center',alignItems: 'center',paddingTop: 0,marginRight: 5, height: 35,}}
                 date={this.state.date}
                 mode="date"
                 placeholder="select date"

@@ -227,7 +227,6 @@ class EditChanceScene extends PureComponent {
                                        onChangeText={(text) => this.setState({ch_money: text})}
                                        defaultValue={this.state.data.ch_money}
                                        keyboardType='numeric'
-
                             />
                         </View>
                         <View style={styles.formRow}>

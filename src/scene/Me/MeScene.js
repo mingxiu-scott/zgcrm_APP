@@ -25,7 +25,6 @@ class MeScene extends PureComponent {
                             Alert.alert('提示','注销成功');
                         });
 
-                        //跳转后清空路由
                         navigation.navigate('LoginScreen');
                         const reAction =  NavigationActions.reset({
                             index: 0,

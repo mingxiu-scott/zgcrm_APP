@@ -22,10 +22,20 @@ class CreateFollowScene extends PureComponent {
 
         }
     }
-    static navigationOptions = {
+    static navigationOptions =({navigation})=>({
         headerTitle: '写跟进',
         tabBarVisible: false,
-    };
+        headerLeft: (
+            <TouchableOpacity
+                style={{padding: 10, marginLeft:5, marginTop:3}}
+                onPress={()=> {
+                    navigation.goBack()
+                }}
+            >
+                <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
+            </TouchableOpacity>
+        ),
+    });
 
     postRequest() {
         if (
@@ -131,10 +141,10 @@ class CreateFollowScene extends PureComponent {
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.formRow}>
+                <View style={styles.formRowContents}>
                     <Text style={styles.lineHeightAll}>内容</Text>
                     <TextInput
-                        style={styles.TextInputs}
+                        style={styles.TextInputContents}
                         placeholder="内容"
                         underlineColorAndroid="transparent"
                         onChangeText={(text) => this.setState({f_content: text})}

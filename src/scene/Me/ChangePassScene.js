@@ -16,6 +16,7 @@ class ChangePassScene extends PureComponent {
             check_pass : '',
         }
     }
+
     static navigationOptions =({navigation})=>({
         headerTitle: '更改密码',
         tabBarVisible: false,

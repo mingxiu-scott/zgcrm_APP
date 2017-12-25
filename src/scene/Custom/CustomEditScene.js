@@ -5,9 +5,9 @@ import { StackNavigator, } from 'react-navigation';
 import Moment from 'moment'
 
 import MyDatePicker from '../../widget/MyDatePicker'
-import MyIcon from '../../widget/MyIcon'
 import styles from '../../widget/FormStyle'
 import PostUrl from '../../widget/PostUrl'
+import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'
 
 class CustomEditScene extends PureComponent {
 
@@ -24,20 +24,24 @@ class CustomEditScene extends PureComponent {
 
             c_gettime: Moment(new Date()).format("YYYY-MM-DD"),
             c_name: '',
-            c_sex: '女',
+            c_sex: '',
             c_telphone: '',
             c_bankname: '',
             c_idcard: '',
             c_address: '',
             c_called: '',
-            c_birthday: '',
+            c_birthday: Moment(new Date()).format("YYYY-MM-DD"),
             c_source: '',
             c_desc: '',
             c_age: '',
         }
     }
 
-
+    onSelect(index,value){
+        this.setState({
+            c_sex:value
+        })
+    }
     componentDidMount() {
         let url = PostUrl.getCustomsInfoJsonUrl;
         let formData = new FormData();
@@ -59,7 +63,7 @@ class CustomEditScene extends PureComponent {
 
                     c_gettime: responseText.c_gettime,
                     c_name: responseText.c_name,
-                    c_sex: responseText.c_sex,
+                    c_sex: responseText.c_sex == '男' ? 0:1,
                     c_telphone: responseText.c_telphone,
                     c_bankname: responseText.c_bankname,
                     c_bankcard: responseText.c_bankcard,
@@ -157,6 +161,10 @@ class CustomEditScene extends PureComponent {
         this.setState({c_gettime: date})
     }
 
+    set_c_gettime2(data){
+        this.setState({c_birthday:data})
+    }
+
     render() {
 
         if (!this.state.data){
@@ -172,8 +180,9 @@ class CustomEditScene extends PureComponent {
                             <View style={styles.lineHeightAllDate}>
                                 <Text style={styles.lineHeightAll}>获取时间*</Text>
                             </View>
-
-                            <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime(date)} date={this.state.data.c_get_time}/>
+                            <View style={{alignItems: "flex-end"}}>
+                                <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime(date)} date={this.state.data.c_get_time}/>
+                            </View>
                         </View>
                         <View style={styles.formRow}>
                             <Text style={styles.lineHeightAll}>客户名称*</Text>
@@ -235,16 +244,28 @@ class CustomEditScene extends PureComponent {
                                 defaultValue={this.state.data.c_bankcard}
                             />
                         </View>
+
                         <View style={styles.formRow}>
                             <Text style={styles.lineHeightAll}>性别</Text>
-                            <TextInput
-                                style={styles.TextInputs}
-                                maxLength={1}
-                                underlineColorAndroid="transparent"
-                                onChangeText={(text) => this.setState({c_sex: text})}
-                                defaultValue={this.state.data.c_sex}
-                            />
+                            <RadioGroup style={{
+                                position:'absolute',
+                                right:0,
+                                flexDirection:'row',
+                                flexWrap:'wrap',
+                                alignItems:'flex-start',
+                                flex: 1,}}
+                                        selectedIndex={0}
+                                        onSelect ={(index,value)=>this.onSelect(index,value)}
+                            >
+                                <RadioButton  value={'男'} slected={true}>
+                                    <Text>男</Text>
+                                </RadioButton>
+                                <RadioButton  value={'女'}>
+                                    <Text>女</Text>
+                                </RadioButton>
+                            </RadioGroup>
                         </View>
+
                         <View style={styles.formRow}>
                             <Text style={styles.lineHeightAll}>家庭住址</Text>
                             <TextInput
@@ -279,16 +300,13 @@ class CustomEditScene extends PureComponent {
                                 defaultValue={this.state.data.c_age}
                             />
                         </View>
-                        <View style={styles.formRow}>
-                            <Text style={styles.lineHeightAll}>生日</Text>
-                            <TextInput
-                                style={styles.TextInputs}
-                                placeholder="生日"
-                                underlineColorAndroid="transparent"
-                                maxLength={12}
-                                onChangeText={(text) => this.setState({c_birthday: text})}
-                                defaultValue={this.state.data.c_birthday}
-                            />
+                        <View style={styles.fristformRow}>
+                            <View style={styles.lineHeightAllDate}>
+                                <Text style={styles.lineHeightAll}>获取时间*</Text>
+                            </View>
+                            <View style={{alignItems: "flex-end"}}>
+                                <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime2(date)} date={this.state.data.c_birthday}/>
+                            </View>
                         </View>
                         <View style={styles.formRow}>
                             <Text style={styles.lineHeightAll}>客户来源</Text>
@@ -304,7 +322,7 @@ class CustomEditScene extends PureComponent {
                         <View style={styles.formRow}>
                             <Text style={styles.lineHeightAll}>备注</Text>
                             <TextInput
-                                style={styles.TextInputsRows}
+                                style={styles.TextInputs}
                                 placeholder="备注"
                                 underlineColorAndroid="transparent"
                                 multiline={true}
@@ -319,10 +337,8 @@ class CustomEditScene extends PureComponent {
                         </View>
                     </View>
                 </ScrollView>
-
             )
         }
     }
 }
-
 export default CustomEditScene;

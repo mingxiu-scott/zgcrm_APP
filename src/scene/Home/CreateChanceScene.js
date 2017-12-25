@@ -5,12 +5,24 @@ import styles from '../../widget/FormStyle'
 import MyDatePicker from '../../widget/MyDatePicker'
 import Moment from 'moment'
 import PostUrl from "../../widget/PostUrl";
+import UserPicker from '../../widget/UserPicker'
+import MyIcon from '../../widget/MyIcon'
 
 class CreateChanceScene extends PureComponent {
-    static navigationOptions = {
+    static navigationOptions =({navigation})=>({
         tabBarVisible: false,
         headerTitle: '录机会',
-    }
+        headerLeft: (
+            <TouchableOpacity
+                style={{padding: 10, marginLeft:5, marginTop:3}}
+                onPress={()=> {
+                    navigation.goBack()
+                }}
+            >
+                <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
+            </TouchableOpacity>
+        ),
+    })
 
     constructor(props) {
         super(props);
@@ -92,8 +104,6 @@ class CreateChanceScene extends PureComponent {
 
         fetch(url, opts).then((response) => {
             return response.json();
-            // return response.text();
-            // return response;
         }).then((responseText) => {
             if (responseText.code != 'success'){
                 this._set_submitBtn();
@@ -165,12 +175,11 @@ class CreateChanceScene extends PureComponent {
                                    underlineColorAndroid="transparent"
                                    onChangeText={(text) => this.setState({ch_money: text})}
                                    keyboardType='numeric'
-
                         />
                     </View>
-                    <View style={styles.formRow}>
+                    <View style={styles.formRowContents}>
                         <Text style={styles.lineHeightAll}>备注</Text>
-                        <TextInput style={styles.TextInputs}
+                        <TextInput style={styles.TextInputContents}
                                    placeholder="备注内容"
                                    underlineColorAndroid="transparent"
                                    onChangeText={(text) => this.setState({ch_desc: text})}

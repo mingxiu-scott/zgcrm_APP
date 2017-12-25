@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+
 const FormStyle = StyleSheet.create({
     fristformRow: {
         marginTop: 3,
@@ -70,7 +71,7 @@ const FormStyle = StyleSheet.create({
         paddingRight: 10,
         borderBottomWidth:1,
         borderBottomColor:'#e4e4e4',
-        height: 150,
+        height: 90,
         justifyContent: 'center',
     },
     lineHeightAll:{
@@ -112,6 +113,23 @@ const FormStyle = StyleSheet.create({
         textAlign:'right',
         paddingRight: 15
     },
+    TextInputSpeInput:{
+        width:400,
+        position:'absolute',
+        right: 20,
+        height:40,
+        textAlign:'right',
+        paddingRight: 15
+    },
+    TextInputSpe:{
+        width:40,
+        position:'absolute',
+        right: 0,
+        top:15,
+        height:40,
+        textAlign:'right',
+        paddingRight: 15
+    },
     TextInputContents:{
         width:320,
         position:'absolute',
@@ -119,6 +137,9 @@ const FormStyle = StyleSheet.create({
         height:140,
         textAlign:'justify',
         paddingRight: 15
+    },
+    TextInputContentSmall:{
+
     },
     TextInputsRows: {
         width:400,

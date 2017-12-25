@@ -1,15 +1,25 @@
 import React, { PureComponent } from 'react';
 import { View, Text, ScrollView, Image, StyleSheet, TextInput, ListView, TouchableOpacity} from 'react-native'
 
-import NavStyle from '../../widget/NavStyle'
 import PostUrl from '../../widget/PostUrl'
+import MyIcon from '../../widget/MyIcon'
 
 class MyCustomChooseScene extends PureComponent {
 
-    static  navigationOptions = {
+    static  navigationOptions =({navigation})=>({
         tabBarVisible: false,
         headerTitle: '选择客户',
-    }
+        headerLeft: (
+            <TouchableOpacity
+                style={{padding: 10, marginLeft:5, marginTop:3}}
+                onPress={()=> {
+                    navigation.goBack()
+                }}
+            >
+                <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
+            </TouchableOpacity>
+        ),
+    });
 
     constructor(props){
         super(props);
@@ -17,7 +27,6 @@ class MyCustomChooseScene extends PureComponent {
             data: null,
         })
     }
-
     componentDidMount() {
         this._getCustomsJson('');
     }
@@ -28,7 +37,6 @@ class MyCustomChooseScene extends PureComponent {
     }
 
     _getCustomsJson(cname){
-
         let url = PostUrl.getCustomsJsonUrl;
         let formData = new FormData();
         formData.append('tokenVal', PostUrl.tokenVal);
@@ -69,7 +77,6 @@ class MyCustomChooseScene extends PureComponent {
     _searchCustom(data){
         this._getCustomsJson(data);
     }
-
     _renderRow(rowData, sectionId, rowID, highlightRow) {
 
         const  {goBack, state} = this.props.navigation;
@@ -85,10 +92,12 @@ class MyCustomChooseScene extends PureComponent {
                                 <Text style={customerStyles.itemRowLabel}>姓名：</Text>
                                 <Text style={customerStyles.itemRowVal}>{rowData.c_name}</Text>
                             </View>
+
                             <View style={customerStyles.itemRowOne}>
                                 <Text style={customerStyles.itemRowLabel}>昵称：</Text>
                                 <Text style={customerStyles.itemRowVal}>{rowData.c_called}</Text>
                             </View>
+
                         </View>
                     </View>
                 </View>
@@ -101,7 +110,6 @@ class MyCustomChooseScene extends PureComponent {
             return (
                 <Text>loading...</Text>
             )
-
         }
         else if (this.state.data == 'noResault'){
             return (
@@ -138,12 +146,10 @@ class MyCustomChooseScene extends PureComponent {
                             onChangeText = {this._searchCustom.bind(this)}
                         />
                     </View>
-
                     <ListView
                         dataSource={this.state.data}
                         renderRow={this._renderRow.bind(this)}
                     />
-
                 </View>
             );
         }
@@ -160,15 +166,15 @@ const customerStyles=StyleSheet.create({
         borderWidth:1,
         marginLeft: 10,
         marginRight:10,
-        marginTop:10,
         paddingLeft:1,
         borderColor: '#ccc',
         borderRadius: 4,
     },
     itemConnect: {
+        marginTop:10,
         flexDirection: 'row',
         backgroundColor: '#fff',
-        borderBottomWidth: 1,
+        borderBottomWidth: 2,
         borderBottomColor: '#fefefe',
     },
     itemImgView: {
@@ -185,6 +191,7 @@ const customerStyles=StyleSheet.create({
     },
     itemRow: {
         flexDirection: 'row',
+        marginTop:10
     },
     itemRowTwo: {
         flexDirection: 'row',

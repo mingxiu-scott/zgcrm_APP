@@ -4,14 +4,26 @@ import { View, Text, ScrollView, TouchableOpacity,Alert, TextInput, RadiModal } 
 import styles from '../../widget/FormStyle'
 import MyDatePicker from '../../widget/MyDatePicker'
 import PostUrl from '../../widget/PostUrl'
+import MyIcon from '../../widget/MyIcon'
+
 
 import Moment from 'moment'
 
 class CreatLogScene extends PureComponent {
-    static navigationOptions = {
+    static navigationOptions =({navigation})=>({
         headerTitle: '写日志',
         tabBarVisible: false,
-    };
+        headerLeft: (
+            <TouchableOpacity
+                style={{padding: 10, marginLeft:5, marginTop:3}}
+                onPress={()=> {
+                    navigation.goBack()
+                }}
+            >
+                <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
+            </TouchableOpacity>
+        ),
+    });
 
     constructor(props){
         super(props);
@@ -99,13 +111,16 @@ class CreatLogScene extends PureComponent {
         return(
             <ScrollView>
             <View>
-                <View style={styles.fristformRow}>
-                    <View style={styles.lineHeightAllDate}>
-                        <Text style={styles.lineHeightAll}>日期*</Text>
-                    </View>
-                    <View style={{alignItems: "flex-end"}}>
-                        <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime(date)} />
-                    </View>
+                <View style={styles.formRow}>
+                    <Text style={styles.lineHeightAll}>日期*</Text>
+                    <TextInput
+                        style={styles.TextInputs}
+                        underlineColorAndroid="transparent"
+                        keyboardType='numeric'
+                        maxLength={18}
+                        defaultValue ={this.state.l_date}
+                        editable={false}
+                    />
                 </View>
                 <View style={styles.formRowContents}>
                     <Text style={styles.lineHeightAll}>内容</Text>

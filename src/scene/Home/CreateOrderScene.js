@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react'
 import { View, Text, ScrollView, TouchableOpacity,TextInput,DeviceEventEmitter, Alert} from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MyIcon from '../../widget/MyIcon'
 
 import styles from '../../widget/FormStyle'
-import MyIcon from '../../widget/MyIcon'
 import MyDatePicker from '../../widget/MyDatePicker'
-import GetUserLabel from '../../widget/GetUserLabel'
 import Moment from 'moment'
 import PostUrl from "../../widget/PostUrl";
 
@@ -24,9 +23,14 @@ class CreateOrderScene extends PureComponent{
             o_returnMoney:'',
             o_welfare:'',
             o_remark:'',
+            c_idcard : '',
+            c_bankcard: '',
+            c_bankname:'',
 
             submitBtnSytle: styles.submitBtn,
             submitBtnDisabled: false,
+
+            editInput: true,
         }
     }
 
@@ -38,7 +42,10 @@ class CreateOrderScene extends PureComponent{
                 this.state.o_money == '' ||
                 this.state.o_cycle == '' ||
                 this.state.o_endTime == '' ||
-                this.state.o_returnMoney == ''
+                this.state.o_returnMoney == ''||
+                this.state.c_bankname == '' ||
+                this.state.c_bankcard == '' ||
+                this.state.c_idcard == ''
         ){
             Alert.alert('提示','必填项不可为空');
             return;
@@ -111,23 +118,44 @@ class CreateOrderScene extends PureComponent{
             })
     }
 
-    static navigationOptions = {
+    static navigationOptions =({navigation})=> ({
         headerTitle: '录理财',
         tabBarVisible: false,
-    }
-
+        headerLeft: (
+            <TouchableOpacity
+                style={{padding: 10, marginLeft:5, marginTop:3}}
+                onPress={()=> {
+                    navigation.goBack()
+                }}
+            >
+                <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
+            </TouchableOpacity>
+        ),
+    });
 
     changeUserName(customInfo){
+
         this.setState({
             o_customName: customInfo.c_name,
             o_cid: customInfo.c_id,
+            c_idcard: customInfo.c_idcard,
+            c_bankname: customInfo.c_bankname,
+            c_bankcard: customInfo.c_bankcard
         });
-    }
 
+        if (customInfo.c_idcard == '' ||customInfo.c_bankname == '' ||  customInfo.c_bankcard == ''){
+            this.setState({
+                editInput: true,
+            })
+        }else {
+            this.setState({
+                editInput: false,
+            })
+        }
+    }
     set_c_gettime(date){
         this.setState({c_gettime: date})
     }
-
     set_c_gettime2(data){
         this.setState({o_endTime:data})
     }
@@ -142,7 +170,7 @@ class CreateOrderScene extends PureComponent{
         this.setState({
             submitBtnDisabled: false,
             submitBtnSytle: styles.submitBtn,
-        })
+        });
     }
 
     render() {
@@ -150,15 +178,19 @@ class CreateOrderScene extends PureComponent{
         return (
             <ScrollView>
             <View>
-                <View style={styles.fristformRow}>
-                    <View style={styles.lineHeightAllDate}>
-                        <Text style={styles.lineHeightAll}>获取时间*</Text>
-                    </View>
-
-                    <View style={{alignItems: "flex-end"}}>
-                        <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime(date)} />
-                    </View>
+                <View style={styles.formRow}>
+                    <Text style={styles.lineHeightAll}>获取时间*</Text>
+                    <TextInput
+                        style={styles.TextInputs}
+                        underlineColorAndroid="transparent"
+                        keyboardType='numeric'
+                        maxLength={18}
+                        onChangeText={(text) => this.setState({c_idcard: text})}
+                        defaultValue ={this.state.o_gettime}
+                        editable={false}
+                    />
                 </View>
+
                 <View style={styles.fristformRow}>
                     <View style={styles.lineHeightAllDate}>
                         <Text style={styles.lineHeightAll}>客户名称*</Text>
@@ -178,6 +210,8 @@ class CreateOrderScene extends PureComponent{
                         keyboardType='numeric'
                         maxLength={18}
                         onChangeText={(text) => this.setState({c_idcard: text})}
+                        defaultValue ={this.state.c_idcard}
+                        editable={this.state.editInput}
                     />
                 </View>
                 <View style={styles.formRow}>
@@ -188,6 +222,8 @@ class CreateOrderScene extends PureComponent{
                         underlineColorAndroid="transparent"
                         maxLength={20}
                         onChangeText={(text) => this.setState({c_bankname: text})}
+                        defaultValue ={this.state.c_bankname}
+                        editable={this.state.editInput}
                     />
                 </View>
                 <View style={styles.formRow}>
@@ -199,6 +235,9 @@ class CreateOrderScene extends PureComponent{
                         keyboardType='numeric'
                         maxLength={19}
                         onChangeText={(text) => this.setState({c_bankcard: text})}
+                        defaultValue ={this.state.c_bankcard}
+                        editable={this.state.editInput}
+
                     />
                 </View>
                 <View style={styles.formRow}>
@@ -217,9 +256,10 @@ class CreateOrderScene extends PureComponent{
                     <Text style={styles.lineHeightAll}>
                         理财金额*
                     </Text>
+                    <Text style={styles.TextInputSpe}>元</Text>
                     <TextInput
-                        style={styles.TextInputs}
-                        placeholder='0.0'
+                        style={styles.TextInputSpeInput}
+                        placeholder='请输入金额'
                         underlineColorAndroid="transparent"
                         keyboardType='numeric'
                         onChangeText={(text) => this.setState({o_money: text})}
@@ -229,9 +269,10 @@ class CreateOrderScene extends PureComponent{
                     <Text style={styles.lineHeightAll}>
                         理财周期*
                     </Text>
+                    <Text style={styles.TextInputSpe}>天</Text>
                     <TextInput
-                        style={styles.TextInputs}
-                        placeholder='天'
+                        style={styles.TextInputSpeInput}
+                        placeholder='请输入理财周期'
                         keyboardType='numeric'
                         underlineColorAndroid="transparent"
                         onChangeText={(text) => this.setState({o_cycle: text})}
@@ -249,9 +290,11 @@ class CreateOrderScene extends PureComponent{
                     <Text style={styles.lineHeightAll}>
                         回款金额*
                     </Text>
+                    <Text style={styles.TextInputSpe}>元</Text>
+
                     <TextInput
-                        style={styles.TextInputs}
-                        placeholder='0.00'
+                        style={styles.TextInputSpeInput}
+                        placeholder='请输入金额'
                         underlineColorAndroid="transparent"
                         keyboardType='numeric'
                         onChangeText={(text) => this.setState({o_returnMoney: text})}
@@ -266,10 +309,10 @@ class CreateOrderScene extends PureComponent{
                         onChangeText={(text) => this.setState({o_welfare: text})}
                     />
                 </View>
-                <View style={styles.formRow}>
+                <View style={styles.formRowContents}>
                     <Text style={styles.lineHeightAll}>备注</Text>
                     <TextInput
-                        style={styles.TextInputs}
+                        style={styles.TextInputContents}
                         placeholder="备注内容"
                         underlineColorAndroid="transparent"
                         onChangeText={(text) => this.setState({o_remark: text})}

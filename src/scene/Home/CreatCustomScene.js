@@ -7,6 +7,7 @@ import PostUrl from '../../widget/PostUrl'
 import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'
 
 import Moment from 'moment'
+import MyIcon from '../../widget/MyIcon'
 
 class CreatCustomScene extends PureComponent {
 
@@ -31,10 +32,20 @@ class CreatCustomScene extends PureComponent {
         }
     }
 
-    static navigationOptions = {
+    static navigationOptions =({navigation})=>({
         headerTitle: '录客户',
         tabBarVisible: false,
-    };
+        headerLeft: (
+            <TouchableOpacity
+                style={{padding: 10, marginLeft:5, marginTop:3}}
+                onPress={()=> {
+                    navigation.goBack()
+                }}
+            >
+                <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
+            </TouchableOpacity>
+        ),
+    });
 
     postRequest() {
         if (
@@ -120,6 +131,7 @@ class CreatCustomScene extends PureComponent {
     set_c_gettime(date){
         this.setState({c_gettime: date})
     }
+
     set_c_gettime2(data){
         this.setState({c_birthday:data})
     }
@@ -143,14 +155,25 @@ class CreatCustomScene extends PureComponent {
         return(
             <ScrollView>
             <View>
-                <View style={styles.fristformRow}>
-                    <View style={styles.lineHeightAllDate}>
-                        <Text style={styles.lineHeightAll}>获取时间*</Text>
-                    </View>
+                {/*<View style={styles.fristformRow}>*/}
+                    {/*<View style={styles.lineHeightAllDate}>*/}
+                        {/*<Text style={styles.lineHeightAll}>获取时间*</Text>*/}
+                    {/*</View>*/}
 
-                    <View style={{alignItems: "flex-end"}}>
-                        <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime(date)} />
-                    </View>
+                    {/*<View style={{alignItems: "flex-end"}}>*/}
+                        {/*<MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime(date)} />*/}
+                    {/*</View>*/}
+                {/*</View>*/}
+                <View style={styles.formRow}>
+                    <Text style={styles.lineHeightAll}>获取时间*</Text>
+                    <TextInput
+                        style={styles.TextInputs}
+                        underlineColorAndroid="transparent"
+                        keyboardType='numeric'
+                        maxLength={18}
+                        defaultValue ={this.state.c_gettime}
+                        editable={false}
+                    />
                 </View>
                 <View style={styles.formRow}>
                     <Text style={styles.lineHeightAll}>客户名称*</Text>
@@ -243,10 +266,10 @@ class CreatCustomScene extends PureComponent {
                         onChangeText={(text) => this.setState({c_source: text})}
                     />
                 </View>
-                <View style={styles.formRow}>
+                <View style={styles.formRowContents}>
                     <Text style={styles.lineHeightAll}>备注</Text>
                     <TextInput
-                        style={styles.TextInputs}
+                        style={styles.TextInputContents}
                         placeholder="备注"
                         underlineColorAndroid="transparent"
                         multiline={true}

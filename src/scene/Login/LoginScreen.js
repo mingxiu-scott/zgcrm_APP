@@ -135,10 +135,8 @@ class LoginScreen extends PureComponent{
 
     render(){
         return(
-            <ImageBackground source={require('../../image/Login.png')} style={{flex:1,}} resizeMode='cover'>
-                <View style={{height:300,}}>
-                    <Text style={{marginTop:150, marginLeft:'35%',marginRight:'31.5%', backgroundColor:'white'}}>
-                        <MyIcon style={{flex:1}} sorceName={'user-circle-o'} sorceSize={120} sorceColor={'gray'}/></Text>
+            <ImageBackground source={require('../../image/test.png')} style={{flex:1,}} resizeMode='cover'>
+                <View style={{height:200,}}>
                 </View>
 
                 <View style={styles.username}>
@@ -185,6 +183,7 @@ const styles = StyleSheet.create({
     username:{
         flexDirection:'row',
         height:40,
+        marginTop:20
     },
     labelUsername:{
         flex:1,
@@ -204,7 +203,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     buttonLoginView:{
-        height:50
+        height:50,
+        marginTop:20
     },
     buttonLogin:{
         marginLeft:43,
