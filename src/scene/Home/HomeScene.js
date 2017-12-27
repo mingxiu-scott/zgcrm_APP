@@ -32,6 +32,7 @@ import EditChanceScene from './EditChanceScene';
 
 import NavStyle from '../../widget/NavStyle'
 import UserPicker from '../../widget/UserPicker'
+import Welfare from './Welfare'
 
 class HomeScene extends PureComponent {
 
@@ -334,6 +335,9 @@ const HomeStack = StackNavigator({
     },
     ChangePassScene:{
         screen:ChangePassScene,
+    },
+    Welfare:{
+        screen: Welfare,
     }
 },{
     navigationOptions: {

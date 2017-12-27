@@ -1,7 +1,7 @@
 //let http = 'http://192.168.2.159/zg_crm/'
-// let http = 'http://192.168.2.182/zg_crm/'
+let http = 'http://192.168.2.182/zg_crm/'
 // let http = 'http://192.168.1.152/zg_crm/'
-let http = 'http://111.230.140.245:1212/zg_crm/';
+// let http = 'http://111.230.140.245:1212/zg_crm/';
 
 const PostUrl = {
     userId: '',
@@ -49,6 +49,8 @@ const PostUrl = {
     LoginJsonUrl: http + 'index.php/Home/User/login',
     getUsersJson: http + 'index.php/Home/User/getUsers',
     changePassJson: http + 'index.php/Home/User/changPass',
+
+    getWelfareUrl: http + 'index.php/Home/Welfare/getwelfare',
 };
 
 

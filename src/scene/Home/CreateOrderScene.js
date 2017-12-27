@@ -8,6 +8,8 @@ import MyDatePicker from '../../widget/MyDatePicker'
 import Moment from 'moment'
 import PostUrl from "../../widget/PostUrl";
 
+import Welfare from  './Welfare';
+
 class CreateOrderScene extends PureComponent{
 
     constructor(props){
@@ -26,6 +28,9 @@ class CreateOrderScene extends PureComponent{
             c_idcard : '',
             c_bankcard: '',
             c_bankname:'',
+
+            fuliid:'',
+            fuliname:'选择福利',
 
             submitBtnSytle: styles.submitBtn,
             submitBtnDisabled: false,
@@ -63,7 +68,7 @@ class CreateOrderScene extends PureComponent{
         formData.append('o_cycle',this.state.o_cycle);
         formData.append('o_endTime',this.state.o_endTime);
         formData.append('o_returnMoney',this.state.o_returnMoney);
-        formData.append('o_welfare',this.state.o_welfare);
+        formData.append('o_welfare',this.state.fuliid);
         formData.append('o_remark',this.state.o_remark);
         formData.append('c_idcard',this.state.c_idcard);
         formData.append('c_bankname',this.state.c_bankname);
@@ -77,7 +82,7 @@ class CreateOrderScene extends PureComponent{
             '{o_cycle:"' + this.state.o_cycle + '"},' +
             '{o_endTime:"' + this.state.o_endTime + '"},' +
             '{o_returnMoney:"' + this.state.o_returnMoney + '"},' +
-            '{o_welfare:"' + this.state.o_welfare + '"},' +
+            '{o_welfare:"' + this.state.fuliid + '"},' +
             '{o_remark:"' + this.state.o_remark + '"},'+
             '{c_idcard:"' + this.state.c_idcard + '"},' +
             '{c_bankname:"' + this.state.c_bankname + '"},' +
@@ -153,6 +158,14 @@ class CreateOrderScene extends PureComponent{
             })
         }
     }
+
+    changeFuliName(fuliInfo){
+        this.setState({
+            fuliname: fuliInfo.w_name,
+            fuliid: fuliInfo.w_id
+        })
+    }
+
     set_c_gettime(date){
         this.setState({c_gettime: date})
     }
@@ -291,7 +304,6 @@ class CreateOrderScene extends PureComponent{
                         回款金额*
                     </Text>
                     <Text style={styles.TextInputSpe}>元</Text>
-
                     <TextInput
                         style={styles.TextInputSpeInput}
                         placeholder='请输入金额'
@@ -302,12 +314,11 @@ class CreateOrderScene extends PureComponent{
                 </View>
                 <View style={styles.formRow}>
                     <Text style={styles.lineHeightAll}>福利</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="福利"
-                        underlineColorAndroid="transparent"
-                        onChangeText={(text) => this.setState({o_welfare: text})}
-                    />
+                    <TouchableOpacity  style={{position:"absolute", right:10,top:15 }}
+                                      onPress={()=>navigate('Welfare',{callback:(backData)=> this.changeFuliName(backData)})}
+                    >
+                        <Text>{this.state.fuliname}</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.formRowContents}>
                     <Text style={styles.lineHeightAll}>备注</Text>

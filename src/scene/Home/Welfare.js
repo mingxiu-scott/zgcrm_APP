@@ -1,18 +1,21 @@
 import React, { PureComponent } from 'react';
 import { View, Text, ScrollView, Image, StyleSheet, TextInput, ListView, TouchableOpacity} from 'react-native'
 
+import NavStyle from '../../widget/NavStyle'
 import PostUrl from '../../widget/PostUrl'
 import MyIcon from '../../widget/MyIcon'
+import UserPicker from '../../widget/UserPicker'
 
-class MyCustomChooseScene extends PureComponent {
+class Welfare extends PureComponent {
 
-    static  navigationOptions =({navigation})=>({
+    static navigationOptions = ({navigation}) => ({
         tabBarVisible: false,
-        headerTitle: '选择客户',
+        headerTitle: '福利',
         headerLeft: (
             <TouchableOpacity
                 style={{padding: 10, marginLeft:5, marginTop:3}}
                 onPress={()=> {
+                    UserPicker.closeUserPicker()
                     navigation.goBack()
                 }}
             >
@@ -27,24 +30,20 @@ class MyCustomChooseScene extends PureComponent {
             data: null,
         })
     }
+
     componentDidMount() {
-        this._getCustomsJson('');
+        this._getWelfareJson('');
     }
 
-    back(state, goBack, customItem){
-        state.params.callback(customItem);
-        goBack()
-    }
-
-    _getCustomsJson(cname){
-        let url = PostUrl.getCustomsJsonUrl;
+    _getWelfareJson(wname){
+        let url = PostUrl.getWelfareUrl;
         let formData = new FormData();
         formData.append('tokenVal', PostUrl.tokenVal);
-        formData.append('userId', PostUrl.userId);
 
-        if (cname != '')
+
+        if (wname != '')
         {
-            formData.append('search_cname', cname);
+            formData.append('search_wname', wname);
         }
 
         var opts = {
@@ -62,6 +61,7 @@ class MyCustomChooseScene extends PureComponent {
                     this.setState({
                         data: new ListView.DataSource({rowHasChanged: (r1,r2) => r1!==r2 }).cloneWithRows(responseText.dataValue),
                     });
+
                 }else{
                     this.setState({
                         data: 'noResault',
@@ -72,10 +72,15 @@ class MyCustomChooseScene extends PureComponent {
                 alert(error)
             })
     }
-
-    _searchCustom(data){
-        this._getCustomsJson(data);
+    _searchWelfare(data){
+        this._getWelfareJson(data);
     }
+
+    back(state, goBack, fuliItem){
+        state.params.callback(fuliItem)
+        goBack()
+    }
+
     _renderRow(rowData, sectionId, rowID, highlightRow) {
 
         const  {goBack, state} = this.props.navigation;
@@ -88,21 +93,20 @@ class MyCustomChooseScene extends PureComponent {
                     <View style={customerStyles.itemContentView}>
                         <View style={customerStyles.itemRow}>
                             <View style={customerStyles.itemRowOne}>
-                                <Text style={customerStyles.itemRowLabel}>姓名：</Text>
-                                <Text style={customerStyles.itemRowVal}>{rowData.c_name}</Text>
+                                <Text style={customerStyles.itemRowLabel}>福利名称：</Text>
+                                <Text style={customerStyles.itemRowVal}>{rowData.w_name}</Text>
                             </View>
-
                             <View style={customerStyles.itemRowOne}>
-                                <Text style={customerStyles.itemRowLabel}>昵称：</Text>
-                                <Text style={customerStyles.itemRowVal}>{rowData.c_called}</Text>
+                                <Text style={customerStyles.itemRowLabel}>福利库存：</Text>
+                                <Text style={customerStyles.itemRowVal}>{rowData.w_number}</Text>
                             </View>
-
                         </View>
                     </View>
                 </View>
             </TouchableOpacity>
         );
     }
+
     render() {
 
         if (!this.state.data){
@@ -121,9 +125,9 @@ class MyCustomChooseScene extends PureComponent {
                                 borderColor: '#ccc',
                                 borderRadius: 7,
                             }}
-                            placeholder={'   请输入客户名'}  //占位符
+                            placeholder={'   请输入福利名称'}  //占位符
                             underlineColorAndroid='transparent' //设置下划线背景色
-                            onChangeText = {this._searchCustom.bind(this)}
+                            onChangeText = {this._searchWelfare.bind(this)}
                         />
                     </View>
                 </View>
@@ -140,9 +144,9 @@ class MyCustomChooseScene extends PureComponent {
                                 borderColor: '#ccc',
                                 borderRadius: 7,
                             }}
-                            placeholder={'   请输入客户名'}  //占位符
+                            placeholder={'   请输入福利名称'}  //占位符
                             underlineColorAndroid='transparent' //设置下划线背景色
-                            onChangeText = {this._searchCustom.bind(this)}
+                            onChangeText = {this._searchWelfare.bind(this)}
                         />
                     </View>
                     <ListView
@@ -152,6 +156,7 @@ class MyCustomChooseScene extends PureComponent {
                 </View>
             );
         }
+
     }
 }
 
@@ -165,16 +170,17 @@ const customerStyles=StyleSheet.create({
         borderWidth:1,
         marginLeft: 10,
         marginRight:10,
+        marginTop:10,
         paddingLeft:1,
         borderColor: '#ccc',
         borderRadius: 4,
     },
     itemConnect: {
-        marginTop:10,
         flexDirection: 'row',
         backgroundColor: '#fff',
-        borderBottomWidth: 2,
+        borderBottomWidth: 1,
         borderBottomColor: '#fefefe',
+        marginBottom:10,
     },
     itemImgView: {
         width: 60,
@@ -190,7 +196,6 @@ const customerStyles=StyleSheet.create({
     },
     itemRow: {
         flexDirection: 'row',
-        marginTop:10
     },
     itemRowTwo: {
         flexDirection: 'row',
@@ -212,5 +217,4 @@ const customerStyles=StyleSheet.create({
     }
 
 });
-
-export default MyCustomChooseScene;
+export default Welfare;

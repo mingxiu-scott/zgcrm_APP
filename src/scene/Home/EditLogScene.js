@@ -177,7 +177,6 @@ class EditLogScene extends PureComponent {
                             <View style={styles.lineHeightAllDate}>
                                 <Text style={styles.lineHeightAll}>日期*</Text>
                             </View>
-
                             <View style={{alignItems: "flex-end"}}>
                             <MyDatePicker style={styles.TextInputs}
                                           set_c_gettime={date=>this.set_c_gettime(date)}
