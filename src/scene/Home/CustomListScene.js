@@ -15,8 +15,8 @@ class CustomListScene extends PureComponent {
             <TouchableOpacity
                 style={{padding: 10, marginLeft:5, marginTop:3}}
                 onPress={()=> {
-                    UserPicker.closeUserPicker()
-                    navigation.goBack()
+                    UserPicker.closeUserPicker();
+                    navigation.goBack();
                 }}
             >
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
@@ -33,7 +33,6 @@ class CustomListScene extends PureComponent {
             u_name: '',
         }
     }
-
     componentDidMount() {
         DeviceEventEmitter.addListener('changeCustomInfo', () => {
             this._changeStateData()
@@ -42,14 +41,12 @@ class CustomListScene extends PureComponent {
     }
 
     _searchCustom(data){
-
         UserPicker.closeUserPicker()
         this.setState({u_name: data})
         this._getCustomsJson(this.state.select_uid, data)
     }
 
     _getCustomsJson(userId, userName) {
-
         let url = PostUrl.getCustomsJsonUrl;
         let formData = new FormData();
         formData.append('tokenVal', PostUrl.tokenVal);
@@ -77,7 +74,6 @@ class CustomListScene extends PureComponent {
                         data: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}).cloneWithRows(responseText.dataValue),
                     });
                 }
-
             })
             .catch((error) => {
                 alert(error);
@@ -177,8 +173,9 @@ class CustomListScene extends PureComponent {
             >
                 <View style={customerStyles.itemConnect}>
                     <View style={customerStyles.itemImgView}>
-                        <Image
-                            source={{uri: 'https://img.alicdn.com/tps/TB1OvT9NVXXXXXdaFXXXXXXXXXX-520-280.jpg'}}></Image>
+                        <MyIcon sorceName={'user'} sorceColor={'#FF9800'} sorceSize={80}/>
+                        {/*<Image*/}
+                            {/*source={require('../../image/test.png')}/>*/}
                     </View>
                     <View style={customerStyles.itemContentView}>
                         <View style={customerStyles.itemRow}>
@@ -240,6 +237,7 @@ const customerStyles=StyleSheet.create({
         marginBottom: 5,
     },
     itemImgView: {
+        marginLeft: 0,
         width: 60,
         height: 60,
     },

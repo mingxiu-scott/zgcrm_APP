@@ -148,6 +148,7 @@ class CreateFollowScene extends PureComponent {
                         placeholder="内容"
                         underlineColorAndroid="transparent"
                         onChangeText={(text) => this.setState({f_content: text})}
+                        multiline={true}
                     />
                 </View>
 

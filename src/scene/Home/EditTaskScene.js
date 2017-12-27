@@ -230,13 +230,14 @@ class EditTaskScene extends PureComponent {
                             <MySwitch style={[styles.textInput]} set_t_status={status=>this.set_t_status(this.state.status)} state={this.state.status} />
                         </View>
 
-                        <View style={styles.formRow}>
+                        <View style={styles.formRowContents}>
                             <Text style={styles.lineHeightAll}>备注</Text>
-                            <TextInput style={styles.TextInputs}
+                            <TextInput style={styles.TextInputContents}
                                        placeholder="备注内容"
                                        underlineColorAndroid="transparent"
                                        onChangeText={(text)=>this.setState({t_desc:text})}
                                        defaultValue={this.state.t_desc}
+                                       multiline={true}
                             />
                         </View>
                         <View style={styles.formBtnRow}>

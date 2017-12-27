@@ -229,13 +229,14 @@ class EditChanceScene extends PureComponent {
                                        keyboardType='numeric'
                             />
                         </View>
-                        <View style={styles.formRow}>
+                        <View style={styles.formRowContents}>
                             <Text style={styles.lineHeightAll}>备注</Text>
-                            <TextInput style={styles.TextInputs}
+                            <TextInput style={styles.TextInputContents}
                                        placeholder="备注内容"
                                        underlineColorAndroid="transparent"
                                        onChangeText={(text) => this.setState({ch_desc: text})}
                                        defaultValue={this.state.data.ch_desc}
+                                       multiline={true}
                             />
                         </View>
                         <View style={styles.formBtnRow}>

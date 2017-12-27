@@ -125,7 +125,9 @@ class CreatLogScene extends PureComponent {
                 <View style={styles.formRowContents}>
                     <Text style={styles.lineHeightAll}>内容</Text>
 
-                    <TextInput style={styles.TextInputContents} placeholder="内容" underlineColorAndroid="transparent"
+                    <TextInput style={styles.TextInputContents}
+                               placeholder="内容"
+                               underlineColorAndroid="transparent"
                                onChangeText={(text) => this.setState({l_desc: text})}  multiline ={true} />
                 </View>
 

@@ -316,6 +316,7 @@ class CreateOrderScene extends PureComponent{
                         placeholder="备注内容"
                         underlineColorAndroid="transparent"
                         onChangeText={(text) => this.setState({o_remark: text})}
+                        multiline={true}
                     />
                 </View>
                 <View style={styles.formBtnRow}>

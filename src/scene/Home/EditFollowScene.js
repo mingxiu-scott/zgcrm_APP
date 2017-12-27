@@ -209,15 +209,15 @@ class EditFollowScene extends PureComponent {
                             </TextInput>
                         </View>
 
-                        <View style={styles.formRow}>
+                        <View style={styles.formRowContents}>
                             <Text style={styles.lineHeightAll}>内容</Text>
                             <TextInput
-                                style={styles.TextInputs}
+                                style={styles.TextInputContents}
                                 placeholder="内容"
                                 underlineColorAndroid="transparent"
                                 onChangeText={(text) => this.setState({fl_desc: text})}
                                 defaultValue={this.state.data.fl_desc}
-
+                                multiline={true}
                             />
                         </View>
 

@@ -4,6 +4,7 @@ import { StackNavigator, } from 'react-navigation';
 
 import NavStyle from '../../widget/NavStyle'
 import PostUrl from '../../widget/PostUrl'
+import MyIcon from '../../widget/MyIcon'
 
 import CustomInfoScene from './CustomInfoScene'
 import CustomEditScene from './CustomEditScene'
@@ -150,7 +151,7 @@ class CustomScene extends PureComponent{
             >
             <View style={customerStyles.itemConnect}>
                 <View style={customerStyles.itemImgView}>
-                    <Image source={{uri:'https://img.alicdn.com/tps/TB1OvT9NVXXXXXdaFXXXXXXXXXX-520-280.jpg'}}></Image>
+                    <MyIcon sorceName={'user'} sorceColor={'#FF9800'} sorceSize={80}/>
                 </View>
                 <View style={customerStyles.itemContentView}>
                     <View style={customerStyles.itemRow}>
@@ -177,7 +178,6 @@ class CustomScene extends PureComponent{
                             <Text style={customerStyles.itemRowVal}>{rowData.o_return_money}</Text>
                         </View>
                     </View>
-
                     <View style={customerStyles.itemRow}>
                         <View style={customerStyles.itemRowOne}>
                             <Text style={customerStyles.itemRowLabel}>联系电话：</Text>

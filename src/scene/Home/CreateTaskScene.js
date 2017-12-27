@@ -171,6 +171,8 @@ class CreateTaskScene extends PureComponent {
                                placeholder="备注内容"
                                underlineColorAndroid="transparent"
                                onChangeText={(text)=>this.setState({t_desc:text})}
+                               multiline={true}
+
                     />
                 </View>
                 <View style={styles.formBtnRow}>

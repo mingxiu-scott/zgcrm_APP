@@ -131,11 +131,8 @@ class CreateChanceScene extends PureComponent {
             submitBtnSytle: styles.submitBtn,
         })
     }
-
     render() {
-
         const { navigate } = this.props.navigation;
-
         return (
             <ScrollView>
                 <View>
@@ -143,7 +140,6 @@ class CreateChanceScene extends PureComponent {
                         <View style={styles.lineHeightAllDate}>
                             <Text style={styles.lineHeightAll}>成交日期*</Text>
                         </View>
-
                         <View style={{alignItems: "flex-end"}}>
                             <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime(date)} />
                         </View>
@@ -167,11 +163,11 @@ class CreateChanceScene extends PureComponent {
                                    onChangeText={(text) => this.setState({ch_name: text})}
                         />
                     </View>
-
                     <View style={styles.formRow}>
                         <Text style={styles.lineHeightAll}>预期成交金额*</Text>
-                        <TextInput placeholder='0.0'
-                                   style={styles.TextInputs}
+                        <Text style={styles.TextInputSpe}>元</Text>
+                        <TextInput placeholder='请输入金额'
+                                   style={styles.TextInputSpeInput}
                                    underlineColorAndroid="transparent"
                                    onChangeText={(text) => this.setState({ch_money: text})}
                                    keyboardType='numeric'
@@ -183,6 +179,7 @@ class CreateChanceScene extends PureComponent {
                                    placeholder="备注内容"
                                    underlineColorAndroid="transparent"
                                    onChangeText={(text) => this.setState({ch_desc: text})}
+                                   multiline={true}
                         />
                     </View>
                     <View style={styles.formBtnRow}>
@@ -194,7 +191,6 @@ class CreateChanceScene extends PureComponent {
             </ScrollView>
         );
     }
-
 }
 
 export default CreateChanceScene;

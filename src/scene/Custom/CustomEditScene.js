@@ -95,6 +95,7 @@ class CustomEditScene extends PureComponent {
             return;
         }
 
+
         let url = PostUrl.editCustomInfoUrl;
         let formData = new FormData();
         formData.append('c_gettime', this.state.c_gettime);
@@ -302,7 +303,7 @@ class CustomEditScene extends PureComponent {
                         </View>
                         <View style={styles.fristformRow}>
                             <View style={styles.lineHeightAllDate}>
-                                <Text style={styles.lineHeightAll}>获取时间*</Text>
+                                <Text style={styles.lineHeightAll}>生日</Text>
                             </View>
                             <View style={{alignItems: "flex-end"}}>
                                 <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime2(date)} date={this.state.data.c_birthday}/>
@@ -319,10 +320,10 @@ class CustomEditScene extends PureComponent {
                                 defaultValue={this.state.data.c_source}
                             />
                         </View>
-                        <View style={styles.formRow}>
+                        <View style={styles.formRowContents}>
                             <Text style={styles.lineHeightAll}>备注</Text>
                             <TextInput
-                                style={styles.TextInputs}
+                                style={styles.TextInputContents}
                                 placeholder="备注"
                                 underlineColorAndroid="transparent"
                                 multiline={true}

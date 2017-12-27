@@ -23,7 +23,7 @@ class CreatCustomScene extends PureComponent {
             c_idcard: '',
             c_address: '',
             c_called: '',
-            c_birthday: '',
+            c_birthday: Moment(new Date()).format("YYYY-MM-DD"),
             c_source: '',
             c_desc: '',
             c_age: '',
