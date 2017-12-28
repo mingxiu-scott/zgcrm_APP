@@ -94,7 +94,6 @@ class CreateTaskScene extends PureComponent {
             alert(error);
         });
     }
-
     set_c_gettime(date){
         this.setState({t_date: date})
     }

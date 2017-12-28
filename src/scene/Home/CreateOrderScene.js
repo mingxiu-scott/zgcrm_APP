@@ -7,6 +7,7 @@ import styles from '../../widget/FormStyle'
 import MyDatePicker from '../../widget/MyDatePicker'
 import Moment from 'moment'
 import PostUrl from "../../widget/PostUrl";
+import CheckInput from  '../../widget/CheckInput';
 
 import Welfare from  './Welfare';
 
@@ -40,6 +41,10 @@ class CreateOrderScene extends PureComponent{
     }
 
     postRequest(){
+        // if(CheckInput.isIDCard(this.state.c_idcard)){
+        //     alert('身份证号不对，请重新输入');
+        //     return;
+        // }
         if(
             this.state.o_gettime == '' ||
             this.state.o_customName == '' ||
@@ -53,6 +58,11 @@ class CreateOrderScene extends PureComponent{
                 this.state.c_idcard == ''
         ){
             Alert.alert('提示','必填项不可为空');
+            return;
+        }
+
+        if (CheckInput.isNumber(this.state.o_cycle)){
+            alert('对不起，请输入正确的数字');
             return;
         }
 
@@ -105,7 +115,7 @@ class CreateOrderScene extends PureComponent{
         var opts = {
             method:'POST',
             body:formData
-        }
+        };
 
         fetch(url,opts)
             .then((response) => {
@@ -122,7 +132,6 @@ class CreateOrderScene extends PureComponent{
                 alert(error)
             })
     }
-
     static navigationOptions =({navigation})=> ({
         headerTitle: '录理财',
         tabBarVisible: false,
@@ -137,7 +146,6 @@ class CreateOrderScene extends PureComponent{
             </TouchableOpacity>
         ),
     });
-
     changeUserName(customInfo){
 
         this.setState({
@@ -158,14 +166,12 @@ class CreateOrderScene extends PureComponent{
             })
         }
     }
-
     changeFuliName(fuliInfo){
         this.setState({
             fuliname: fuliInfo.w_name,
             fuliid: fuliInfo.w_id
         })
     }
-
     set_c_gettime(date){
         this.setState({c_gettime: date})
     }

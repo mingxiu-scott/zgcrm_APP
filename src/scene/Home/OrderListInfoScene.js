@@ -114,7 +114,7 @@ class OrderListInfoScene extends PureComponent{
                         </View>
                         <View style={styles.valueRow}>
                             <Text style={styles.valueLabel}>福利</Text>
-                            <Text style={styles.valueText}> {this.state.data.o_welfare}</Text>
+                            <Text style={styles.valueText}> {this.state.data.w_name}</Text>
                         </View>
                         <View style={styles.valueRow}>
                             <Text style={styles.valueLabel}>备注</Text>

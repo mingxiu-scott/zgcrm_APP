@@ -3,6 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, Alert, TextInput,DeviceEventE
 import styles from '../../widget/FormStyle'
 import MyDatePicker from '../../widget/MyDatePicker'
 import PostUrl from '../../widget/PostUrl'
+import CheckInput from  '../../widget/CheckInput';
 
 import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'
 
@@ -54,6 +55,11 @@ class CreatCustomScene extends PureComponent {
             this.state.c_telphone == ''
         ) {
             Alert.alert('提示','必填项不可为空');
+            return;
+        }
+
+        if (CheckInput.isPhone(this.state.c_telphone)){
+            alert('手机号码不正确');
             return;
         }
 
