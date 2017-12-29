@@ -12,17 +12,17 @@ const ListStyle = StyleSheet.create({
     itemTitleLeft: {
         flex: 1,
         textAlign: 'left',
-        fontSize: 14,
+        fontSize: 12,
     },
     itemTitleCenter: {
         flex: 1,
         textAlign: 'center',
-        fontSize: 14,
+        fontSize: 12,
     },
     itemTitleRight: {
         flex: 1,
         textAlign: 'right',
-        fontSize: 14,
+        fontSize: 12,
     },
     itemConnect: {
         marginTop: 10,

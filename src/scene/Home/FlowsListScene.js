@@ -1,14 +1,5 @@
 import React, { PureComponent } from 'react'
-import {
-    View,
-    Text,
-    DeviceEventEmitter,
-    Alert ,
-    TouchableOpacity,
-    ListView,
-    TextInput,
-    Picker,
-} from 'react-native'
+import {View, Text, DeviceEventEmitter, Alert , TouchableOpacity, ListView, TextInput, Picker,} from 'react-native'
 
 import ListStyle from '../../widget/ListStyle'
 import PostUrl from "../../widget/PostUrl";
@@ -34,7 +25,6 @@ class FlowsListScene extends PureComponent{
             </TouchableOpacity>
         ),
     });
-
     constructor(props){
         super(props);
         this.state = {
@@ -45,6 +35,9 @@ class FlowsListScene extends PureComponent{
         };
     }
 
+    showdatepicker(){
+        UserPicker.closeUserPicker();
+    }
     componentDidMount() {
         DeviceEventEmitter.addListener('changeFlowsInfo', () => { this._changeStateData() });
         this._getFollowsLogJson(this.state.select_uid, '');
@@ -90,14 +83,12 @@ class FlowsListScene extends PureComponent{
                 alert(error)
             });
     }
-
     _renderRow(rowData, sectionId, rowID, highlightRow){
 
         const { navigate } = this.props.navigation;
 
         if (rowData.u_id == PostUrl.userId ){
             return(
-
                 <TouchableOpacity
                     onPress={()=>{
                         UserPicker.closeUserPicker()
@@ -115,11 +106,9 @@ class FlowsListScene extends PureComponent{
                         </View>
                     </View>
                 </TouchableOpacity>
-
             );
         }else{
             return(
-
                 <View style={ListStyle.item}>
                     <View>
                         <View style={ListStyle.itemTitle}>
@@ -130,14 +119,12 @@ class FlowsListScene extends PureComponent{
                         <Text style={ListStyle.itemConnect}>{rowData.fl_desc}</Text>
                     </View>
                 </View>
-
             );
         }
-
     }
 
     _searchCustom(data){
-        this.setState({u_name: data})
+        this.setState({u_name: data});
         this._getFollowsLogJson(this.state.select_uid, data)
     }
 
@@ -145,7 +132,7 @@ class FlowsListScene extends PureComponent{
         this.setState({
             select_uid: changeUid,
             u_name: ''
-        })
+        });
         this._getFollowsLogJson(changeUid, '')
     }
 
@@ -169,10 +156,9 @@ class FlowsListScene extends PureComponent{
                             underlineColorAndroid='transparent' //设置下划线背景色
                             onChangeText = {this._searchCustom.bind(this)}
                             value = {this.state.u_name}
+                            onFocus={this.showdatepicker = this.showdatepicker.bind(this)}
                         />
-
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-
                     </View>
                 </View>
             )
@@ -191,13 +177,10 @@ class FlowsListScene extends PureComponent{
                             underlineColorAndroid='transparent' //设置下划线背景色
                             onChangeText = {this._searchCustom.bind(this)}
                             value = {this.state.u_name}
+                            onFocus={this.showdatepicker = this.showdatepicker.bind(this)}
                         />
-
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-
                     </View>
-
-
                     <ListView
                         dataSource={this.state.data}
                         renderRow={this._renderRow.bind(this)}

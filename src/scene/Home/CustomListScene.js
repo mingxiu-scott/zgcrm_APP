@@ -96,6 +96,10 @@ class CustomListScene extends PureComponent {
         this._changeListUid(userId)
     }
 
+    showdatepicker(){
+        UserPicker.closeUserPicker();
+    }
+
     render() {
 
         if (!this.state.data){
@@ -109,6 +113,7 @@ class CustomListScene extends PureComponent {
                                 borderColor: '#ccc',
                                 borderRadius: 7,
                             }}
+                            onFocus={this.showdatepicker = this.showdatepicker.bind(this)}
                             placeholder={'   请输入客户名'}  //占位符
                             underlineColorAndroid='transparent' //设置下划线背景色
                             onChangeText = {this._searchCustom.bind(this)}
@@ -132,6 +137,7 @@ class CustomListScene extends PureComponent {
                                 borderColor: '#ccc',
                                 borderRadius: 7,
                             }}
+                            onFocus={this.showdatepicker = this.showdatepicker.bind(this)}
                             placeholder={'   请输入客户名'}  //占位符
                             underlineColorAndroid='transparent' //设置下划线背景色
                             onChangeText = {this._searchCustom.bind(this)}

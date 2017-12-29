@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Text, ScrollView, TouchableOpacity, Alert, TextInput,DeviceEventEmitter, RadiModal } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Alert, TextInput,DeviceEventEmitter, RadiModal,KeyboardAvoidingView } from 'react-native'
 import styles from '../../widget/FormStyle'
 import MyDatePicker from '../../widget/MyDatePicker'
 import PostUrl from '../../widget/PostUrl'
@@ -159,136 +159,144 @@ class CreatCustomScene extends PureComponent {
     render(){
 
         return(
-            <ScrollView>
-            <View>
-                {/*<View style={styles.fristformRow}>*/}
-                    {/*<View style={styles.lineHeightAllDate}>*/}
+            <KeyboardAvoidingView
+                behavior="padding"
+                keyboardVerticalOffset={80}
+                style={{flex:1,
+                    justifyContent: 'center',
+                }}
+            >
+                <ScrollView>
+                    <View>
+                        {/*<View style={styles.fristformRow}>*/}
+                        {/*<View style={styles.lineHeightAllDate}>*/}
                         {/*<Text style={styles.lineHeightAll}>获取时间*</Text>*/}
-                    {/*</View>*/}
+                        {/*</View>*/}
 
-                    {/*<View style={{alignItems: "flex-end"}}>*/}
+                        {/*<View style={{alignItems: "flex-end"}}>*/}
                         {/*<MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime(date)} />*/}
-                    {/*</View>*/}
-                {/*</View>*/}
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>获取时间*</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        underlineColorAndroid="transparent"
-                        keyboardType='numeric'
-                        maxLength={18}
-                        defaultValue ={this.state.c_gettime}
-                        editable={false}
-                    />
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>客户名称*</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="客户姓名"
-                        maxLength={5}
-                        underlineColorAndroid="transparent"
-                        onChangeText={(text) => this.setState({c_name: text})}
-                    />
-                </View>
+                        {/*</View>*/}
+                        {/*</View>*/}
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>获取时间*</Text>
+                            <TextInput
+                                style={styles.TextInputs}
+                                underlineColorAndroid="transparent"
+                                keyboardType='numeric'
+                                maxLength={18}
+                                defaultValue ={this.state.c_gettime}
+                                editable={false}
+                            />
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>客户名称*</Text>
+                            <TextInput
+                                style={styles.TextInputs}
+                                placeholder="客户姓名"
+                                maxLength={5}
+                                underlineColorAndroid="transparent"
+                                onChangeText={(text) => this.setState({c_name: text})}
+                            />
+                        </View>
 
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>联系电话*</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="联系电话"
-                        underlineColorAndroid="transparent"
-                        keyboardType='numeric'
-                        maxLength={11}
-                        onChangeText={(text) => this.setState({c_telphone: text})}
-                    />
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>性别</Text>
-                    <RadioGroup style={{
-                        position:'absolute',
-                        right:0,
-                        flexDirection:'row',
-                        flexWrap:'wrap',
-                        alignItems:'flex-start',
-                        flex: 1,}}
-                                selectedIndex={0}
-                                onSelect ={(index,value)=>this.onSelect(index,value)}
-                    >
-                        <RadioButton  value={'男'} slected={true}>
-                            <Text>男</Text>
-                        </RadioButton>
-                        <RadioButton  value={'女'}>
-                            <Text>女</Text>
-                        </RadioButton>
-                    </RadioGroup>
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>家庭住址</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="家庭住址"
-                        underlineColorAndroid="transparent"
-                        maxLength={30}
-                        onChangeText={(text) => this.setState({c_address: text})}
-                    />
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>客户称呼</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="客户称呼"
-                        underlineColorAndroid="transparent"
-                        maxLength={5}
-                        onChangeText={(text) => this.setState({c_called: text})}
-                    />
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>年龄</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="年龄"
-                        keyboardType='numeric'
-                        underlineColorAndroid="transparent"
-                        maxLength={2}
-                        onChangeText={(text) => this.setState({c_age: text})}
-                    />
-                </View>
-                <View style={styles.fristformRow}>
-                    <View style={styles.lineHeightAllDate}>
-                        <Text style={styles.lineHeightAll}>生日</Text>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>联系电话*</Text>
+                            <TextInput
+                                style={styles.TextInputs}
+                                placeholder="联系电话"
+                                underlineColorAndroid="transparent"
+                                keyboardType='numeric'
+                                maxLength={11}
+                                onChangeText={(text) => this.setState({c_telphone: text})}
+                            />
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>性别</Text>
+                            <RadioGroup style={{
+                                position:'absolute',
+                                right:0,
+                                flexDirection:'row',
+                                flexWrap:'wrap',
+                                alignItems:'flex-start',
+                                flex: 1,}}
+                                        selectedIndex={0}
+                                        onSelect ={(index,value)=>this.onSelect(index,value)}
+                            >
+                                <RadioButton  value={'男'} slected={true}>
+                                    <Text>男</Text>
+                                </RadioButton>
+                                <RadioButton  value={'女'}>
+                                    <Text>女</Text>
+                                </RadioButton>
+                            </RadioGroup>
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>家庭住址</Text>
+                            <TextInput
+                                style={styles.TextInputs}
+                                placeholder="家庭住址"
+                                underlineColorAndroid="transparent"
+                                maxLength={30}
+                                onChangeText={(text) => this.setState({c_address: text})}
+                            />
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>客户称呼</Text>
+                            <TextInput
+                                style={styles.TextInputs}
+                                placeholder="客户称呼"
+                                underlineColorAndroid="transparent"
+                                maxLength={5}
+                                onChangeText={(text) => this.setState({c_called: text})}
+                            />
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>年龄</Text>
+                            <TextInput
+                                style={styles.TextInputs}
+                                placeholder="年龄"
+                                keyboardType='numeric'
+                                underlineColorAndroid="transparent"
+                                maxLength={2}
+                                onChangeText={(text) => this.setState({c_age: text})}
+                            />
+                        </View>
+                        <View style={styles.fristformRow}>
+                            <View style={styles.lineHeightAllDate}>
+                                <Text style={styles.lineHeightAll}>生日</Text>
+                            </View>
+                            <View style={{alignItems: "flex-end"}}>
+                                <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime2(date)} />
+                            </View>
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>客户来源</Text>
+                            <TextInput
+                                style={styles.TextInputs}
+                                placeholder="客户来源"
+                                underlineColorAndroid="transparent"
+                                maxLength={30}
+                                onChangeText={(text) => this.setState({c_source: text})}
+                            />
+                        </View>
+                        <View style={styles.formRowContents}>
+                            <Text style={styles.lineHeightAll}>备注</Text>
+                            <TextInput
+                                style={styles.TextInputContents}
+                                placeholder="备注"
+                                underlineColorAndroid="transparent"
+                                multiline={true}
+                                onChangeText={(text) => this.setState({c_desc: text})}
+                            />
+                        </View>
+                        <View style={styles.formBtnRow}>
+                            <TouchableOpacity style={this.state.submitBtnSytle} disabled={this.state.submitBtnDisabled} onPress={this.postRequest.bind(this)}>
+                                <Text style={styles.submitBtnText}>保存</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={{alignItems: "flex-end"}}>
-                        <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime2(date)} />
-                    </View>
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>客户来源</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="客户来源"
-                        underlineColorAndroid="transparent"
-                        maxLength={30}
-                        onChangeText={(text) => this.setState({c_source: text})}
-                    />
-                </View>
-                <View style={styles.formRowContents}>
-                    <Text style={styles.lineHeightAll}>备注</Text>
-                    <TextInput
-                        style={styles.TextInputContents}
-                        placeholder="备注"
-                        underlineColorAndroid="transparent"
-                        multiline={true}
-                        onChangeText={(text) => this.setState({c_desc: text})}
-                    />
-                </View>
-                <View style={styles.formBtnRow}>
-                    <TouchableOpacity style={this.state.submitBtnSytle} disabled={this.state.submitBtnDisabled} onPress={this.postRequest.bind(this)}>
-                        <Text style={styles.submitBtnText}>保存</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            </ScrollView>
+                </ScrollView>
+            </KeyboardAvoidingView>
         );
     }
 }

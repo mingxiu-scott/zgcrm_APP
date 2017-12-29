@@ -125,7 +125,7 @@ const FormStyle = StyleSheet.create({
         width:40,
         position:'absolute',
         right: 0,
-        top:13,
+        top:15,
         height:40,
         textAlign:'right',
         paddingRight: 15
@@ -135,11 +135,10 @@ const FormStyle = StyleSheet.create({
         position:'absolute',
         right: 0,
         height:140,
-        textAlign:'justify',
+        textAlign:'right',
         paddingRight: 15
     },
     TextInputContentSmall:{
-
     },
     TextInputsRows: {
         width:400,

@@ -1,16 +1,5 @@
-/**
- * Bootstrap of PickerTest
- */
-
 import React, {Component} from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    Dimensions,
-    StyleSheet,
-} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, Dimensions, StyleSheet,} from 'react-native';
 
 import PostUrl from './PostUrl'
 import Picker from 'react-native-picker';
@@ -102,7 +91,7 @@ export default class UserPicker extends Component {
     _set_userInfo = function (pickerKey, pickerValue) {
         this.props.set_userInfo(pickerKey, pickerValue);
         this.setState({userName: pickerValue});
-    }
+    };
 
     render() {
         return (

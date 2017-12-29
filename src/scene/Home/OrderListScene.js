@@ -29,7 +29,7 @@ class OrderListScene extends Component{
             <TouchableOpacity
                 style={{padding: 10, marginLeft:5, marginTop:3}}
                 onPress={()=> {
-                    UserPicker.closeUserPicker()
+                    UserPicker.closeUserPicker();
                     navigation.goBack()
                 }}
             >
@@ -55,7 +55,7 @@ class OrderListScene extends Component{
 
     _getOrderListsJson(select_uid, date, u_name){
 
-        UserPicker.closeUserPicker()
+        UserPicker.closeUserPicker();
 
         let url = PostUrl.getOrderListsJsonUrl;
         let formData = new FormData();
@@ -100,7 +100,7 @@ class OrderListScene extends Component{
     }
 
     _searchCustom(data){
-        this.setState({u_name: data})
+        this.setState({u_name: data});
         this._getOrderListsJson(this.state.select_uid, this.state.date, data)
     }
 
@@ -113,8 +113,12 @@ class OrderListScene extends Component{
     }
 
     set_c_gettime(date){
-        this.setState({date: date})
-        this._getOrderListsJson(this.state.select_uid, date, this.state.u_name)
+        this.setState({date: date});
+        this._getOrderListsJson(this.state.select_uid, date, this.state.u_name);
+    }
+
+    showdatepicker(){
+        UserPicker.closeUserPicker();
     }
 
     set_userInfo(userId,userName){
@@ -128,7 +132,7 @@ class OrderListScene extends Component{
         return (
             <TouchableOpacity
                 onPress={() => {
-                    UserPicker.closeUserPicker()
+                    UserPicker.closeUserPicker();
                     navigate('OrderListInfo', {o_id: rowData.o_id})
                 }}
             >
@@ -180,9 +184,7 @@ class OrderListScene extends Component{
             </TouchableOpacity>
         )
     }
-
     render() {
-
         if(!this.state.data){
             return(
 
@@ -197,22 +199,23 @@ class OrderListScene extends Component{
                                 onChangeText = {this._searchCustom.bind(this)}
                                 value = {this.state.u_name}
                                 placeholder={'请输入客户名'}  //占位符
+                                onFocus={this.showdatepicker = this.showdatepicker.bind(this)}
                             />
                         </View>
 
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
                         <DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />
                     </View>
+
                     <View>
                         <Text>无数据</Text>
                     </View>
+
                 </View>
             );
         }else{
             return(
-
                 <View style={styles.container}>
-
                     <View style={styles.topBox}>
                         <View style={styles.searchBox}>
                             <FontAwesome name="search" size={16} color="gray" style={styles.searchIcon}/>
@@ -222,12 +225,11 @@ class OrderListScene extends Component{
                                 onChangeText = {this._searchCustom.bind(this)}
                                 value = {this.state.u_name}
                                 placeholder={'请输入客户名'}  //占位符
+                                onFocus={this.showdatepicker = this.showdatepicker.bind(this)}
                             />
                         </View>
-
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
                         <DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />
-
                     </View>
                     <ListView
                         dataSource={this.state.data}
@@ -243,7 +245,6 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         flexDirection:'column',
-        //backgroundColor:'white',
     },
     topBox: {
         flexDirection:'row',

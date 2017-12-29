@@ -20,15 +20,14 @@ class TasksListScene extends PureComponent{
             <TouchableOpacity
                 style={{padding: 10, marginLeft:5, marginTop:3}}
                 onPress={()=> {
-                    UserPicker.closeUserPicker()
-                    navigation.goBack()
+                    UserPicker.closeUserPicker();
+                    navigation.goBack();
                 }}
             >
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
             </TouchableOpacity>
         ),
     });
-
     constructor(props){
         super(props);
         this.state = {
@@ -38,25 +37,22 @@ class TasksListScene extends PureComponent{
             date: Moment(new Date()).format("YYYY-MM"),
         };
     }
-
     componentDidMount() {
-
         DeviceEventEmitter.addListener('changeTasksInfo', () => {
             this._getTaskListJson(this.state.select_uid, this.state.date)
-        })
-
+        });
         this._getTaskListJson(PostUrl.userId, this.state.date)
     }
 
     _changeListUid(changeUid){
         this.setState({
             select_uid: changeUid,
-        })
-        this._getTaskListJson(changeUid, this.state.date)
+        });
+        this._getTaskListJson(changeUid, this.state.date);
     }
 
     set_c_gettime(date){
-        this.setState({date: date})
+        this.setState({date: date});
         this._getTaskListJson(this.state.select_uid, date)
     }
 
@@ -83,11 +79,10 @@ class TasksListScene extends PureComponent{
                 return response.json();
             })
             .then((responseText) => {
-
                 if (responseText.code == 'fail' || responseText.dataValue == ''){
                     this.setState({
                         data: null,
-                    })
+                    });
                 }else{
                     this.setState({
                         data: new ListView.DataSource({rowHasChanged: (r1,r2) => r1!==r2 }).cloneWithRows(responseText.dataValue),
@@ -100,15 +95,14 @@ class TasksListScene extends PureComponent{
     }
 
     _renderRow(rowData, sectionId, rowID, highlightRow){
+
         const { navigate } = this.props.navigation;
 
         if (PostUrl.userId == rowData.u_id) {
             return (
                 <TouchableOpacity
                     onPress={() => {
-
                         UserPicker.closeUserPicker();
-
                         navigate('EditTaskScene', {
                             t_id: rowData.t_id,
                             u_id: rowData.u_id,
@@ -121,7 +115,11 @@ class TasksListScene extends PureComponent{
                             <View style={ListStyle.itemTitle}>
                                 <Text style={ListStyle.itemTitleLeft}>客户：{rowData.c_name}</Text>
                                 <Text style={ListStyle.itemTitleCenter}>经理：{rowData.u_name}</Text>
-                                <Text style={ListStyle.itemTitleRight}>{rowData.t_date}</Text>
+                                <Text style={ListStyle.itemTitleRight}>状态：{rowData.t_status == 1? '已完成':'未完成'}</Text>
+                            </View>
+                            <View style={ListStyle.itemTitle}>
+                                <Text style={ListStyle.itemTitleLeft}>开始：{rowData.t_date}</Text>
+                                <Text style={ListStyle.itemTitleRight}>截止：{rowData.t_endtime}</Text>
                             </View>
                             <Text style={ListStyle.itemConnect}>{rowData.t_desc}</Text>
                         </View>
@@ -130,16 +128,31 @@ class TasksListScene extends PureComponent{
             );
         }else{
             return (
-                <View style={ListStyle.item}>
-                    <View>
-                        <View style={ListStyle.itemTitle}>
-                            <Text style={ListStyle.itemTitleLeft}>客户：{rowData.c_name}</Text>
-                            <Text style={ListStyle.itemTitleCenter}>经理：{rowData.u_name}</Text>
-                            <Text style={ListStyle.itemTitleRight}>{rowData.t_date}</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        UserPicker.closeUserPicker();
+                        navigate('EditTaskScene', {
+                            t_id: rowData.t_id,
+                            u_id: rowData.u_id,
+                            c_id: rowData.c_id
+                        })
+                    }}
+                >
+                    <View style={ListStyle.item}>
+                        <View>
+                            <View style={ListStyle.itemTitle}>
+                                <Text style={ListStyle.itemTitleLeft}>客户：{rowData.c_name}</Text>
+                                <Text style={ListStyle.itemTitleCenter}>经理：{rowData.u_name}</Text>
+                                <Text style={ListStyle.itemTitleRight}>状态：{rowData.t_status == 1? '已完成':'未完成'}</Text>
+                            </View>
+                            <View style={ListStyle.itemTitle}>
+                                <Text style={ListStyle.itemTitleLeft}>开始：{rowData.t_date}</Text>
+                                <Text style={ListStyle.itemTitleRight}>截止：{rowData.t_endtime}</Text>
+                            </View>
+                            <Text style={ListStyle.itemConnect}>{rowData.t_desc}</Text>
                         </View>
-                        <Text style={ListStyle.itemConnect}>{rowData.t_desc}</Text>
                     </View>
-                </View>
+                </TouchableOpacity>
             );
         }
     }
@@ -225,4 +238,5 @@ const styles = StyleSheet.create({
         borderColor: '#e3e3e3',
     },
 });
+
 export default TasksListScene;

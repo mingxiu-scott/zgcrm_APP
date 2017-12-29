@@ -5,7 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styles from '../../widget/FormStyle'
 import MyIcon from '../../widget/MyIcon'
 import MyDatePicker from '../../widget/MyDatePicker'
-import MySwitch from '../../widget/MySwitch'
+import MySubordinateChooseScene from  './MySubordinateChooseScene';
 
 import Moment from 'moment'
 import PostUrl from '../../widget/PostUrl'
@@ -35,18 +35,24 @@ class CreateTaskScene extends PureComponent {
             c_name:'客户姓名',
             t_desc: '',
             t_status: true,
+            t_endtime: Moment(new Date()).format("YYYY-MM-DD"),
             submitBtnSytle: styles.submitBtn,
             submitBtnDisabled: false,
+            xiashu_name: '下属名称',
+            xiashu_id: '',
         };
     }
+
     postRequest(){
 
-        if (this.state.t_date == '' || this.state.t_name == '' || this.state.t_status == ''){
+        if (this.state.t_date == '' ||
+            this.state.t_name == ''||
+            this.state.t_desc == '' ||
+            this.state.t_endtime == '' || this.state.xiashu_id == ''){
             Alert.alert('提示','必填项不能为空');
             return;
         }
         this._set_submitBtnDisabled();
-
         let url = PostUrl.createTasksJsonUrl;
 
         let formData = new FormData();
@@ -57,6 +63,8 @@ class CreateTaskScene extends PureComponent {
         formData.append('c_name',this.state.c_name);
         formData.append('t_desc',this.state.t_desc);
         formData.append('t_status',this.state.t_status);
+        formData.append('t_endtime',this.state.t_endtime);
+        formData.append('xiashu_id',this.state.xiashu_id);
 
         let sign = '{t_name:"' + this.state.t_name + '"},' +
                     '{t_date:"' + this.state.t_date + '"},' +
@@ -98,8 +106,19 @@ class CreateTaskScene extends PureComponent {
         this.setState({t_date: date})
     }
 
+    set_c_gettime2(date){
+        this.setState({t_endtime: date})
+    }
+
     set_t_status(status){
         this.setState({t_status:status});
+    }
+
+    changeXiaShuName(xiashuInfo){
+        this.setState({
+            xiashu_name: xiashuInfo.u_name,
+            xiashu_id: xiashuInfo.u_id,
+        })
     }
 
     changeUserName(customInfo){
@@ -124,7 +143,6 @@ class CreateTaskScene extends PureComponent {
     }
 
     render(){
-
         const { navigate } = this.props.navigation;
 
         return(
@@ -132,11 +150,20 @@ class CreateTaskScene extends PureComponent {
             <View>
                 <View style={styles.fristformRow}>
                     <View style={styles.lineHeightAllDate}>
-                        <Text style={styles.lineHeightAll}>执行日期*</Text>
+                        <Text style={styles.lineHeightAll}>开始日期*</Text>
                     </View>
 
                     <View style={{alignItems: "flex-end"}}>
                         <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime(date)} />
+                    </View>
+                </View>
+                <View style={styles.fristformRow}>
+                    <View style={styles.lineHeightAllDate}>
+                        <Text style={styles.lineHeightAll}>截止日期*</Text>
+                    </View>
+
+                    <View style={{alignItems: "flex-end"}}>
+                        <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime2(date)} />
                     </View>
                 </View>
 
@@ -151,6 +178,17 @@ class CreateTaskScene extends PureComponent {
                     </TouchableOpacity>
                 </View>
 
+                <View style={styles.fristformRow}>
+                    <View style={styles.lineHeightAllDate}>
+                        <Text style={styles.lineHeightAll}>下属名称*</Text>
+                    </View>
+                    <TouchableOpacity style={styles.getCustomLabel}
+                                      onPress={()=>navigate('MySubordinateChooseScene',{callback:(backData)=> this.changeXiaShuName(backData)})}
+                    >
+                        <Text>{this.state.xiashu_name}</Text>
+                    </TouchableOpacity>
+                </View>
+
                 <View style={styles.formRow}>
                     <Text style={styles.lineHeightAll}>任务名称*</Text>
                     <TextInput placeholder='任务名称'
@@ -159,24 +197,18 @@ class CreateTaskScene extends PureComponent {
                     />
                 </View>
 
-                <View style={styles.fristformRow}>
-                    <Text style={[styles.lineHeightAllDate,styles.lineHeightAll,{lineHeight:35}]}>任务状态*</Text>
-                    <MySwitch style={[styles.textInput]} set_t_status={status=>this.set_t_status(status)} status={this.state.status} />
-                </View>
-
                 <View style={styles.formRowContents}>
-                    <Text style={styles.lineHeightAll}>备注</Text>
+                    <Text style={styles.lineHeightAll}>任务内容*</Text>
                     <TextInput style={styles.TextInputContents}
-                               placeholder="备注内容"
+                               placeholder="任务内容"
                                underlineColorAndroid="transparent"
                                onChangeText={(text)=>this.setState({t_desc:text})}
                                multiline={true}
-
                     />
                 </View>
                 <View style={styles.formBtnRow}>
                     <TouchableOpacity style={this.state.submitBtnSytle} disabled={this.state.submitBtnDisabled} onPress={this.postRequest.bind(this)}>
-                        <Text style={styles.submitBtnText}>保存</Text>
+                        <Text style={styles.submitBtnText}>分派任务</Text>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Text, ScrollView, TouchableOpacity,TextInput,DeviceEventEmitter, Alert} from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity,TextInput,DeviceEventEmitter, Alert,KeyboardAvoidingView} from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MyIcon from '../../widget/MyIcon'
 
@@ -48,14 +48,14 @@ class CreateOrderScene extends PureComponent{
         if(
             this.state.o_gettime == '' ||
             this.state.o_customName == '' ||
-                this.state.o_name == '' ||
-                this.state.o_money == '' ||
-                this.state.o_cycle == '' ||
-                this.state.o_endTime == '' ||
-                this.state.o_returnMoney == ''||
-                this.state.c_bankname == '' ||
-                this.state.c_bankcard == '' ||
-                this.state.c_idcard == ''
+            this.state.o_name == '' ||
+            this.state.o_money == '' ||
+            this.state.o_cycle == '' ||
+            this.state.o_endTime == '' ||
+            this.state.o_returnMoney == ''||
+            this.state.c_bankname == '' ||
+            this.state.c_bankcard == '' ||
+            this.state.c_idcard == ''
         ){
             Alert.alert('提示','必填项不可为空');
             return;
@@ -195,154 +195,162 @@ class CreateOrderScene extends PureComponent{
     render() {
         const { navigate } = this.props.navigation;
         return (
-            <ScrollView>
-            <View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>获取时间*</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        underlineColorAndroid="transparent"
-                        keyboardType='numeric'
-                        maxLength={18}
-                        onChangeText={(text) => this.setState({c_idcard: text})}
-                        defaultValue ={this.state.o_gettime}
-                        editable={false}
-                    />
-                </View>
+            <KeyboardAvoidingView
+                behavior="padding"
+                keyboardVerticalOffset={80}
+                style={{flex:1,
+                    justifyContent: 'center',
+                }}
+            >
+                <ScrollView>
+                    <View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>获取时间*</Text>
+                            <TextInput
+                                style={styles.TextInputs}
+                                underlineColorAndroid="transparent"
+                                keyboardType='numeric'
+                                maxLength={18}
+                                onChangeText={(text) => this.setState({c_idcard: text})}
+                                defaultValue ={this.state.o_gettime}
+                                editable={false}
+                            />
+                        </View>
 
-                <View style={styles.fristformRow}>
-                    <View style={styles.lineHeightAllDate}>
-                        <Text style={styles.lineHeightAll}>客户名称*</Text>
-                    </View>
-                    <TouchableOpacity style={styles.getCustomLabel}
-                        onPress={()=>navigate('MyCustomChooseScene',{callback:(backData)=> this.changeUserName(backData)})}
-                    >
-                        <Text>{this.state.o_customName}</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>身份证号*</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="身份证号"
-                        underlineColorAndroid="transparent"
-                        keyboardType='numeric'
-                        maxLength={18}
-                        onChangeText={(text) => this.setState({c_idcard: text})}
-                        defaultValue ={this.state.c_idcard}
-                        editable={this.state.editInput}
-                    />
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>银行卡开户行*</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="银行卡开户行"
-                        underlineColorAndroid="transparent"
-                        maxLength={20}
-                        onChangeText={(text) => this.setState({c_bankname: text})}
-                        defaultValue ={this.state.c_bankname}
-                        editable={this.state.editInput}
-                    />
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>银行卡号*</Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder="银行卡号"
-                        underlineColorAndroid="transparent"
-                        keyboardType='numeric'
-                        maxLength={19}
-                        onChangeText={(text) => this.setState({c_bankcard: text})}
-                        defaultValue ={this.state.c_bankcard}
-                        editable={this.state.editInput}
+                        <View style={styles.fristformRow}>
+                            <View style={styles.lineHeightAllDate}>
+                                <Text style={styles.lineHeightAll}>客户名称*</Text>
+                            </View>
+                            <TouchableOpacity style={styles.getCustomLabel}
+                                              onPress={()=>navigate('MyCustomChooseScene',{callback:(backData)=> this.changeUserName(backData)})}
+                            >
+                                <Text>{this.state.o_customName}</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>身份证号*</Text>
+                            <TextInput
+                                style={styles.TextInputs}
+                                placeholder="身份证号"
+                                underlineColorAndroid="transparent"
+                                keyboardType='numeric'
+                                maxLength={18}
+                                onChangeText={(text) => this.setState({c_idcard: text})}
+                                defaultValue ={this.state.c_idcard}
+                                editable={this.state.editInput}
+                            />
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>银行卡开户行*</Text>
+                            <TextInput
+                                style={styles.TextInputs}
+                                placeholder="银行卡开户行"
+                                underlineColorAndroid="transparent"
+                                maxLength={20}
+                                onChangeText={(text) => this.setState({c_bankname: text})}
+                                defaultValue ={this.state.c_bankname}
+                                editable={this.state.editInput}
+                            />
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>银行卡号*</Text>
+                            <TextInput
+                                style={styles.TextInputs}
+                                placeholder="银行卡号"
+                                underlineColorAndroid="transparent"
+                                keyboardType='numeric'
+                                maxLength={19}
+                                onChangeText={(text) => this.setState({c_bankcard: text})}
+                                defaultValue ={this.state.c_bankcard}
+                                editable={this.state.editInput}
 
-                    />
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>
-                        理财名称*
-                    </Text>
-                    <TextInput
-                        style={styles.TextInputs}
-                        placeholder='产品名称'
-                        underlineColorAndroid="transparent"
-                        maxLength={10}
-                        onChangeText={(text) => this.setState({o_name: text})}
-                    />
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>
-                        理财金额*
-                    </Text>
-                    <Text style={styles.TextInputSpe}>元</Text>
-                    <TextInput
-                        style={styles.TextInputSpeInput}
-                        placeholder='请输入金额'
-                        underlineColorAndroid="transparent"
-                        keyboardType='numeric'
-                        onChangeText={(text) => this.setState({o_money: text})}
-                    />
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>
-                        理财周期*
-                    </Text>
-                    <Text style={styles.TextInputSpe}>天</Text>
-                    <TextInput
-                        style={styles.TextInputSpeInput}
-                        placeholder='请输入理财周期'
-                        keyboardType='numeric'
-                        underlineColorAndroid="transparent"
-                        onChangeText={(text) => this.setState({o_cycle: text})}
-                    />
-                </View>
-                <View style={styles.fristformRow}>
-                    <View style={styles.lineHeightAllDate}>
-                        <Text style={styles.lineHeightAll}>到期日期*</Text>
+                            />
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>
+                                理财名称*
+                            </Text>
+                            <TextInput
+                                style={styles.TextInputs}
+                                placeholder='产品名称'
+                                underlineColorAndroid="transparent"
+                                maxLength={10}
+                                onChangeText={(text) => this.setState({o_name: text})}
+                            />
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>
+                                理财金额*
+                            </Text>
+                            <Text style={styles.TextInputSpe}>元</Text>
+                            <TextInput
+                                style={styles.TextInputSpeInput}
+                                placeholder='请输入金额'
+                                underlineColorAndroid="transparent"
+                                keyboardType='numeric'
+                                onChangeText={(text) => this.setState({o_money: text})}
+                            />
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>
+                                理财周期*
+                            </Text>
+                            <Text style={styles.TextInputSpe}>天</Text>
+                            <TextInput
+                                style={styles.TextInputSpeInput}
+                                placeholder='请输入理财周期'
+                                keyboardType='numeric'
+                                underlineColorAndroid="transparent"
+                                onChangeText={(text) => this.setState({o_cycle: text})}
+                            />
+                        </View>
+                        <View style={styles.fristformRow}>
+                            <View style={styles.lineHeightAllDate}>
+                                <Text style={styles.lineHeightAll}>到期日期*</Text>
+                            </View>
+                            <View style={{alignItems: "flex-end"}}>
+                                <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime2(date)} />
+                            </View>
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>
+                                回款金额*
+                            </Text>
+                            <Text style={styles.TextInputSpe}>元</Text>
+                            <TextInput
+                                style={styles.TextInputSpeInput}
+                                placeholder='请输入金额'
+                                underlineColorAndroid="transparent"
+                                keyboardType='numeric'
+                                onChangeText={(text) => this.setState({o_returnMoney: text})}
+                            />
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>福利</Text>
+                            <TouchableOpacity  style={{position:"absolute", right:10,top:15 }}
+                                               onPress={()=>navigate('Welfare',{callback:(backData)=> this.changeFuliName(backData)})}
+                            >
+                                <Text>{this.state.fuliname}</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.formRowContents}>
+                            <Text style={styles.lineHeightAll}>备注</Text>
+                            <TextInput
+                                style={styles.TextInputContents}
+                                placeholder="备注内容"
+                                underlineColorAndroid="transparent"
+                                onChangeText={(text) => this.setState({o_remark: text})}
+                                multiline={true}
+                            />
+                        </View>
+                        <View style={styles.formBtnRow}>
+                            <TouchableOpacity style={this.state.submitBtnSytle} disabled={this.state.submitBtnDisabled} onPress={this.postRequest.bind(this)}>
+                                <Text style={styles.submitBtnText}>保存</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={{alignItems: "flex-end"}}>
-                        <MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime2(date)} />
-                    </View>
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>
-                        回款金额*
-                    </Text>
-                    <Text style={styles.TextInputSpe}>元</Text>
-                    <TextInput
-                        style={styles.TextInputSpeInput}
-                        placeholder='请输入金额'
-                        underlineColorAndroid="transparent"
-                        keyboardType='numeric'
-                        onChangeText={(text) => this.setState({o_returnMoney: text})}
-                    />
-                </View>
-                <View style={styles.formRow}>
-                    <Text style={styles.lineHeightAll}>福利</Text>
-                    <TouchableOpacity  style={{position:"absolute", right:10,top:15 }}
-                                      onPress={()=>navigate('Welfare',{callback:(backData)=> this.changeFuliName(backData)})}
-                    >
-                        <Text>{this.state.fuliname}</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.formRowContents}>
-                    <Text style={styles.lineHeightAll}>备注</Text>
-                    <TextInput
-                        style={styles.TextInputContents}
-                        placeholder="备注内容"
-                        underlineColorAndroid="transparent"
-                        onChangeText={(text) => this.setState({o_remark: text})}
-                        multiline={true}
-                    />
-                </View>
-                <View style={styles.formBtnRow}>
-                    <TouchableOpacity style={this.state.submitBtnSytle} disabled={this.state.submitBtnDisabled} onPress={this.postRequest.bind(this)}>
-                        <Text style={styles.submitBtnText}>保存</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            </ScrollView>
+                </ScrollView>
+            </KeyboardAvoidingView>
         );
     }
 }

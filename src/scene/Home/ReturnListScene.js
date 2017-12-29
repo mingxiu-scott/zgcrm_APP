@@ -123,6 +123,9 @@ class ReturnListScene extends PureComponent {
         this.setState({date: date})
         this._getReturnJson(this.state.select_uid, date, this.state.u_name)
     }
+    showdatepicker(){
+        UserPicker.closeUserPicker();
+    }
 
     render() {
 
@@ -139,6 +142,8 @@ class ReturnListScene extends PureComponent {
                                 onChangeText = {this._searchCustom.bind(this)}
                                 value = {this.state.u_name}
                                 placeholder={'请输入客户名'}  //占位符
+                                onFocus={this.showdatepicker = this.showdatepicker.bind(this)}
+
                             />
                         </View>
 
@@ -160,6 +165,8 @@ class ReturnListScene extends PureComponent {
                                 onChangeText = {this._searchCustom.bind(this)}
                                 value = {this.state.u_name}
                                 placeholder={'请输入客户名'}  //占位符
+                                onFocus={this.showdatepicker = this.showdatepicker.bind(this)}
+
                             />
                         </View>
 

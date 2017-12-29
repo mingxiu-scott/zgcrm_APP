@@ -16,7 +16,7 @@ class CustomInfoScene extends PureComponent {
             <TouchableOpacity
                 style={{padding: 10, marginLeft:5, marginTop:3}}
                 onPress={()=> {
-                    UserPicker.closeUserPicker()
+                    UserPicker.closeUserPicker();
                     navigation.goBack()
                 }}
             >
@@ -26,7 +26,7 @@ class CustomInfoScene extends PureComponent {
     })
 
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
             data: null,
             c_id: props.navigation.state.params.c_id,
@@ -37,7 +37,7 @@ class CustomInfoScene extends PureComponent {
         this.setState({
             data: data
         })
-    }
+    };
 
     componentDidMount() {
 
@@ -47,7 +47,7 @@ class CustomInfoScene extends PureComponent {
         let formData = new FormData();
         formData.append('tokenVal', PostUrl.tokenVal);
         formData.append('userId', PostUrl.userId);
-        formData.append('c_id', this.state.c_id)
+        formData.append('c_id', this.state.c_id);
 
         var opts = {
             method:"POST",
@@ -87,7 +87,6 @@ class CustomInfoScene extends PureComponent {
                             <Text style={styles.valueLabel}>客户名称*</Text>
                             <Text style={styles.valueText}> {this.state.data.c_name}</Text>
                         </View>
-
                         <View style={styles.valueRow}>
                             <Text style={styles.valueLabel}>联系电话*</Text>
                             <Text style={styles.valueText}> {this.state.data.c_telphone}</Text>
@@ -132,10 +131,8 @@ class CustomInfoScene extends PureComponent {
                             <Text style={styles.valueLabel}>备注</Text>
                             <Text style={styles.valueText}> {this.state.data.c_desc}</Text>
                         </View>
-
                     </View>
                 </ScrollView>
-
             )
         }
     }

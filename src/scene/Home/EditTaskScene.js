@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { View, Text, ScrollView ,TouchableOpacity,Alert,Switch, ListView, Image, StatusBar, FlatList, StyleSheet, TextInput, Button,DeviceEventEmitter } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+import Moment from 'moment'
 import styles from '../../widget/FormStyle'
 import MyIcon from '../../widget/MyIcon'
 import MyDatePicker from '../../widget/MyDatePicker'
@@ -84,7 +85,10 @@ class EditTaskScene extends PureComponent {
             t_name: '',
             c_name: '',
             t_desc: '',
-            status: false,
+            t_feedback: '',
+            t_status: '',
+            t_finishtime:  Moment(new Date()).format("YYYY-MM-DD"),
+            status: '未完成',
         };
     }
 
@@ -110,7 +114,8 @@ class EditTaskScene extends PureComponent {
                     t_name: responseText.dataValue.t_name,
                     c_name: responseText.dataValue.c_name,
                     t_desc: responseText.dataValue.t_desc,
-                    status: responseText.dataValue.t_status == 1 ? true:false,
+                    status: responseText.dataValue.t_status == 1 ? '已完成':'未完成',
+                    t_endtime: responseText.dataValue.t_endtime,
                 })
             })
             .catch((error) => {
@@ -119,7 +124,7 @@ class EditTaskScene extends PureComponent {
     }
 
     postRequest(){
-        if (this.state.date == '' || this.state.t_name == ''){
+        if ( this.state.t_name == ''|| this.state.t_finishtime == '' || this.state.t_feedback == ''){
             Alert.alert('提示','必填项不能为空');
             return;
         }
@@ -131,16 +136,18 @@ class EditTaskScene extends PureComponent {
         formData.append('t_date',this.state.date);
         formData.append('c_name',this.state.c_name);
         formData.append('t_desc',this.state.t_desc);
-        formData.append('t_status',this.state.t_status);
+        formData.append('t_status',this.state.status);
         formData.append('t_id',this.state.t_id);
         formData.append('u_id',this.state.u_id);
         formData.append('c_id',this.state.c_id);
+        formData.append('t_finishtime',this.state.t_finishtime);
+        formData.append('t_feedback',this.state.t_feedback);
 
         let sign = '{t_name:"' + this.state.t_name + '"},' +
                     '{t_date:"' + this.state.date + '"},' +
                     '{c_name:"' + this.state.c_name + '"},' +
                     '{t_desc:"' + this.state.t_desc + '"},' +
-                    '{t_status:"' + this.state.t_status + '"},'+
+                    '{t_status:"' + this.state.status + '"},'+
                     '{t_id:"' + this.state.t_id + '"},'+
                     '{u_id:"' + this.state.u_id + '"},'+
                     '{c_id:"' + this.state.c_id + '"},';
@@ -176,7 +183,7 @@ class EditTaskScene extends PureComponent {
     }
 
     set_c_gettime(date){
-        this.setState({date: date})
+        this.setState({t_finishtime: date})
     }
 
     set_t_status(status){
@@ -193,15 +200,32 @@ class EditTaskScene extends PureComponent {
             return(
                 <ScrollView>
                     <View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>开始日期*</Text>
+                            <TextInput placeholder='任务名称'
+                                       style={styles.TextInputs} underlineColorAndroid="transparent"
+                                       onChangeText={(text)=>this.setState({t_name:text})}
+                                       defaultValue={this.state.date}
+                                       editable={false}
+                            />
+                        </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>截止日期*</Text>
+                            <TextInput placeholder='任务名称'
+                                       style={styles.TextInputs} underlineColorAndroid="transparent"
+                                       onChangeText={(text)=>this.setState({t_name:text})}
+                                       defaultValue={this.state.t_endtime}
+                                       editable={false}
+                            />
+                        </View>
                         <View style={styles.fristformRow}>
                             <View style={styles.lineHeightAllDate}>
-                                <Text style={styles.lineHeightAll}>执行日期*</Text>
+                                <Text style={styles.lineHeightAll}>完成日期*</Text>
                             </View>
 
                             <View style={{alignItems: "flex-end"}}>
                             <MyDatePicker style={styles.TextInputs}
                                           set_c_gettime={date=>this.set_c_gettime(date)}
-                                          date={this.state.date}
                             />
                             </View>
                         </View>
@@ -212,6 +236,7 @@ class EditTaskScene extends PureComponent {
                                        style={styles.TextInputs} underlineColorAndroid="transparent"
                                        onChangeText={(text)=>this.setState({t_name:text})}
                                        defaultValue={this.state.t_name}
+                                       editable={false}
                             />
                         </View>
 
@@ -225,26 +250,41 @@ class EditTaskScene extends PureComponent {
                             />
                         </View>
 
-                        <View style={styles.fristformRow}>
-                            <Text style={[styles.lineHeightAllDate,styles.lineHeightAll,{lineHeight:35}]}>任务状态*</Text>
-                            <MySwitch style={[styles.textInput]} set_t_status={status=>this.set_t_status(this.state.status)} state={this.state.status} />
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>完成状态*</Text>
+                            <TextInput placeholder='完成状态'
+                                       style={styles.TextInputs} underlineColorAndroid="transparent"
+                                       onChangeText={(text)=>this.setState({t_name:text})}
+                                       defaultValue={this.state.status}
+                                       editable={false}
+                            />
                         </View>
 
                         <View style={styles.formRowContents}>
-                            <Text style={styles.lineHeightAll}>备注</Text>
+                            <Text style={styles.lineHeightAll}>任务内容</Text>
                             <TextInput style={styles.TextInputContents}
-                                       placeholder="备注内容"
+                                       placeholder="任务内容"
                                        underlineColorAndroid="transparent"
                                        onChangeText={(text)=>this.setState({t_desc:text})}
                                        defaultValue={this.state.t_desc}
                                        multiline={true}
+                                       editable={false}
                             />
                         </View>
+                        <View style={styles.formRow}>
+                            <Text style={styles.lineHeightAll}>任务反馈*</Text>
+                            <TextInput placeholder='任务反馈'
+                                       style={styles.TextInputs} underlineColorAndroid="transparent"
+                                       onChangeText={(text)=>this.setState({t_feedback:text})}
+                            />
+                        </View>
+
                         <View style={styles.formBtnRow}>
                             <TouchableOpacity style={styles.submitBtn} onPress={this.postRequest.bind(this)}>
-                                <Text style={styles.submitBtnText}>修改</Text>
+                                <Text style={styles.submitBtnText}>完成任务</Text>
                             </TouchableOpacity>
                         </View>
+
                     </View>
                 </ScrollView>
             );

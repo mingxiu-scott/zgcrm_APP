@@ -29,6 +29,7 @@ import EditTaskScene from './EditTaskScene';
 import EditLogScene from './EditLogScene';
 import EditFollowScene from './EditFollowScene';
 import EditChanceScene from './EditChanceScene';
+import MySubordinateChooseScene from  './MySubordinateChooseScene';
 
 import NavStyle from '../../widget/NavStyle'
 import UserPicker from '../../widget/UserPicker'
@@ -338,6 +339,9 @@ const HomeStack = StackNavigator({
     },
     Welfare:{
         screen: Welfare,
+    },
+    MySubordinateChooseScene:{
+        screen: MySubordinateChooseScene,
     }
 },{
     navigationOptions: {
