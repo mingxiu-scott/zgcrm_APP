@@ -19,6 +19,7 @@ class EditTaskScene extends PureComponent {
                 style={{padding: 10, marginRight:5, marginTop:3}}
                 onPress={()=> Alert.alert('提示','你确定删除这个任务吗?',[
                     {text:'确定',onPress:()=>{
+
                         let url = PostUrl.deleteTasksJsonUrl;
                         let formData = new FormData();
 
@@ -93,6 +94,7 @@ class EditTaskScene extends PureComponent {
     }
 
     componentWillMount() {
+
         let url = PostUrl.getTaskInfoJsonUrl;
         let formData = new FormData();
         formData.append('tokenVal', PostUrl.tokenVal);
@@ -116,6 +118,8 @@ class EditTaskScene extends PureComponent {
                     t_desc: responseText.dataValue.t_desc,
                     status: responseText.dataValue.t_status == 1 ? '已完成':'未完成',
                     t_endtime: responseText.dataValue.t_endtime,
+                    t_feedback: responseText.dataValue.t_feedback,
+                    t_finishtime: responseText.dataValue.t_finishtime,
                 })
             })
             .catch((error) => {
@@ -174,8 +178,7 @@ class EditTaskScene extends PureComponent {
         fetch(url,opts).then((response)=>{
             return response.json();
         }).then((responseText)=>{
-
-            DeviceEventEmitter.emit('changeTasksInfo', this.state)
+            DeviceEventEmitter.emit('changeTasksInfo', this.state);
             Alert.alert('提示',responseText.message);
         }).catch((error)=>{
             alert(error);
@@ -188,6 +191,14 @@ class EditTaskScene extends PureComponent {
 
     set_t_status(status){
         this.setState({status:status});
+    }
+
+    changeStatus(){
+        if(this.state.status == '未完成'){
+            this.setState({status:'已完成'});
+        }else{
+            this.setState({status:'未完成'});
+        }
     }
 
     render(){
@@ -226,6 +237,7 @@ class EditTaskScene extends PureComponent {
                             <View style={{alignItems: "flex-end"}}>
                             <MyDatePicker style={styles.TextInputs}
                                           set_c_gettime={date=>this.set_c_gettime(date)}
+                                          date = {this.state.t_finishtime}
                             />
                             </View>
                         </View>
@@ -252,12 +264,10 @@ class EditTaskScene extends PureComponent {
 
                         <View style={styles.formRow}>
                             <Text style={styles.lineHeightAll}>完成状态*</Text>
-                            <TextInput placeholder='完成状态'
-                                       style={styles.TextInputs} underlineColorAndroid="transparent"
-                                       onChangeText={(text)=>this.setState({t_name:text})}
-                                       defaultValue={this.state.status}
-                                       editable={false}
-                            />
+                            <Text placeholder='完成状态'
+                                  style={{position:'absolute',right:15, border: 1}}
+                                  onPress={()=>this.changeStatus()}
+                            >{this.state.status}</Text>
                         </View>
 
                         <View style={styles.formRowContents}>
@@ -276,15 +286,14 @@ class EditTaskScene extends PureComponent {
                             <TextInput placeholder='任务反馈'
                                        style={styles.TextInputs} underlineColorAndroid="transparent"
                                        onChangeText={(text)=>this.setState({t_feedback:text})}
+                                       defaultValue={this.state.t_feedback}
                             />
                         </View>
-
                         <View style={styles.formBtnRow}>
                             <TouchableOpacity style={styles.submitBtn} onPress={this.postRequest.bind(this)}>
-                                <Text style={styles.submitBtnText}>完成任务</Text>
+                                <Text style={styles.submitBtnText}>确定</Text>
                             </TouchableOpacity>
                         </View>
-
                     </View>
                 </ScrollView>
             );

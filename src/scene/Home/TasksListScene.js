@@ -5,6 +5,7 @@ import ListStyle from '../../widget/ListStyle'
 import PostUrl from "../../widget/PostUrl";
 import DatePickerYYMM from '../../widget/DatePickerYYMM'
 import UserPicker from '../../widget/UserPicker'
+import TaskStatusPicker from '../../widget/TaskStatusPicker'
 import MyIcon from '../../widget/MyIcon'
 
 import EditTaskScene from './EditTaskScene';
@@ -35,6 +36,7 @@ class TasksListScene extends PureComponent{
             select_uid: PostUrl.userId,
             select_uid_list: null,
             date: Moment(new Date()).format("YYYY-MM"),
+            status: 2,
         };
     }
     componentDidMount() {
@@ -43,7 +45,6 @@ class TasksListScene extends PureComponent{
         });
         this._getTaskListJson(PostUrl.userId, this.state.date)
     }
-
     _changeListUid(changeUid){
         this.setState({
             select_uid: changeUid,
@@ -53,23 +54,27 @@ class TasksListScene extends PureComponent{
 
     set_c_gettime(date){
         this.setState({date: date});
-        this._getTaskListJson(this.state.select_uid, date)
+        this._getTaskListJson(this.state.select_uid, date);
     }
 
     set_userInfo(userId,userName){
         this._changeListUid(userId)
     }
-
+    set_statusInfo(statusID,username){
+        this.setState({
+            status: statusID,
+        });
+        this._getTaskListJson(this.state.select_uid, this.state.date);
+    }
     _getTaskListJson(userId, date){
-
         UserPicker.closeUserPicker();
-
         let url = PostUrl.getTaskJsonUrl;
         let formData = new FormData();
+
         formData.append('tokenVal', PostUrl.tokenVal);
         formData.append('userId', userId);
         formData.append('date', date);
-
+        formData.append('t_status',this.state.status);
         var opts = {
             method:"POST",
             body:formData
@@ -93,7 +98,6 @@ class TasksListScene extends PureComponent{
                 alert(error)
             });
     }
-
     _renderRow(rowData, sectionId, rowID, highlightRow){
 
         const { navigate } = this.props.navigation;
@@ -106,7 +110,7 @@ class TasksListScene extends PureComponent{
                         navigate('EditTaskScene', {
                             t_id: rowData.t_id,
                             u_id: rowData.u_id,
-                            c_id: rowData.c_id
+                            c_id: rowData.c_id,
                         })
                     }}
                 >
@@ -163,6 +167,7 @@ class TasksListScene extends PureComponent{
                     <View style={styles.topBox}>
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
                         <DatePickerYYMM style={{textAlign: 'center'}} set_c_gettime={date=>this.set_c_gettime(date)} />
+                        <TaskStatusPicker set_userInfo={(userId,userName)=>this.set_statusInfo(userId,userName)}/>
                     </View>
                 </View>
             )
@@ -172,8 +177,8 @@ class TasksListScene extends PureComponent{
                     <View style={styles.topBox}>
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
                         <DatePickerYYMM style={{textAlign: 'center'}} set_c_gettime={date=>this.set_c_gettime(date)} />
+                        <TaskStatusPicker set_userInfo={(userId,userName)=>this.set_statusInfo(userId,userName)}/>
                     </View>
-
                     <ListView
                         dataSource={this.state.data}
                         renderRow={this._renderRow.bind(this)}

@@ -45,6 +45,7 @@ class CreateTaskScene extends PureComponent {
 
     postRequest(){
 
+
         if (this.state.t_date == '' ||
             this.state.t_name == ''||
             this.state.t_desc == '' ||
