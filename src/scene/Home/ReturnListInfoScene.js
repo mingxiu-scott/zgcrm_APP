@@ -19,6 +19,11 @@ class ReturnListInfoScene extends PureComponent{
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
             </TouchableOpacity>
         ),
+        headerRight: (
+            <View>
+                <Text> </Text>
+            </View>
+        ),
     });
 
     constructor(props){
@@ -122,8 +127,6 @@ class ReturnListInfoScene extends PureComponent{
             );
         }
     }
-
-
     render(){
         const { navigate } = this.props.navigation;
         if(!this.state.data){

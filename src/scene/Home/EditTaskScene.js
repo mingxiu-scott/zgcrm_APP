@@ -38,6 +38,7 @@ class EditTaskScene extends PureComponent {
                         let signVal = md.digest().toHex();
 
                         formData.append('signVal', signVal);
+
                         formData.append('tokenVal', PostUrl.tokenVal);
 
                         let opts = {
@@ -53,7 +54,6 @@ class EditTaskScene extends PureComponent {
                                     navigation.goBack();
                                 }}
                                 ]);
-                            //跳转返回上个页面
                         }).catch((error)=>{
                             alert(error);
                         });
@@ -68,7 +68,7 @@ class EditTaskScene extends PureComponent {
             <TouchableOpacity
                 style={{padding: 10, marginLeft:5, marginTop:3}}
                 onPress={()=> {
-                    navigation.goBack()
+                    navigation.goBack();
                 }}
             >
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
@@ -94,7 +94,6 @@ class EditTaskScene extends PureComponent {
     }
 
     componentWillMount() {
-
         let url = PostUrl.getTaskInfoJsonUrl;
         let formData = new FormData();
         formData.append('tokenVal', PostUrl.tokenVal);
@@ -136,6 +135,7 @@ class EditTaskScene extends PureComponent {
         let url = PostUrl.editTasksJsonUrl;
 
         let formData = new FormData();
+
         formData.append('t_name',this.state.t_name);
         formData.append('t_date',this.state.date);
         formData.append('c_name',this.state.c_name);
@@ -200,7 +200,6 @@ class EditTaskScene extends PureComponent {
             this.setState({status:'未完成'});
         }
     }
-
     render(){
 
         if (this.state.date == ''){
@@ -233,7 +232,6 @@ class EditTaskScene extends PureComponent {
                             <View style={styles.lineHeightAllDate}>
                                 <Text style={styles.lineHeightAll}>完成日期*</Text>
                             </View>
-
                             <View style={{alignItems: "flex-end"}}>
                             <MyDatePicker style={styles.TextInputs}
                                           set_c_gettime={date=>this.set_c_gettime(date)}
@@ -241,7 +239,6 @@ class EditTaskScene extends PureComponent {
                             />
                             </View>
                         </View>
-
                         <View style={styles.formRow}>
                             <Text style={styles.lineHeightAll}>任务名称*</Text>
                             <TextInput placeholder='任务名称'
@@ -251,7 +248,6 @@ class EditTaskScene extends PureComponent {
                                        editable={false}
                             />
                         </View>
-
                         <View style={styles.formRow}>
                             <Text style={styles.lineHeightAll}>客户名称*</Text>
                             <TextInput placeholder='客户姓名'
@@ -261,7 +257,6 @@ class EditTaskScene extends PureComponent {
                                        editable={false}
                             />
                         </View>
-
                         <View style={styles.formRow}>
                             <Text style={styles.lineHeightAll}>完成状态*</Text>
                             <Text placeholder='完成状态'
@@ -269,7 +264,6 @@ class EditTaskScene extends PureComponent {
                                   onPress={()=>this.changeStatus()}
                             >{this.state.status}</Text>
                         </View>
-
                         <View style={styles.formRowContents}>
                             <Text style={styles.lineHeightAll}>任务内容</Text>
                             <TextInput style={styles.TextInputContents}

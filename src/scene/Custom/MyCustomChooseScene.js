@@ -85,7 +85,6 @@ class MyCustomChooseScene extends PureComponent {
                 <View style={customerStyles.itemConnect}>
                     <View style={customerStyles.itemContentView}>
                         <View style={customerStyles.itemRow}>
-
                             <View style={customerStyles.itemRowOne}>
                                 <Text style={customerStyles.itemRowLabel}>姓名：</Text>
                                 <Text style={customerStyles.itemRowVal}>{rowData.c_name}</Text>
@@ -94,7 +93,6 @@ class MyCustomChooseScene extends PureComponent {
                                 <Text style={customerStyles.itemRowLabel}>昵称：</Text>
                                 <Text style={customerStyles.itemRowVal}>{rowData.c_called}</Text>
                             </View>
-
                         </View>
                     </View>
                 </View>
@@ -157,7 +155,6 @@ const customerStyles=StyleSheet.create({
     container:{
         flex:1,
         flexDirection:'column',
-        //backgroundColor:'white',
     },
     textInput:{
         borderWidth:1,

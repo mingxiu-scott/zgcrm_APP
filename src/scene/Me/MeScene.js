@@ -12,35 +12,7 @@ import MyIcon from '../../widget/MyIcon'
 class MeScene extends PureComponent {
 
     static navigationOptions =  ({navigation}) =>({
-        headerTitle: '我',
-        headerRight: (
-            <TouchableOpacity
-                style={{padding: 10, marginRight:5, marginTop:3}}
-                onPress={()=> Alert.alert('提示','你确定注销账号吗？',[{
-                    text: '确定',onPress:()=>{
-                        AsyncStorage.removeItem('uid',function (error) {
-                            if (error){
-                                return;
-                            }
-                            Alert.alert('提示','注销成功');
-                        });
-
-                        navigation.navigate('LoginScreen');
-                        const reAction =  NavigationActions.reset({
-                            index: 0,
-                            actions: [
-                                NavigationActions.navigate({routeName:'LoginScreen'})//要跳转到的页面名字
-                            ]
-                        });
-                        navigation.dispatch(reAction);
-                    }
-                },{
-                    text: '取消',
-                }])}
-            >
-                <Text style={{color:'white'}}>退出</Text>
-            </TouchableOpacity>
-        ),
+        headerTitle: '我的',
     });
     constructor(props){
         super(props);
@@ -55,7 +27,6 @@ class MeScene extends PureComponent {
         this._getUserJson(PostUrl.userId);
     }
     _getUserJson(userId){
-
         let url = PostUrl.getUsersJson;
         let formData = new FormData();
         formData.append('tokenVal', PostUrl.tokenVal);
@@ -103,7 +74,6 @@ class MeScene extends PureComponent {
 
             return(
                 <ScrollView>
-
                     <View>
                         <View style={styles.valueRow}>
                             <Text style={styles.valueLabel}>用户名</Text>
@@ -136,6 +106,45 @@ class MeScene extends PureComponent {
                         </View>
                     </TouchableOpacity>
 
+                    <TouchableOpacity style={{marginTop:20}}
+                                      onPress={()=> Alert.alert('提示','你确定注销账号吗？',[{
+                                          text: '确定',onPress:()=>{
+                                              AsyncStorage.removeItem('uid',function (error) {
+                                                  if (error){
+                                                      return;
+                                                  }
+                                                  Alert.alert('提示','注销成功');
+                                              });
+
+                                              navigate('LoginScreen');
+                                              const reAction =  NavigationActions.reset({
+                                                  index: 0,
+                                                  actions: [
+                                                      NavigationActions.navigate({routeName:'LoginScreen'})//要跳转到的页面名字
+                                                  ]
+                                              });
+                                              this.props.navigation.dispatch(reAction);
+                                          }
+                                      },{
+                                          text: '取消',
+                                      }])}
+                    >
+                        <View style={styles.valueRow}>
+                            <Text style={styles.valueLabel}>退出登录</Text>
+                            <MyIcon  sorceName={'angle-right'} sorceColor={'#7C868F'} sorceSize={20}/>
+                        </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{marginTop:20}}
+                                      onPress={()=>{
+
+                                      }}
+                    >
+                        <View style={styles.valueRow}>
+                            <Text style={styles.valueLabel}>关于</Text>
+                            <MyIcon  sorceName={'angle-right'} sorceColor={'#7C868F'} sorceSize={20}/>
+                        </View>
+                    </TouchableOpacity>
                 </ScrollView>
 
             );

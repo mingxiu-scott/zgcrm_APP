@@ -16,13 +16,18 @@ class CreateTaskScene extends PureComponent {
         headerTitle: '录任务',
         headerLeft: (
             <TouchableOpacity
-                style={{padding: 10, marginLeft:5, marginTop:3}}
+                style={{ padding: 10, marginLeft:5, marginTop:3}}
                 onPress={()=> {
-                    navigation.goBack()
+                    navigation.goBack();
                 }}
             >
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
             </TouchableOpacity>
+        ),
+        headerRight: (
+            <View>
+                <Text> </Text>
+            </View>
         ),
     });
 
@@ -42,10 +47,7 @@ class CreateTaskScene extends PureComponent {
             xiashu_id: '',
         };
     }
-
     postRequest(){
-
-
         if (this.state.t_date == '' ||
             this.state.t_name == ''||
             this.state.t_desc == '' ||
@@ -145,7 +147,6 @@ class CreateTaskScene extends PureComponent {
 
     render(){
         const { navigate } = this.props.navigation;
-
         return(
             <ScrollView>
             <View>

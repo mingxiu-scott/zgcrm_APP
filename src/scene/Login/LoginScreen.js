@@ -16,6 +16,7 @@ class LoginScreen extends PureComponent{
             password: '',
         }
     }
+
     async componentWillMount(){
        let mess = await AsyncStorage.getItem('uid', function(errs,res){
             if(errs){
@@ -32,6 +33,7 @@ class LoginScreen extends PureComponent{
            this._jumpToHome();
        }
     }
+
     _postRequest(){
 
         AsyncStorage.removeItem('uid',function (error) {
@@ -135,10 +137,9 @@ class LoginScreen extends PureComponent{
 
     render(){
         return(
-            <ImageBackground source={require('../../image/test.png')} style={{flex:1,}} resizeMode='cover'>
+            <ImageBackground source={require('../../image/Login3.png')} style={{flex:1,}} resizeMode='cover'>
                 <View style={{height:200,}}>
                 </View>
-
                 <View style={styles.username}>
                     <Text style={styles.labelUsername}>用户账号：</Text>
                     <View style={{flex:1.5}}>
@@ -149,7 +150,6 @@ class LoginScreen extends PureComponent{
                         />
                     </View>
                 </View>
-
                 <View style={styles.username}>
                     {/*用户密码*/}
                     <Text style={styles.labelUsername}>用户密码：</Text>
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
         textAlign:'right',
         fontSize:20,
         marginTop:5,
-        color:'black',
+        color:'#FFFFFF',
         backgroundColor:'rgba(0,0,0,0)',
     },
     usernameInput:{
@@ -210,14 +210,14 @@ const styles = StyleSheet.create({
         marginLeft:43,
         marginRight:50,
         height:40,
-        backgroundColor:'#FF9800'
+        backgroundColor:'#FFFFFF'
     },
     loginText:{
         flex:1,
         textAlign:'center',
         fontSize:20,
         marginTop:5,
-        color:'black'
+        color:'#FF9800'
     },
     otherText:{
         flexDirection:'row',

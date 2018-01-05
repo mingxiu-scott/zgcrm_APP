@@ -11,18 +11,23 @@ import MyIcon from '../../widget/MyIcon'
 class FlowsListScene extends PureComponent{
 
     static navigationOptions = ({navigation}) => ({
-        headerTitle:'跟踪记录',
+        headerTitle:'跟进记录',
         tabBarVisible: false,
         headerLeft: (
             <TouchableOpacity
                 style={{padding: 10, marginLeft:5, marginTop:3}}
                 onPress={()=> {
-                    UserPicker.closeUserPicker()
+                    UserPicker.closeUserPicker();
                     navigation.goBack()
                 }}
             >
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
             </TouchableOpacity>
+        ),
+        headerRight: (
+            <View>
+                <Text> </Text>
+            </View>
         ),
     });
     constructor(props){

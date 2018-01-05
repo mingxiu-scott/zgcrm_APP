@@ -11,16 +11,11 @@ class OrderListInfoScene extends PureComponent{
     static navigationOptions = ({navigation}) => ({
         headerTitle: '理财详情',
         tabBarVisible: false,
-        /*
         headerRight: (
-            <TouchableOpacity
-                style={{padding: 10, marginRight:5, marginTop:3}}
-                onPress={()=> navigation.navigate('OrderListEditScene',{o_id: navigation.state.params.o_id})}
-            >
-                <MyIcon sorceName={'pencil-square-o'} sorceSize={18} sorceColor={'#ffffff'}/>
-            </TouchableOpacity>
+            <View>
+                <Text> </Text>
+            </View>
         ),
-        */
         headerLeft: (
             <TouchableOpacity
                 style={{padding: 10, marginLeft:5, marginTop:3}}

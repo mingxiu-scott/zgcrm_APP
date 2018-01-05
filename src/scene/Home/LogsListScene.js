@@ -27,6 +27,11 @@ class LogsListScene extends PureComponent{
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
             </TouchableOpacity>
         ),
+        headerRight: (
+            <View>
+                <Text> </Text>
+            </View>
+        ),
     });
 
     constructor(props){

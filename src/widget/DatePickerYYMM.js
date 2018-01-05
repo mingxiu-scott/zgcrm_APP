@@ -4,7 +4,7 @@ import Moment from 'moment';
 
 class DatePickerYYMM extends PureComponent{
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
             date: props.date ? props.date : Moment(new Date()).format("YYYY-MM"),
         }
@@ -13,7 +13,7 @@ class DatePickerYYMM extends PureComponent{
     ownerChange = function (date) {
         this.props.set_c_gettime(date);
         this.setState({date: date});
-    }
+    };
 
     render(){
         return (

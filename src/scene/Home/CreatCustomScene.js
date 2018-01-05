@@ -38,13 +38,18 @@ class CreatCustomScene extends PureComponent {
         tabBarVisible: false,
         headerLeft: (
             <TouchableOpacity
-                style={{padding: 10, marginLeft:5, marginTop:3}}
+                    style={{padding: 10, marginLeft:5, marginTop:3}}
                 onPress={()=> {
                     navigation.goBack()
                 }}
             >
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
             </TouchableOpacity>
+        ),
+        headerRight: (
+            <View>
+                <Text> </Text>
+            </View>
         ),
     });
 
@@ -127,7 +132,6 @@ class CreatCustomScene extends PureComponent {
                 alert(error)
             })
     }
-
     onSelect(index,value){
         this.setState({
             c_sex:value
@@ -168,15 +172,6 @@ class CreatCustomScene extends PureComponent {
             >
                 <ScrollView>
                     <View>
-                        {/*<View style={styles.fristformRow}>*/}
-                        {/*<View style={styles.lineHeightAllDate}>*/}
-                        {/*<Text style={styles.lineHeightAll}>获取时间*</Text>*/}
-                        {/*</View>*/}
-
-                        {/*<View style={{alignItems: "flex-end"}}>*/}
-                        {/*<MyDatePicker style={styles.TextInputs} set_c_gettime={date=>this.set_c_gettime(date)} />*/}
-                        {/*</View>*/}
-                        {/*</View>*/}
                         <View style={styles.formRow}>
                             <Text style={styles.lineHeightAll}>获取时间*</Text>
                             <TextInput

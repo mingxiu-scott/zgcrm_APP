@@ -40,15 +40,12 @@ class HomeScene extends PureComponent {
     static navigationOptions = {
         headerTitle: '工作台',
     };
-
     componentDidMount(){
         BackHandler.addEventListener('hardwareBackPress',function(){
             UserPicker.closeUserPicker();
         });
     }
-
     render() {
-
         const { navigate } = this.props.navigation;
         const myIconSize = 34;
 

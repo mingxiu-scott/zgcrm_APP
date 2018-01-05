@@ -27,6 +27,11 @@ class ChancesListScene extends PureComponent{
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
             </TouchableOpacity>
         ),
+        headerRight: (
+            <View>
+                <Text> </Text>
+            </View>
+        ),
     });
 
     constructor(props){
@@ -233,6 +238,6 @@ const styles = StyleSheet.create({
         height: 30,
         borderColor: '#e3e3e3',
     },
-})
+});
 
 export default ChancesListScene;
