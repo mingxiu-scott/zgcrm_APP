@@ -4,11 +4,11 @@ import { View, Text, ScrollView, Image, StyleSheet, TextInput, ListView, Touchab
 import PostUrl from '../../widget/PostUrl'
 import MyIcon from '../../widget/MyIcon'
 
-class MyCustomChooseScene extends PureComponent {
+class MyRoleChooseScene extends PureComponent {
 
     static  navigationOptions =({navigation})=>({
         tabBarVisible: false,
-        headerTitle: '选择客户',
+        headerTitle: '选择角色',
         headerLeft: (
             <TouchableOpacity
                 style={{padding: 10, marginLeft:5, marginTop:3}}
@@ -27,24 +27,27 @@ class MyCustomChooseScene extends PureComponent {
         })
     }
     componentDidMount() {
-        this._getCustomsJson('');
+        this._getRolesJson('');
     }
 
     back(state, goBack, customItem){
         state.params.callback(customItem);
         goBack();
     }
-    _getCustomsJson(cname){
-        let url = PostUrl.getCustomsJsonUrl;
+    _getRolesJson(cname){
+
+        let url = PostUrl.getRoleJsonUrl;
         let formData = new FormData();
         formData.append('tokenVal', PostUrl.tokenVal);
-        formData.append('userId', PostUrl.userId);
+        formData.append('cname',cname);
+
+        formData.append('userID',PostUrl.userId);
+
 
         if (cname != '')
         {
             formData.append('search_cname', cname);
         }
-
         var opts = {
             method:"POST",
             body:formData
@@ -70,31 +73,22 @@ class MyCustomChooseScene extends PureComponent {
             })
     }
 
-    _searchCustom(data){
-        this._getCustomsJson(data);
+    _searchRoles(data){
+        this._getRolesJson(data);
     }
     _renderRow(rowData, sectionId, rowID, highlightRow) {
-
         const  {goBack, state} = this.props.navigation;
-
         return (
             <TouchableOpacity
                 onPress={()=>this.back(state, goBack, rowData)}
             >
-                <View style={customerStyles.itemConnect}>
-                    <View style={customerStyles.itemContentView}>
-                        <View style={customerStyles.itemRow}>
-
-                            <View style={customerStyles.itemRowOne}>
-                                <Text style={customerStyles.itemRowLabel}>姓名：</Text>
-                                <Text style={customerStyles.itemRowVal}>{rowData.c_name}</Text>
+                <View style={roleStyles.itemConnect}>
+                    <View style={roleStyles.itemContentView}>
+                        <View style={roleStyles.itemRow}>
+                            <View style={roleStyles.itemRowOne}>
+                                <Text style={roleStyles.itemRowLabel}>角色名：</Text>
+                                <Text style={roleStyles.itemRowVal}>{rowData.r_name}</Text>
                             </View>
-
-                            <View style={customerStyles.itemRowOne}>
-                                <Text style={customerStyles.itemRowLabel}>昵称：</Text>
-                                <Text style={customerStyles.itemRowVal}>{rowData.c_called}</Text>
-                            </View>
-
                         </View>
                     </View>
                 </View>
@@ -102,7 +96,6 @@ class MyCustomChooseScene extends PureComponent {
         );
     }
     render() {
-
         if (!this.state.data){
             return (
                 <Text>loading...</Text>
@@ -110,7 +103,7 @@ class MyCustomChooseScene extends PureComponent {
         }
         else if (this.state.data == 'noResault'){
             return (
-                <View style={customerStyles.container}>
+                <View style={roleStyles.container}>
                     <View style={{flexDirection:'row', height:60,backgroundColor:'white',marginBottom: 10}}>
                         <TextInput
                             style={{ flex:2,
@@ -121,7 +114,7 @@ class MyCustomChooseScene extends PureComponent {
                             }}
                             placeholder={'   请输入客户名'}  //占位符
                             underlineColorAndroid='transparent' //设置下划线背景色
-                            onChangeText = {this._searchCustom.bind(this)}
+                            onChangeText = {this._searchRoles.bind(this)}
                         />
                     </View>
                 </View>
@@ -129,7 +122,7 @@ class MyCustomChooseScene extends PureComponent {
         }
         else{
             return (
-                <View style={customerStyles.container}>
+                <View style={roleStyles.container}>
                     <View style={{flexDirection:'row', height:60,backgroundColor:'white',marginBottom: 10}}>
                         <TextInput
                             style={{ flex:2,
@@ -140,7 +133,7 @@ class MyCustomChooseScene extends PureComponent {
                             }}
                             placeholder={'   请输入客户名'}  //占位符
                             underlineColorAndroid='transparent' //设置下划线背景色
-                            onChangeText = {this._searchCustom.bind(this)}
+                            onChangeText = {this._searchRoles.bind(this)}
                         />
                     </View>
                     <ListView
@@ -152,7 +145,7 @@ class MyCustomChooseScene extends PureComponent {
         }
     }
 }
-const customerStyles=StyleSheet.create({
+const roleStyles=StyleSheet.create({
     container:{
         flex:1,
         flexDirection:'column',
@@ -210,4 +203,4 @@ const customerStyles=StyleSheet.create({
     }
 });
 
-export default MyCustomChooseScene;
+export default MyRoleChooseScene;

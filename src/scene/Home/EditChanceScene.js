@@ -216,7 +216,6 @@ class EditChanceScene extends PureComponent {
                                        defaultValue={this.state.data.c_name}
                                        editable={false}
                             />
-
                         </View>
 
                         <View style={styles.formRow}>

@@ -1,7 +1,7 @@
 //let http = 'http://192.168.2.159/zg_crm/'
-// let http = 'http://192.168.2.182/zg_crm/';
+let http = 'http://192.168.2.182/zg_crm/';
 // let http = 'http://192.168.1.152/zg_crm/'
-let http = 'http://111.230.140.245:1212/zg_crm/';
+// let http = 'http://111.230.140.245:1212/zg_crm/';
 
 const PostUrl = {
     userId: '',
@@ -52,7 +52,12 @@ const PostUrl = {
 
     getWelfareUrl: http + 'index.php/Home/Welfare/getwelfare',
     getSubordinateJsonUrl: http + 'index.php/Home/User/getUsersListsJson2',
-};
+    createSubordinateJsonUrl: http +'index.php/Home/User/create_user',
 
+    getRoleJsonUrl: http + 'index.php/Home/Roles/getRoles',
+    createRoleJsonUrl: http +'index.php/Home/Roles/create_role',
+
+    getStorsJsonUrl: http + 'index.php/Home/Stors/get_stors',
+};
 
 export default PostUrl;

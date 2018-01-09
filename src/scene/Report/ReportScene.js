@@ -176,7 +176,6 @@ class ReportScene extends PureComponent {
                                 <Text style={style.moneyVal}>{this.state.data.followsCount} 次</Text>
                             </View>
                         </View>
-
                     </ScrollView>
                 </View>
             );

@@ -27,7 +27,7 @@ class CreateChanceScene extends PureComponent {
                 <Text> </Text>
             </View>
         ),
-    })
+    });
 
     constructor(props) {
         super(props);

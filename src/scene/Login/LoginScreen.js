@@ -35,7 +35,6 @@ class LoginScreen extends PureComponent{
     }
 
     _postRequest(){
-
         AsyncStorage.removeItem('uid',function (error) {
             if (error){
                 return;
@@ -231,7 +230,6 @@ const LoginStack = StackNavigator({
     RootScene:{
         screen:RootScene,
     },
-
 },{
     headerMode:'none',
     navigationOptions:{

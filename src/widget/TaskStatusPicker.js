@@ -54,7 +54,7 @@ export default class TaskStatusPicker extends Component {
                 this._set_userInfo(userId, pickedValue)
             },
             onPickerCancel: (pickedValue, pickedIndex) => {
-                alert(pickedIndex);
+                //alert(pickedIndex);
                 return;
             },
             onPickerSelect: (pickedValue, pickedIndex) => {

@@ -30,6 +30,10 @@ import EditLogScene from './EditLogScene';
 import EditFollowScene from './EditFollowScene';
 import EditChanceScene from './EditChanceScene';
 import MySubordinateChooseScene from  './MySubordinateChooseScene';
+import CreateSubordinateScene from  './CreateSubordinateScene';
+import CreateRoleScene from './CreateRoleScene';
+import MyRoleChooseScene from './MyRoleChooseScene';
+import MyStorsChooseScene from  './MyStorsChooseScene';
 
 import NavStyle from '../../widget/NavStyle'
 import UserPicker from '../../widget/UserPicker'
@@ -113,11 +117,17 @@ class HomeScene extends PureComponent {
                         </Text>
                         <Text style={styles.contentText }>录任务</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.TOStyle}>
-                        <Text style={styles.contentText }/>
+                    <TouchableOpacity style={styles.TOStyle} onPress={ () => navigate('CreateSubordinateScene') }>
+                        <Text style={styles.myIconText}>
+                            <MyIcon sorceName={'user-plus'} sorceColor={'#9C89B9'} sorceSize={myIconSize}/>
+                        </Text>
+                        <Text style={styles.contentText }>录下属</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.TOStyle}>
-                        <Text style={styles.contentText }/>
+                    <TouchableOpacity style={styles.TOStyle} onPress={()=> navigate('CreateRoleScene')}>
+                        <Text style={styles.myIconText}>
+                            <MyIcon sorceName={'user-secret'} sorceColor={'#9C89B9'} sorceSize={myIconSize}/>
+                        </Text>
+                        <Text style={styles.contentText }>录角色</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -339,6 +349,18 @@ const HomeStack = StackNavigator({
     },
     MySubordinateChooseScene:{
         screen: MySubordinateChooseScene,
+    },
+    CreateSubordinateScene :{
+        screen: CreateSubordinateScene,
+    },
+    CreateRoleScene:{
+        screen: CreateRoleScene,
+    },
+    MyRoleChooseScene: {
+        screen: MyRoleChooseScene,
+    },
+    MyStorsChooseScene:{
+        screen: MyStorsChooseScene,
     }
 },{
     navigationOptions: {

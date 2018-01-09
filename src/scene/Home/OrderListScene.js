@@ -153,7 +153,6 @@ class OrderListScene extends Component{
                             <View>
                                 <Text style={styles.moneyInVal}>{rowData.o_money}</Text>
                             </View>
-
                         </View>
                         <View style={styles.flexColumn}>
                             <View>
@@ -189,12 +188,11 @@ class OrderListScene extends Component{
             </TouchableOpacity>
         )
     }
+
     render() {
         if(!this.state.data){
             return(
-
                 <View style={styles.container}>
-
                     <View style={styles.topBox}>
                         <View style={styles.searchBox}>
                             <FontAwesome name="search" size={16} color="gray" style={styles.searchIcon}/>
@@ -207,11 +205,9 @@ class OrderListScene extends Component{
                                 onFocus={this.showdatepicker = this.showdatepicker.bind(this)}
                             />
                         </View>
-
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
                         <DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />
                     </View>
-
                     <View>
                         <Text>无数据</Text>
                     </View>
