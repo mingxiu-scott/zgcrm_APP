@@ -9,7 +9,7 @@ import CreatCustomScene from './CreatCustomScene'
 import CreateFollowScene from './CreateFollowScene'
 import CreateTaskScene from './CreateTaskScene'
 import CreatLogScene from './CreatLogScene'
-import CreateChanceScene from "./CreateChanceScene";
+import CreateChanceScene from "./CreateChanceScene"
 import LogsListScene from './LogsListScene'
 import ChancesListScene from './ChancesListScene'
 import TasksListScene from './TasksListScene'
@@ -39,6 +39,10 @@ import CreateUserScene from './CreateUserScene';
 import NavStyle from '../../widget/NavStyle'
 import UserPicker from '../../widget/UserPicker'
 import Welfare from './Welfare'
+
+import UserListScene from './UserListScene';
+import Subordinate from './Subordinate'
+
 
 class HomeScene extends PureComponent {
 
@@ -118,7 +122,7 @@ class HomeScene extends PureComponent {
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.TOStyle} onPress={ () => navigate('CreateSubordinateScene') }>
                         <Text style={styles.myIconText}>
-                            <MyIcon sorceName={'user-plus'} sorceColor={'#9C89B9'} sorceSize={myIconSize}/>
+                            <MyIcon sorceName={'user-o'} sorceColor={'#9C89B9'} sorceSize={myIconSize}/>
                         </Text>
                         <Text style={styles.contentText }>录下属</Text>
                     </TouchableOpacity>
@@ -148,11 +152,22 @@ class HomeScene extends PureComponent {
                         </Text>
                         <Text style={styles.contentText }>跟进记录</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.TOStyle}>
-                        <Text style={styles.contentText }/>
+                    <TouchableOpacity style={styles.TOStyle}
+                                      onPress={() => navigate('UserListScene')}
+                    >
+                        <Text style={styles.myIconText}>
+                            <MyIcon sorceName={'comments'} sorceColor={'#F1745E'} sorceSize={myIconSize}/>
+                        </Text>
+                        <Text style={styles.contentText }>用户列表</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.TOStyle}>
-                        <Text style={styles.contentText }/>
+                    <TouchableOpacity
+                        style={styles.TOStyle}
+                        onPress={() => navigate('Subordinate')}
+                    >
+                        <Text style={styles.myIconText}>
+                            <MyIcon sorceName={'comments'} sorceColor={'#F1745E'} sorceSize={myIconSize}/>
+                        </Text>
+                        <Text style={styles.contentText }>下属列表</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -180,19 +195,16 @@ class HomeScene extends PureComponent {
                     <TouchableOpacity style={styles.TOStyle}>
                         <Text style={styles.contentText }/>
                     </TouchableOpacity>
-
                     <TouchableOpacity style={styles.TOStyle} onPress={()=> navigate('CreateUserScene')}>
                         <Text style={styles.myIconText}>
                             <MyIcon sorceName={'user-plus'} sorceColor={'#9C89B9'} sorceSize={myIconSize}/>
                         </Text>
                         <Text style={styles.contentText }>录员工</Text>
                     </TouchableOpacity>
-
                 </View>
 
                 <Text style={styles.listText}>我的工作</Text>
                 <View style={styles.rowChild}>
-
                     <TouchableOpacity
                         style={styles.TOStyle}
                         onPress={ () => navigate('LogsListScene') }
@@ -365,7 +377,13 @@ const HomeStack = StackNavigator({
     },
     CreateUserScene:{
         screen:CreateUserScene,
-    }
+    },
+    UserListScene:{
+        screen: UserListScene,
+    },
+    Subordinate:{
+        screen: Subordinate,
+    },
 },{
     navigationOptions: {
         headerTitleStyle: NavStyle.stackNavHeaderStyle,

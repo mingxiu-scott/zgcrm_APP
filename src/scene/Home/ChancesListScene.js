@@ -7,6 +7,9 @@ import DatePickerYYMM from '../../widget/DatePickerYYMM'
 import UserPicker from '../../widget/UserPicker'
 import MyIcon from '../../widget/MyIcon'
 
+import YearMonthPicker from '../../widget/YearMonthPicker';
+
+
 import EditChanceScene from './EditChanceScene';
 import Moment from 'moment'
 
@@ -74,6 +77,9 @@ class ChancesListScene extends PureComponent{
 
         UserPicker.closeUserPicker()
 
+        if (typeof (date) != 'string'){
+            date = date.toString();
+        }
         let url = PostUrl.getChanceJsonUrl;
         let formData = new FormData();
         formData.append('tokenVal', PostUrl.tokenVal);
@@ -105,7 +111,6 @@ class ChancesListScene extends PureComponent{
                 alert(error)
             });
     }
-
     _renderRow(rowData, sectionId, rowID, highlightRow){
 
         const { navigate } = this.props.navigation;
@@ -160,7 +165,9 @@ class ChancesListScene extends PureComponent{
                 <View>
                     <View style={styles.topBox}>
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-                        <DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />
+                        {/*<DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />*/}
+                        <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} />
+
                     </View>
                 </View>
             )
@@ -170,7 +177,8 @@ class ChancesListScene extends PureComponent{
                 <View>
                     <View style={styles.topBox}>
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-                        <DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />
+                        {/*<DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />*/}
+                        <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} />
                     </View>
 
                     <ListView

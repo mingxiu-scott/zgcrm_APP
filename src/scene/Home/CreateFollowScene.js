@@ -44,7 +44,7 @@ class CreateFollowScene extends PureComponent {
 
     postRequest() {
         if (
-            this.state.c_name == '' ||
+            this.state.c_name == '客户姓名' ||
             this.state.f_content == ''
         ) {
             Alert.alert('提示','必填项不可为空');

@@ -1,22 +1,12 @@
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    TextInput,
-    TouchableOpacity,
-    ListView,
-    Platform,
-    Picker,
-    Alert,
-} from 'react-native';
+import {StyleSheet, Text, View, TextInput, TouchableOpacity, ListView,} from 'react-native';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import PostUrl from '../../widget/PostUrl';
-import DatePickerYYMM from '../../widget/DatePickerYYMM'
-import UserPicker from '../../widget/UserPicker'
+ import UserPicker from '../../widget/UserPicker'
 import MyIcon from '../../widget/MyIcon'
 import OrderListInfo from './OrderListInfoScene';
+import YearMonthPicker from '../../widget/YearMonthPicker';
 
 import Moment from 'moment'
 
@@ -64,11 +54,16 @@ class OrderListScene extends Component{
 
         let url = PostUrl.getOrderListsJsonUrl;
         let formData = new FormData();
+
         formData.append('tokenVal', PostUrl.tokenVal);
         formData.append('userId', select_uid);
 
         if (date != ''){
+            if (typeof (date) != 'string'){
+                date = date.toString();
+            }
             formData.append('date', date);
+
         }
 
         if (select_uid != ''){
@@ -206,12 +201,11 @@ class OrderListScene extends Component{
                             />
                         </View>
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-                        <DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />
+                         <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} xiashuId={this.state.select_uid}/>
                     </View>
                     <View>
                         <Text>无数据</Text>
                     </View>
-
                 </View>
             );
         }else{
@@ -230,7 +224,7 @@ class OrderListScene extends Component{
                             />
                         </View>
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-                        <DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />
+                        <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} xiashuId={this.state.select_uid}/>
                     </View>
                     <ListView
                         dataSource={this.state.data}

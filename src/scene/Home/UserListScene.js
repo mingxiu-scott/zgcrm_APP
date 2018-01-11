@@ -12,36 +12,29 @@ import {
 } from 'react-native';
 
 import Moment from 'moment'
-
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import PostUrl from '../../widget/PostUrl';
 import MyIcon from '../../widget/MyIcon'
 import DatePickerYYMM from '../../widget/DatePickerYYMM'
 import UserPicker from '../../widget/UserPicker'
-import YearMonthPicker from '../../widget/YearMonthPicker';
 
-import ReturnListInfoScene from './ReturnListInfoScene';
+import YearMonthPicker from '../../widget/YearMonthPicker';
 
 class ReturnListScene extends PureComponent {
 
     static navigationOptions = ({navigation}) => ({
-        headerTitle:'回款记录',
+        headerTitle:'用户列表',
         tabBarVisible: false,
         headerLeft: (
             <TouchableOpacity
                 style={{padding: 10, marginLeft:5, marginTop:3}}
                 onPress={()=> {
-                    UserPicker.closeUserPicker()
+                    UserPicker.closeUserPicker();
                     navigation.goBack()
                 }}
             >
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
             </TouchableOpacity>
-        ),
-        headerRight: (
-            <View>
-                <Text> </Text>
-            </View>
         ),
     });
 
@@ -50,94 +43,50 @@ class ReturnListScene extends PureComponent {
 
         this.state = {
             data: null,
-            select_uid: PostUrl.userId,
-            select_uid_list: null,
-            u_name: '',
-            date: Moment(new Date()).format("YYYY-MM"),
         };
     }
 
     componentDidMount() {
 
-        DeviceEventEmitter.addListener('changeReturnInfo', () => { this._changeStateData() })
-        this._getReturnJson(this.state.select_uid, this.state.date, this.state.u_name);
+        this._getUserJson('');
     }
 
-    _getReturnJson(userId, date, userName){
+     _getUserJson(username){
 
-        UserPicker.closeUserPicker();
-
-        let url = PostUrl.getReturnListsUrl;
+        let url = PostUrl.getAllUserListsUrl;
         let formData = new FormData();
-        formData.append('tokenVal', PostUrl.tokenVal);
-        formData.append('userId', userId);
 
-        if (userName != ''){
-            formData.append('search_cname', userName);
-        }
-
-        if (date != ''){
-            if (typeof (date) != 'string'){
-                date = date.toString();
-            }
-            formData.append('date', date);
-        }
+         // if (username != '')
+         // {
+             formData.append('username', username);
+         // }
 
         var opts = {
             method:"POST",
-            body:formData
+            body:formData,
         }
         fetch(url,opts)
             .then((response) => {
+
                 return response.json();
             })
             .then((responseText) => {
-                if (responseText.code == 'fail'){
-                    this.setState({
-                        data: null,
-                    })
-                }else{
                     this.setState({
                         data: new ListView.DataSource({rowHasChanged: (r1,r2) => r1!==r2 }).cloneWithRows(responseText),
                     });
-                }
             })
             .catch((error) => {
                 alert(error)
             })
     }
-    _changeStateData(){
-        this._getReturnJson(this.state.select_uid, this.state.date, this.state.u_name);
-    }
 
-    _searchCustom(data){
-        this.setState({u_name: data})
-        this._getReturnJson(this.state.select_uid, this.state.date, data)
-    }
-
-    _changeListUid(changeUid){
-        this.setState({
-            select_uid: changeUid,
-            u_name: ''
-        })
-        this._getReturnJson(changeUid, this.state.date, '')
-    }
-
-    set_userInfo(userId,userName){
-        this._changeListUid(userId)
-    }
-
-    set_c_gettime(date){
-        this.setState({date: date})
-        this._getReturnJson(this.state.select_uid, date, this.state.u_name)
-    }
-    showdatepicker(){
-        UserPicker.closeUserPicker();
+    _searchUser(data){
+        this._getUserJson(data);
     }
 
     render() {
 
-        if(!this.state.data){
+        if(this.state.data == null){
             return (
                 <View>
 
@@ -147,17 +96,10 @@ class ReturnListScene extends PureComponent {
                             <TextInput
                                 style={style.searchInput}
                                 underlineColorAndroid='transparent' //设置下划线背景色
-                                onChangeText = {this._searchCustom.bind(this)}
-                                value = {this.state.u_name}
-                                placeholder={'请输入客户名'}  //占位符
-                                onFocus={this.showdatepicker = this.showdatepicker.bind(this)}
-
+                                onChangeText = {this._searchUser.bind(this)}
+                                placeholder={'请输入用户名'}  //占位符
                             />
                         </View>
-
-                        <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-                        {/*<DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />*/}
-                        <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} />
                     </View>
                 </View>
             )
@@ -171,31 +113,17 @@ class ReturnListScene extends PureComponent {
                             <TextInput
                                 style={style.searchInput}
                                 underlineColorAndroid='transparent' //设置下划线背景色
-                                onChangeText = {this._searchCustom.bind(this)}
-                                value = {this.state.u_name}
-                                placeholder={'请输入客户名'}  //占位符
-                                onFocus={this.showdatepicker = this.showdatepicker.bind(this)}
-
+                                onChangeText = {this._searchUser.bind(this)}
+                                placeholder={'请输入用户名'}  //占位符
                             />
                         </View>
-
-                        <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-                        {/*<DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />*/}
-                        <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} />
-
                     </View>
-
                     <ListView
-
                         style = {{marginBottom:60}}
                         dataSource={this.state.data}
                         renderRow={this._renderRow.bind(this)}
-
                     />
-
                 </View>
-
-
             );
         }
     }
@@ -205,23 +133,21 @@ class ReturnListScene extends PureComponent {
 
         return(
             <TouchableOpacity
-                onPress={()=>{
-                    UserPicker.closeUserPicker()
-                    navigate('ReturnListInfoScene',{o_id: rowData.o_id})
-                }}
+                // onPress={()=>{
+                    // UserPicker.closeUserPicker()
+                    // navigate('ReturnListInfoScene',{o_id: rowData.o_id})
+                // }}
             >
                 <View style={style.itemConnect}>
-                    <View style={style.statesView}>
-                        <MyIcon sorceName={'circle'} sorceSize={12} sorceColor={rowData.state == 0 ? 'red' : 'green'}/>
-                    </View>
-                    <View style={style.dateView}>
-                        <Text style={style.nameVal}>{rowData.o_return_date}</Text>
+
+                    <View style={style.nameView}>
+                        <Text style={style.nameVal}>用户:{rowData.u_username}</Text>
                     </View>
                     <View style={style.nameView}>
-                        <Text style={style.nameVal}>{rowData.c_name}</Text>
+                        <Text style={style.nameVal}>姓名:{rowData.u_name}</Text>
                     </View>
                     <View style={style.moneyView}>
-                        <Text style={style.moneyVal}>{rowData.o_return_money}</Text>
+                        <Text style={style.moneyVal}>{rowData.u_telphone}</Text>
                     </View>
                 </View>
             </TouchableOpacity>

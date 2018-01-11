@@ -9,9 +9,8 @@ import {
     DeviceEventEmitter,
     Picker,
     Platform,
+    Alert,
 } from 'react-native';
-
-import Moment from 'moment'
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import PostUrl from '../../widget/PostUrl';
@@ -20,28 +19,21 @@ import DatePickerYYMM from '../../widget/DatePickerYYMM'
 import UserPicker from '../../widget/UserPicker'
 import YearMonthPicker from '../../widget/YearMonthPicker';
 
-import ReturnListInfoScene from './ReturnListInfoScene';
-
 class ReturnListScene extends PureComponent {
 
     static navigationOptions = ({navigation}) => ({
-        headerTitle:'回款记录',
+        headerTitle:'下属列表',
         tabBarVisible: false,
         headerLeft: (
             <TouchableOpacity
                 style={{padding: 10, marginLeft:5, marginTop:3}}
                 onPress={()=> {
-                    UserPicker.closeUserPicker()
+                    UserPicker.closeUserPicker();
                     navigation.goBack()
                 }}
             >
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
             </TouchableOpacity>
-        ),
-        headerRight: (
-            <View>
-                <Text> </Text>
-            </View>
         ),
     });
 
@@ -50,37 +42,28 @@ class ReturnListScene extends PureComponent {
 
         this.state = {
             data: null,
-            select_uid: PostUrl.userId,
-            select_uid_list: null,
-            u_name: '',
-            date: Moment(new Date()).format("YYYY-MM"),
         };
     }
 
     componentDidMount() {
 
-        DeviceEventEmitter.addListener('changeReturnInfo', () => { this._changeStateData() })
-        this._getReturnJson(this.state.select_uid, this.state.date, this.state.u_name);
+        this._getSubordinateJson('','');
     }
 
-    _getReturnJson(userId, date, userName){
+    _getSubordinateJson(username,deleteId){
 
-        UserPicker.closeUserPicker();
-
-        let url = PostUrl.getReturnListsUrl;
+        let url = PostUrl.getSubordinateListsUrl;
         let formData = new FormData();
-        formData.append('tokenVal', PostUrl.tokenVal);
-        formData.append('userId', userId);
+        formData.append('userId', PostUrl.userId);
 
-        if (userName != ''){
-            formData.append('search_cname', userName);
+        if (username != '')
+        {
+            formData.append('username', username);
         }
+        if (deleteId != '')
+        {
 
-        if (date != ''){
-            if (typeof (date) != 'string'){
-                date = date.toString();
-            }
-            formData.append('date', date);
+            formData.append('deleteId', deleteId);
         }
 
         var opts = {
@@ -89,55 +72,37 @@ class ReturnListScene extends PureComponent {
         }
         fetch(url,opts)
             .then((response) => {
+
                 return response.json();
             })
             .then((responseText) => {
-                if (responseText.code == 'fail'){
-                    this.setState({
-                        data: null,
-                    })
-                }else{
-                    this.setState({
-                        data: new ListView.DataSource({rowHasChanged: (r1,r2) => r1!==r2 }).cloneWithRows(responseText),
-                    });
-                }
+                this.setState({
+                    data: new ListView.DataSource({rowHasChanged: (r1,r2) => r1!==r2 }).cloneWithRows(responseText),
+                });
             })
             .catch((error) => {
                 alert(error)
             })
     }
-    _changeStateData(){
-        this._getReturnJson(this.state.select_uid, this.state.date, this.state.u_name);
+    _searchUser(data){
+
+        this._getSubordinateJson(data,'');
     }
 
-    _searchCustom(data){
-        this.setState({u_name: data})
-        this._getReturnJson(this.state.select_uid, this.state.date, data)
-    }
-
-    _changeListUid(changeUid){
-        this.setState({
-            select_uid: changeUid,
-            u_name: ''
-        })
-        this._getReturnJson(changeUid, this.state.date, '')
-    }
-
-    set_userInfo(userId,userName){
-        this._changeListUid(userId)
-    }
-
-    set_c_gettime(date){
-        this.setState({date: date})
-        this._getReturnJson(this.state.select_uid, date, this.state.u_name)
-    }
-    showdatepicker(){
-        UserPicker.closeUserPicker();
+    _deleteSubordinate(roleId){
+        Alert.alert('提示','确定删除下属吗？',[{
+            text: '确定',onPress:()=>{
+                
+                this._getSubordinateJson('',roleId);
+            }
+        },{
+            text: '取消',
+        }])
     }
 
     render() {
 
-        if(!this.state.data){
+        if(this.state.data == null){
             return (
                 <View>
 
@@ -147,17 +112,10 @@ class ReturnListScene extends PureComponent {
                             <TextInput
                                 style={style.searchInput}
                                 underlineColorAndroid='transparent' //设置下划线背景色
-                                onChangeText = {this._searchCustom.bind(this)}
-                                value = {this.state.u_name}
-                                placeholder={'请输入客户名'}  //占位符
-                                onFocus={this.showdatepicker = this.showdatepicker.bind(this)}
-
+                                onChangeText = {this._searchUser.bind(this)}
+                                placeholder={'请输入下属名称'}  //占位符
                             />
                         </View>
-
-                        <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-                        {/*<DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />*/}
-                        <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} />
                     </View>
                 </View>
             )
@@ -171,31 +129,17 @@ class ReturnListScene extends PureComponent {
                             <TextInput
                                 style={style.searchInput}
                                 underlineColorAndroid='transparent' //设置下划线背景色
-                                onChangeText = {this._searchCustom.bind(this)}
-                                value = {this.state.u_name}
-                                placeholder={'请输入客户名'}  //占位符
-                                onFocus={this.showdatepicker = this.showdatepicker.bind(this)}
-
+                                onChangeText = {this._searchUser.bind(this)}
+                                placeholder={'请输入下属名称'}  //占位符
                             />
                         </View>
-
-                        <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-                        {/*<DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />*/}
-                        <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} />
-
                     </View>
-
                     <ListView
-
                         style = {{marginBottom:60}}
                         dataSource={this.state.data}
                         renderRow={this._renderRow.bind(this)}
-
                     />
-
                 </View>
-
-
             );
         }
     }
@@ -204,27 +148,37 @@ class ReturnListScene extends PureComponent {
         const { navigate } = this.props.navigation;
 
         return(
-            <TouchableOpacity
-                onPress={()=>{
-                    UserPicker.closeUserPicker()
-                    navigate('ReturnListInfoScene',{o_id: rowData.o_id})
-                }}
-            >
+            //{/*<TouchableOpacity*/}
+                // onPress={()=>{
+                // UserPicker.closeUserPicker()
+                // navigate('ReturnListInfoScene',{o_id: rowData.o_id})
+                // }}
+           // {/*>*/}
+                <View>
                 <View style={style.itemConnect}>
-                    <View style={style.statesView}>
-                        <MyIcon sorceName={'circle'} sorceSize={12} sorceColor={rowData.state == 0 ? 'red' : 'green'}/>
-                    </View>
-                    <View style={style.dateView}>
-                        <Text style={style.nameVal}>{rowData.o_return_date}</Text>
+
+                    <View style={style.nameView}>
+                        <Text style={style.nameVal}>u_id:{rowData.u_id}</Text>
                     </View>
                     <View style={style.nameView}>
-                        <Text style={style.nameVal}>{rowData.c_name}</Text>
+                        <Text style={style.nameVal}>姓名:{rowData.u_name}</Text>
                     </View>
-                    <View style={style.moneyView}>
-                        <Text style={style.moneyVal}>{rowData.o_return_money}</Text>
+                    <View style={style.nameView}>
+                        <Text style={style.nameVal}>r_id:{rowData.r_id}</Text>
                     </View>
+
+                    <TouchableOpacity
+                        style={{position:'absolute',right:20,top:18,}}
+                        onPress={()=> {
+                            this._deleteSubordinate(rowData.r_id);
+                        }}
+                    >
+                        <MyIcon sorceName={'trash-o'} sorceSize={20} sorceColor={'red'}/>
+                    </TouchableOpacity>
+
                 </View>
-            </TouchableOpacity>
+                </View>
+            //{/*</TouchableOpacity>*/}
         );
     }
 }
@@ -278,6 +232,7 @@ const style = StyleSheet.create({
         borderColor: '#e3e3e3',
 
     },
+
     itemConnect: {
         flexDirection: 'row',
         backgroundColor: '#fff',
@@ -297,7 +252,7 @@ const style = StyleSheet.create({
     nameView: {
         height: 40,
         justifyContent: 'center',
-        marginLeft: 40,
+        marginLeft: 20,
     },
     nameVal: {
         fontSize: 18,

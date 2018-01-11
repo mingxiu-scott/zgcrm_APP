@@ -44,7 +44,7 @@ class CreateOrderScene extends PureComponent{
 
         if(
             this.state.o_gettime == '' ||
-            this.state.o_customName == '' ||
+            this.state.o_customName == '客户姓名' ||
             this.state.o_name == '' ||
             this.state.o_money == '' ||
             this.state.o_cycle == '' ||
@@ -129,6 +129,7 @@ class CreateOrderScene extends PureComponent{
                 alert(error)
             })
     }
+
     static navigationOptions =({navigation})=> ({
         headerTitle: '录理财',
         tabBarVisible: false,
@@ -148,6 +149,7 @@ class CreateOrderScene extends PureComponent{
             </View>
         ),
     });
+
     changeUserName(customInfo){
 
         this.setState({
@@ -168,12 +170,14 @@ class CreateOrderScene extends PureComponent{
             })
         }
     }
+
     changeFuliName(fuliInfo){
         this.setState({
             fuliname: fuliInfo.w_name,
             fuliid: fuliInfo.w_id
         })
     }
+
     set_c_gettime(date){
         this.setState({c_gettime: date})
     }

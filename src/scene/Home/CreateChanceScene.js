@@ -54,7 +54,7 @@ class CreateChanceScene extends PureComponent {
     postRequest()
     {
 
-        if (this.state.c_name == '' || this.state.ch_name == '' || this.state.ch_money == "" || this.state.ch_date == '') {
+        if (this.state.c_name == '客户姓名' || this.state.ch_name == '' || this.state.ch_money == "" || this.state.ch_date == '') {
             Alert.alert('提示', '必填项不能为空');
             return;
         }

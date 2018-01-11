@@ -10,6 +10,8 @@ import MyIcon from '../../widget/MyIcon'
 
 import EditTaskScene from './EditTaskScene';
 import Moment from 'moment'
+import YearMonthPicker from '../../widget/YearMonthPicker';
+
 
 //和机会列表、任务列表一样
 class TasksListScene extends PureComponent{
@@ -75,7 +77,9 @@ class TasksListScene extends PureComponent{
         UserPicker.closeUserPicker();
         let url = PostUrl.getTaskJsonUrl;
         let formData = new FormData();
-
+        if (typeof (date) != 'string'){
+            date = date.toString();
+        }
         formData.append('tokenVal', PostUrl.tokenVal);
         formData.append('userId', userId);
         formData.append('date', date);
@@ -171,7 +175,8 @@ class TasksListScene extends PureComponent{
                 <View>
                     <View style={styles.topBox}>
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-                        <DatePickerYYMM style={{textAlign: 'center'}} set_c_gettime={date=>this.set_c_gettime(date)} />
+                        {/*<DatePickerYYMM style={{textAlign: 'center'}} set_c_gettime={date=>this.set_c_gettime(date)} />*/}
+                        <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} />
                         <TaskStatusPicker set_userInfo={(userId,userName)=>this.set_statusInfo(userId,userName)}/>
                     </View>
                 </View>
@@ -181,7 +186,8 @@ class TasksListScene extends PureComponent{
                 <View>
                     <View style={styles.topBox}>
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-                        <DatePickerYYMM style={{textAlign: 'center'}} set_c_gettime={date=>this.set_c_gettime(date)} />
+                        {/*<DatePickerYYMM style={{textAlign: 'center'}} set_c_gettime={date=>this.set_c_gettime(date)} />*/}
+                        <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} />
                         <TaskStatusPicker set_userInfo={(userId,userName)=>this.set_statusInfo(userId,userName)}/>
                     </View>
                     <ListView

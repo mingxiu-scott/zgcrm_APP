@@ -6,6 +6,8 @@ import PostUrl from "../../widget/PostUrl";
 import DatePickerYYMM from '../../widget/DatePickerYYMM'
 import UserPicker from '../../widget/UserPicker'
 import MyIcon from '../../widget/MyIcon'
+import YearMonthPicker from '../../widget/YearMonthPicker';
+
 
 import EditLogScene from './EditLogScene';
 import Moment from 'moment'
@@ -61,7 +63,7 @@ class LogsListScene extends PureComponent{
     }
 
     set_c_gettime(date){
-        this.setState({date: date})
+        this.setState({date: date});
         this._getFollowsLogJson(this.state.select_uid, date)
     }
 
@@ -73,6 +75,9 @@ class LogsListScene extends PureComponent{
 
         UserPicker.closeUserPicker()
 
+        if (typeof (date) != 'string'){
+            date = date.toString();
+        }
         let url = PostUrl.getLogJsonUrl;
         let formData = new FormData();
         formData.append('tokenVal', PostUrl.tokenVal);
@@ -105,7 +110,6 @@ class LogsListScene extends PureComponent{
                 alert(error)
             });
     }
-
     _renderRow(rowData, sectionId, rowID, highlightRow){
         //路由对象
         const { navigate } = this.props.navigation;
@@ -153,7 +157,8 @@ class LogsListScene extends PureComponent{
                 <View>
                     <View style={styles.topBox}>
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-                        <DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />
+                        {/*<DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />*/}
+                        <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} />
                     </View>
                 </View>
             )
@@ -162,7 +167,8 @@ class LogsListScene extends PureComponent{
                 <View>
                     <View style={styles.topBox}>
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-                        <DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />
+                        {/*<DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />*/}
+                        <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} />
                     </View>
 
                     <ListView

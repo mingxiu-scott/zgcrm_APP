@@ -1,7 +1,7 @@
 //let http = 'http://192.168.2.159/zg_crm/'
-let http = 'http://192.168.2.182/zg_crm/';
+ let http = 'http://192.168.2.182/zg_crm/';
 // let http = 'http://192.168.1.152/zg_crm/'
-// let http = 'http://111.230.140.245:1212/zg_crm/';
+//let http = 'http://111.230.140.245:1212/zg_crm/';
 
 const PostUrl = {
     userId: '',
@@ -9,7 +9,32 @@ const PostUrl = {
     tokenVal: '5555555',
     storId: '1',
     subUserList: null,
-
+    dateList: {
+        "0":"2018-01",
+        "1":"2018-02",
+        "2":"2018-03",
+        "3":"2018-04",
+        "4":"2018-05",
+        "5":"2018-06",
+        "6":"2018-07",
+        "7":"2018-08",
+        "8":"2018-09",
+        "9":"2018-10",
+        "10":"2018-11",
+        "11":"2018-12",
+        "12":"2019-01",
+        "13":"2019-02",
+        "14":"2019-03",
+        "15":"2019-04",
+        "16":"2019-05",
+        "17":"2019-06",
+        "18":"2019-07",
+        "19":"2019-08",
+        "20":"2019-09",
+        "21":"2019-10",
+        "22":"2019-11",
+        "23":"2019-12",
+    },
     createCustomUrl: http + 'index.php/Home/Custom/create_custom',
     getCustomsJsonUrl: http + 'index.php/Home/Custom/getCustomsList',
     getCustomsInfoJsonUrl: http + 'index.php/Home/Custom/getCustomsInfo',
@@ -60,6 +85,9 @@ const PostUrl = {
     getStorsJsonUrl: http + 'index.php/Home/Stors/get_stors',
 
     createUserJsonUrl: http + 'index.php/Home/User/create_user',
+    getAllUserListsUrl: http + 'index.php/Home/User/getAllUserList',
+    getSubordinateListsUrl:http + 'index.php/Home/User/getSuborinateList',
+
 };
 
 export default PostUrl;
