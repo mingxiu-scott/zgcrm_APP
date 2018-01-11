@@ -52,12 +52,14 @@ const PostUrl = {
 
     getWelfareUrl: http + 'index.php/Home/Welfare/getwelfare',
     getSubordinateJsonUrl: http + 'index.php/Home/User/getUsersListsJson2',
-    createSubordinateJsonUrl: http +'index.php/Home/User/create_user',
+    createSubordinateJsonUrl: http +'index.php/Home/User/create_user_role',
 
     getRoleJsonUrl: http + 'index.php/Home/Roles/getRoles',
     createRoleJsonUrl: http +'index.php/Home/Roles/create_role',
 
     getStorsJsonUrl: http + 'index.php/Home/Stors/get_stors',
+
+    createUserJsonUrl: http + 'index.php/Home/User/create_user',
 };
 
 export default PostUrl;

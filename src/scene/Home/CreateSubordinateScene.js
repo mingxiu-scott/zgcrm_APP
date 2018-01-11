@@ -12,17 +12,14 @@ class CreateSubordinateScene extends PureComponent {
         this.state = {
             positionId:'1001',
             positionChange: 0,
-            u_username: '',
-            u_name:'',
-            u_sex: '男',
+            u_name:'请选择下属的名称',
             u_telphone: '',
             u_age: '',
             s_id:'',
             r_id:'',
-
+            u_id:'',
             r_name:'请选择职位',
             s_name:'请选择门店',
-
             submitBtnSytle: styles.submitBtn,
             submitBtnDisabled: false,
         }
@@ -48,6 +45,14 @@ class CreateSubordinateScene extends PureComponent {
         ),
     });
 
+    changeXiaShuName(customInfo){
+        this.setState({
+           u_name: customInfo.u_name,
+            u_id: customInfo.u_id,
+        });
+
+    }
+
     changeUserName(customInfo){
         this.setState({
             r_name: customInfo.r_name,
@@ -63,12 +68,11 @@ class CreateSubordinateScene extends PureComponent {
     }
 
     postRequest() {
+
         if (
-            this.state.u_name == '' ||
-            this.state.u_username == ''||
-            this.state.s_id == '' ||
+              this.state.s_id == '' ||
             this.state.r_id == '' ||
-            this.state.u_telphone == ''
+             this.state.u_id == ''
         ) {
             Alert.alert('提示','必填项不可为空');
             return;
@@ -77,21 +81,15 @@ class CreateSubordinateScene extends PureComponent {
 
         let url = PostUrl.createSubordinateJsonUrl;
         let formData = new FormData();
-        formData.append('u_username', this.state.u_username);
-        formData.append('u_telphone', this.state.u_telphone);
-        formData.append('u_age', this.state.u_age);
+
         formData.append('s_id', this.state.s_id);
         formData.append('r_id', this.state.r_id);
-        formData.append('u_sex', this.state.u_sex);
-        formData.append('u_name',this.state.u_name);
+        formData.append('u_id', this.state.u_id);
 
         let sign =
-            '{u_username:"' + this.state.u_username + '"},' +
-            '{u_telphone:"' + this.state.u_telphone + '"},' +
-            '{u_age:"' + this.state.u_age + '"},' +
+            '{u_id:"' + this.state.u_id + '"},' +
             '{s_id:"' + this.state.s_id + '"},' +
-            '{r_id:"' + this.state.r_id + '"},' +
-            '{u_sex:"' + this.state.u_sex + '"},' ;
+            '{r_id:"' + this.state.r_id + '"},' ;
 
         sign += PostUrl.signCode;
 
@@ -106,7 +104,7 @@ class CreateSubordinateScene extends PureComponent {
         var opts = {
             method:"POST",
             body:formData
-        }
+        };
         fetch(url,opts)
             .then((response) => {
                 return response.json();
@@ -149,27 +147,16 @@ class CreateSubordinateScene extends PureComponent {
                 }}
             >
                 <ScrollView>
-                    <View style={styles.formRow}>
-                        <Text style={styles.lineHeightAll}>用户名*</Text>
-                        <TextInput
-                            style={styles.TextInputs}
-                            placeholder="登录时用的名称"
-                            underlineColorAndroid="transparent"
-                            maxLength={30}
-                            onChangeText={(text) => this.setState({u_username: text})}
-                        />
-                    </View>
-
                     <View>
-                        <View style={styles.formRow}>
-                            <Text style={styles.lineHeightAll}>下属名称*</Text>
-                            <TextInput
-                                style={styles.TextInputs}
-                                placeholder="下属名称"
-                                maxLength={5}
-                                underlineColorAndroid="transparent"
-                                onChangeText={(text) => this.setState({u_name: text})}
-                            />
+                        <View style={styles.fristformRow}>
+                            <View style={styles.lineHeightAllDate}>
+                                <Text style={styles.lineHeightAll}>下属名称*</Text>
+                            </View>
+                            <TouchableOpacity style={styles.getCustomLabel}
+                                              onPress={()=>navigate('MySubordinateChooseScene',{callback:(backData)=> this.changeXiaShuName(backData),'xiashuID':'test'})}
+                            >
+                                <Text>{this.state.u_name}</Text>
+                            </TouchableOpacity>
                         </View>
 
                         <View style={styles.fristformRow}>
@@ -183,18 +170,6 @@ class CreateSubordinateScene extends PureComponent {
                             </TouchableOpacity>
                         </View>
 
-                        <View style={styles.formRow}>
-                            <Text style={styles.lineHeightAll}>联系电话*</Text>
-                            <TextInput
-                                style={styles.TextInputs}
-                                placeholder="联系电话"
-                                underlineColorAndroid="transparent"
-                                keyboardType='numeric'
-                                maxLength={11}
-                                onChangeText={(text) => this.setState({u_telphone: text})}
-                            />
-                        </View>
-
                         <View style={styles.fristformRow}>
                             <View style={styles.lineHeightAllDate}>
                                 <Text style={styles.lineHeightAll}>所属门店*</Text>
@@ -206,18 +181,6 @@ class CreateSubordinateScene extends PureComponent {
                             </TouchableOpacity>
                         </View>
 
-                        <View style={styles.formRow}>
-                            <Text style={styles.lineHeightAll}>年龄</Text>
-                            <TextInput
-                                style={styles.TextInputs}
-                                placeholder="年龄"
-                                keyboardType='numeric'
-                                underlineColorAndroid="transparent"
-                                maxLength={2}
-                                onChangeText={(text) => this.setState({u_age: text})}
-                            />
-                        </View>
-
                         <View style={styles.formBtnRow}>
                             <TouchableOpacity style={this.state.submitBtnSytle}
                                               disabled={this.state.submitBtnDisabled}
@@ -226,7 +189,6 @@ class CreateSubordinateScene extends PureComponent {
                                 <Text style={styles.submitBtnText}>保存</Text>
                             </TouchableOpacity>
                         </View>
-
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>

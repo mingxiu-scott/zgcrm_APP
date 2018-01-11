@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Text,TouchableOpacity,Alert, AsyncStorage,ImageBackground,StyleSheet, TextInput } from 'react-native'
+import { View, Text,TouchableOpacity,Alert, AsyncStorage,ImageBackground,StyleSheet, TextInput,Image } from 'react-native'
 
 import RootScene from '../../RootScene'
 import MyIcon from '../../widget/MyIcon'
@@ -137,9 +137,9 @@ class LoginScreen extends PureComponent{
     render(){
         return(
             <ImageBackground source={require('../../image/Login3.png')} style={{flex:1,}} resizeMode='cover'>
-                <View style={{height:200,}}>
-                </View>
-                <View style={styles.username}>
+
+                <Image source={require('../../image/loginImage.png')} style={{width:100,height:100,marginTop:130,marginLeft:130,marginBottom:20}}/>
+                 <View style={styles.username}>
                     <Text style={styles.labelUsername}>用户账号：</Text>
                     <View style={{flex:1.5}}>
                         <TextInput underlineColorAndroid="transparent"
@@ -209,7 +209,8 @@ const styles = StyleSheet.create({
         marginLeft:43,
         marginRight:50,
         height:40,
-        backgroundColor:'#FFFFFF'
+        backgroundColor:'#FFFFFF',
+        borderRadius:20,
     },
     loginText:{
         flex:1,

@@ -163,13 +163,7 @@ class CreatCustomScene extends PureComponent {
     render(){
 
         return(
-            <KeyboardAvoidingView
-                behavior="padding"
-                keyboardVerticalOffset={80}
-                style={{flex:1,
-                    justifyContent: 'center',
-                }}
-            >
+
                 <ScrollView>
                     <View>
                         <View style={styles.formRow}>
@@ -291,8 +285,7 @@ class CreatCustomScene extends PureComponent {
                         </View>
                     </View>
                 </ScrollView>
-            </KeyboardAvoidingView>
-        );
+         );
     }
 }
 

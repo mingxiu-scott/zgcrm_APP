@@ -34,6 +34,7 @@ import CreateSubordinateScene from  './CreateSubordinateScene';
 import CreateRoleScene from './CreateRoleScene';
 import MyRoleChooseScene from './MyRoleChooseScene';
 import MyStorsChooseScene from  './MyStorsChooseScene';
+import CreateUserScene from './CreateUserScene';
 
 import NavStyle from '../../widget/NavStyle'
 import UserPicker from '../../widget/UserPicker'
@@ -99,9 +100,7 @@ class HomeScene extends PureComponent {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.rowChild}>
-                    <TouchableOpacity
-                        style={styles.TOStyle}
-                        onPress={ () => navigate('CreateChanceScene') }
+                    <TouchableOpacity style={styles.TOStyle} onPress={ () => navigate('CreateChanceScene') }
                     >
                         <Text style={styles.myIconText}>
                             <MyIcon sorceName={'thumbs-o-up'} sorceColor={'#5F97F4'} sorceSize={myIconSize}/>
@@ -133,11 +132,7 @@ class HomeScene extends PureComponent {
 
                 <Text style={styles.listText}>客户管理</Text>
                 <View style={styles.rowChild}>
-
-
-                    <TouchableOpacity
-                        style={styles.TOStyle}
-                        onPress={ () => navigate('CustomListScene')}
+                    <TouchableOpacity style={styles.TOStyle} onPress={ () => navigate('CustomListScene')}
                     >
                         <Text style={styles.myIconText}>
                             <MyIcon sorceName={'users'} sorceColor={'#50AAF0'} sorceSize={myIconSize}/>
@@ -181,12 +176,18 @@ class HomeScene extends PureComponent {
                         </Text>
                         <Text style={styles.contentText }>回款记录</Text>
                     </TouchableOpacity>
+
                     <TouchableOpacity style={styles.TOStyle}>
                         <Text style={styles.contentText }/>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.TOStyle}>
-                        <Text style={styles.contentText }/>
+
+                    <TouchableOpacity style={styles.TOStyle} onPress={()=> navigate('CreateUserScene')}>
+                        <Text style={styles.myIconText}>
+                            <MyIcon sorceName={'user-plus'} sorceColor={'#9C89B9'} sorceSize={myIconSize}/>
+                        </Text>
+                        <Text style={styles.contentText }>录员工</Text>
                     </TouchableOpacity>
+
                 </View>
 
                 <Text style={styles.listText}>我的工作</Text>
@@ -361,6 +362,9 @@ const HomeStack = StackNavigator({
     },
     MyStorsChooseScene:{
         screen: MyStorsChooseScene,
+    },
+    CreateUserScene:{
+        screen:CreateUserScene,
     }
 },{
     navigationOptions: {

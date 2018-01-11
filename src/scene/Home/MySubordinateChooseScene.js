@@ -19,12 +19,18 @@ class MySubordinateChooseScene extends PureComponent {
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
             </TouchableOpacity>
         ),
+        headerRight:(
+            <View>
+                <Text> </Text>
+            </View>
+        )
     });
 
     constructor(props){
         super(props);
         this.state = ({
             data: null,
+            xiashuID: props.navigation.state.params.xiashuID == 'test' ? true: false,
         })
     }
     componentDidMount() {
@@ -37,10 +43,15 @@ class MySubordinateChooseScene extends PureComponent {
     }
 
     _getTaskJson(xiashuname){
+
         let url = PostUrl.getSubordinateJsonUrl;
         let formData = new FormData();
         formData.append('tokenVal', PostUrl.tokenVal);
         formData.append('userId', PostUrl.userId);
+
+        if (this.state.xiashuID){
+            formData.append('xiashuID','test');
+        }
 
         if (xiashuname != '')
         {

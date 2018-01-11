@@ -41,10 +41,7 @@ class CreateOrderScene extends PureComponent{
     }
 
     postRequest(){
-        // if(CheckInput.isIDCard(this.state.c_idcard)){
-        //     alert('身份证号不对，请重新输入');
-        //     return;
-        // }
+
         if(
             this.state.o_gettime == '' ||
             this.state.o_customName == '' ||
@@ -200,13 +197,7 @@ class CreateOrderScene extends PureComponent{
     render() {
         const { navigate } = this.props.navigation;
         return (
-            <KeyboardAvoidingView
-                behavior="padding"
-                keyboardVerticalOffset={80}
-                style={{flex:1,
-                    justifyContent: 'center',
-                }}
-            >
+
                 <ScrollView>
                     <View>
                         <View style={styles.formRow}>
@@ -268,7 +259,6 @@ class CreateOrderScene extends PureComponent{
                                 onChangeText={(text) => this.setState({c_bankcard: text})}
                                 defaultValue ={this.state.c_bankcard}
                                 editable={this.state.editInput}
-
                             />
                         </View>
                         <View style={styles.formRow}>
@@ -355,8 +345,7 @@ class CreateOrderScene extends PureComponent{
                         </View>
                     </View>
                 </ScrollView>
-            </KeyboardAvoidingView>
-        );
+         );
     }
 }
 

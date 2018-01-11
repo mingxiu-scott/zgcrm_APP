@@ -8,7 +8,7 @@ class MyRoleChooseScene extends PureComponent {
 
     static  navigationOptions =({navigation})=>({
         tabBarVisible: false,
-        headerTitle: '选择角色',
+        headerTitle: '选择职位',
         headerLeft: (
             <TouchableOpacity
                 style={{padding: 10, marginLeft:5, marginTop:3}}
@@ -86,7 +86,7 @@ class MyRoleChooseScene extends PureComponent {
                     <View style={roleStyles.itemContentView}>
                         <View style={roleStyles.itemRow}>
                             <View style={roleStyles.itemRowOne}>
-                                <Text style={roleStyles.itemRowLabel}>角色名：</Text>
+                                <Text style={roleStyles.itemRowLabel}>职位：</Text>
                                 <Text style={roleStyles.itemRowVal}>{rowData.r_name}</Text>
                             </View>
                         </View>
@@ -112,7 +112,7 @@ class MyRoleChooseScene extends PureComponent {
                                 borderColor: '#ccc',
                                 borderRadius: 7,
                             }}
-                            placeholder={'   请输入客户名'}  //占位符
+                            placeholder={'   请输入职位名称'}  //占位符
                             underlineColorAndroid='transparent' //设置下划线背景色
                             onChangeText = {this._searchRoles.bind(this)}
                         />
@@ -131,7 +131,7 @@ class MyRoleChooseScene extends PureComponent {
                                 borderColor: '#ccc',
                                 borderRadius: 7,
                             }}
-                            placeholder={'   请输入客户名'}  //占位符
+                            placeholder={'   请输入职位名称'}  //占位符
                             underlineColorAndroid='transparent' //设置下划线背景色
                             onChangeText = {this._searchRoles.bind(this)}
                         />
@@ -145,6 +145,7 @@ class MyRoleChooseScene extends PureComponent {
         }
     }
 }
+
 const roleStyles=StyleSheet.create({
     container:{
         flex:1,
