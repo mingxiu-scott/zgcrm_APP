@@ -30,7 +30,7 @@ class ReturnListScene extends PureComponent {
                 style={{padding: 10, marginLeft:5, marginTop:3}}
                 onPress={()=> {
                     UserPicker.closeUserPicker();
-                    navigation.goBack()
+                    navigation.goBack();
                 }}
             >
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
@@ -55,16 +55,12 @@ class ReturnListScene extends PureComponent {
 
         let url = PostUrl.getAllUserListsUrl;
         let formData = new FormData();
-
-         // if (username != '')
-         // {
-             formData.append('username', username);
-         // }
+        formData.append('username', username);
 
         var opts = {
             method:"POST",
             body:formData,
-        }
+        };
         fetch(url,opts)
             .then((response) => {
 
@@ -89,7 +85,6 @@ class ReturnListScene extends PureComponent {
         if(this.state.data == null){
             return (
                 <View>
-
                     <View style={style.topBox}>
                         <View style={style.searchBox}>
                             <FontAwesome name="search" size={16} color="gray" style={style.searchIcon}/>
@@ -105,7 +100,6 @@ class ReturnListScene extends PureComponent {
             )
         }else{
             return(
-
                 <View>
                     <View style={style.topBox}>
                         <View style={style.searchBox}>
@@ -118,6 +112,7 @@ class ReturnListScene extends PureComponent {
                             />
                         </View>
                     </View>
+
                     <ListView
                         style = {{marginBottom:60}}
                         dataSource={this.state.data}
@@ -130,16 +125,10 @@ class ReturnListScene extends PureComponent {
 
     _renderRow(rowData, sectionId, rowID, highlightRow){
         const { navigate } = this.props.navigation;
-
         return(
             <TouchableOpacity
-                // onPress={()=>{
-                    // UserPicker.closeUserPicker()
-                    // navigate('ReturnListInfoScene',{o_id: rowData.o_id})
-                // }}
             >
                 <View style={style.itemConnect}>
-
                     <View style={style.nameView}>
                         <Text style={style.nameVal}>用户:{rowData.u_username}</Text>
                     </View>
@@ -147,7 +136,7 @@ class ReturnListScene extends PureComponent {
                         <Text style={style.nameVal}>姓名:{rowData.u_name}</Text>
                     </View>
                     <View style={style.moneyView}>
-                        <Text style={style.moneyVal}>{rowData.u_telphone}</Text>
+                        <Text style={style.moneyVal}>电话号码：{rowData.u_telphone}</Text>
                     </View>
                 </View>
             </TouchableOpacity>

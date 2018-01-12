@@ -148,23 +148,13 @@ class ReturnListScene extends PureComponent {
         const { navigate } = this.props.navigation;
 
         return(
-            //{/*<TouchableOpacity*/}
-                // onPress={()=>{
-                // UserPicker.closeUserPicker()
-                // navigate('ReturnListInfoScene',{o_id: rowData.o_id})
-                // }}
-           // {/*>*/}
                 <View>
                 <View style={style.itemConnect}>
-
-                    <View style={style.nameView}>
-                        <Text style={style.nameVal}>u_id:{rowData.u_id}</Text>
-                    </View>
                     <View style={style.nameView}>
                         <Text style={style.nameVal}>姓名:{rowData.u_name}</Text>
                     </View>
                     <View style={style.nameView}>
-                        <Text style={style.nameVal}>r_id:{rowData.r_id}</Text>
+                        <Text style={style.nameVal}>职位:{rowData.r_name}</Text>
                     </View>
 
                     <TouchableOpacity
@@ -178,7 +168,6 @@ class ReturnListScene extends PureComponent {
 
                 </View>
                 </View>
-            //{/*</TouchableOpacity>*/}
         );
     }
 }

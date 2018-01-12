@@ -284,6 +284,7 @@ const styles = StyleSheet.create({
     },
 });
 
+
 const HomeStack = StackNavigator({
     Home: {
         screen: HomeScene,
@@ -390,5 +391,6 @@ const HomeStack = StackNavigator({
         headerStyle: NavStyle.stackNavStyle,
     },
 });
+
 
 export default HomeStack;

@@ -1,22 +1,9 @@
 import React, { PureComponent } from 'react';
-import {
-    StyleSheet,
-    Text,
-    View,
-    TextInput,
-    TouchableOpacity,
-    ListView,
-    DeviceEventEmitter,
-    Picker,
-    Platform,
-} from 'react-native';
-
+import {StyleSheet, Text, View, TextInput, TouchableOpacity, ListView, DeviceEventEmitter,} from 'react-native';
 import Moment from 'moment'
-
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import PostUrl from '../../widget/PostUrl';
 import MyIcon from '../../widget/MyIcon'
-import DatePickerYYMM from '../../widget/DatePickerYYMM'
 import UserPicker from '../../widget/UserPicker'
 import YearMonthPicker from '../../widget/YearMonthPicker';
 
@@ -128,7 +115,7 @@ class ReturnListScene extends PureComponent {
     }
 
     set_c_gettime(date){
-        this.setState({date: date})
+        this.setState({date: date});
         this._getReturnJson(this.state.select_uid, date, this.state.u_name)
     }
     showdatepicker(){
@@ -156,8 +143,7 @@ class ReturnListScene extends PureComponent {
                         </View>
 
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-                        {/*<DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />*/}
-                        <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} />
+                         <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} />
                     </View>
                 </View>
             )
@@ -180,8 +166,7 @@ class ReturnListScene extends PureComponent {
                         </View>
 
                         <UserPicker set_userInfo={(userId,userName)=>this.set_userInfo(userId,userName)}/>
-                        {/*<DatePickerYYMM set_c_gettime={date=>this.set_c_gettime(date)} />*/}
-                        <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} />
+                         <YearMonthPicker set_c_gettime={date=>this.set_c_gettime(date)} />
 
                     </View>
 
