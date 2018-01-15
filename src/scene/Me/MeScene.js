@@ -6,6 +6,7 @@ import NavStyle from '../../widget/NavStyle'
 import PostUrl from  '../../widget/PostUrl'
 import styles from '../../widget/FormStyle'
 import ChangePassScene from './ChangePassScene'
+import AboutScene from './AboutScene';
 
 import MyIcon from '../../widget/MyIcon'
 
@@ -137,7 +138,7 @@ class MeScene extends PureComponent {
 
                     <TouchableOpacity style={{marginTop:20}}
                                       onPress={()=>{
-
+                                          navigate('AboutScene');
                                       }}
                     >
                         <View style={styles.valueRow}>
@@ -146,11 +147,9 @@ class MeScene extends PureComponent {
                         </View>
                     </TouchableOpacity>
                 </ScrollView>
-
             );
         }
     }
-
 }
 const MeStack = StackNavigator({
     MeScene: {
@@ -158,6 +157,9 @@ const MeStack = StackNavigator({
     },
     ChangePassScene:{
         screen:ChangePassScene,
+    },
+    AboutScene:{
+        screen:AboutScene,
     }
 },{
     navigationOptions: {

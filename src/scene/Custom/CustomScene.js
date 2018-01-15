@@ -195,7 +195,6 @@ const customerStyles=StyleSheet.create({
     container:{
         flex:1,
         flexDirection:'column',
-        //backgroundColor:'white',
     },
     textInput:{
         borderWidth:1,

@@ -81,7 +81,6 @@ class ReturnListScene extends PureComponent {
     }
 
     render() {
-
         if(this.state.data == null){
             return (
                 <View>
@@ -112,7 +111,6 @@ class ReturnListScene extends PureComponent {
                             />
                         </View>
                     </View>
-
                     <ListView
                         style = {{marginBottom:60}}
                         dataSource={this.state.data}
@@ -122,21 +120,26 @@ class ReturnListScene extends PureComponent {
             );
         }
     }
-
     _renderRow(rowData, sectionId, rowID, highlightRow){
         const { navigate } = this.props.navigation;
         return(
             <TouchableOpacity
             >
                 <View style={style.itemConnect}>
-                    <View style={style.nameView}>
-                        <Text style={style.nameVal}>用户:{rowData.u_username}</Text>
+                    <View style={style.LeftIcon}>
+                        <MyIcon sorceName={'id-card'} sorceColor={'#FF9800'} sorceSize={70}/>
                     </View>
-                    <View style={style.nameView}>
-                        <Text style={style.nameVal}>姓名:{rowData.u_name}</Text>
-                    </View>
-                    <View style={style.moneyView}>
-                        <Text style={style.moneyVal}>电话号码：{rowData.u_telphone}</Text>
+                    <View style={style.rightContent}>
+                        <View >
+                            <Text >用户名:{rowData.u_username}</Text>
+                        </View>
+
+                        <View  >
+                            <Text  >姓名:{rowData.u_name}</Text>
+                        </View>
+                        <View >
+                            <Text>电话号码：{rowData.u_telphone}</Text>
+                        </View>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -194,39 +197,20 @@ const style = StyleSheet.create({
 
     },
     itemConnect: {
-        flexDirection: 'row',
         backgroundColor: '#fff',
         padding: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#e3e3e3',
-    },
-    statesView: {
-        height: 40,
-        justifyContent: 'center',
-    },
-    dateView: {
-        marginLeft: 10,
-        height: 40,
-        justifyContent: 'center',
-    },
-    nameView: {
-        height: 40,
-        justifyContent: 'center',
-        marginLeft: 40,
-    },
-    nameVal: {
-        fontSize: 18,
-    },
-    moneyVal: {
-        fontSize: 18,
-        color: '#FF9800',
-        textAlign: 'right',
-    },
-    moneyView: {
-        flex: 1,
-        height: 40,
-        justifyContent: 'center',
-        alignItems: 'flex-end',
+        flexDirection: 'row',
+        marginBottom:10,
+     },
+    LeftIcon:{
+        width:90,
+        height:60,
+     },
+    rightContent:{
+        marginLeft:70,
+        paddingBottom:10
     }
 });
 

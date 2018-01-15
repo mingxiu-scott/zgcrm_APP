@@ -191,15 +191,14 @@ class HomeScene extends PureComponent {
                         </Text>
                         <Text style={styles.contentText }>回款记录</Text>
                     </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.TOStyle}>
-                        <Text style={styles.contentText }/>
-                    </TouchableOpacity>
                     <TouchableOpacity style={styles.TOStyle} onPress={()=> navigate('CreateUserScene')}>
                         <Text style={styles.myIconText}>
                             <MyIcon sorceName={'user-plus'} sorceColor={'#9C89B9'} sorceSize={myIconSize}/>
                         </Text>
                         <Text style={styles.contentText }>录员工</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.TOStyle}>
+                        <Text style={styles.contentText }/>
                     </TouchableOpacity>
                 </View>
 
@@ -385,6 +384,7 @@ const HomeStack = StackNavigator({
     Subordinate:{
         screen: Subordinate,
     },
+
 },{
     navigationOptions: {
         headerTitleStyle: NavStyle.stackNavHeaderStyle,

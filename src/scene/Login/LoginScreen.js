@@ -16,7 +16,6 @@ class LoginScreen extends PureComponent{
             password: '',
         }
     }
-
     async componentWillMount(){
        let mess = await AsyncStorage.getItem('uid', function(errs,res){
             if(errs){
@@ -217,12 +216,12 @@ const styles = StyleSheet.create({
         textAlign:'center',
         fontSize:20,
         marginTop:5,
-        color:'#FF9800'
-    },
+        color:'#FF9800',
+     },
     otherText:{
         flexDirection:'row',
     }
-})
+});
 
 const LoginStack = StackNavigator({
     LoginScreen:{

@@ -16,7 +16,6 @@ class ChangePassScene extends PureComponent {
             check_pass : '',
         }
     }
-
     static navigationOptions =({navigation})=>({
         headerTitle: '更改密码',
         tabBarVisible: false,
@@ -72,7 +71,7 @@ class ChangePassScene extends PureComponent {
         var opts = {
             method: 'POST',
             body: formData,
-        }
+        };
         fetch(url, opts)
             .then((response) => {
                 return response.json();
@@ -83,14 +82,13 @@ class ChangePassScene extends PureComponent {
                     old_pass: null,
                     new_pass : '',
                     check_pass : '',
-                })
+                });
                 Alert.alert('提示', responseText.message);
             })
             .catch((error) => {
                 alert(error)
             })
     }
-
     render() {
         return (
             <ScrollView>

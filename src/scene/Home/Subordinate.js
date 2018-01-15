@@ -145,29 +145,26 @@ class ReturnListScene extends PureComponent {
     }
 
     _renderRow(rowData, sectionId, rowID, highlightRow){
-        const { navigate } = this.props.navigation;
 
+        const { navigate } = this.props.navigation;
         return(
                 <View>
-                <View style={style.itemConnect}>
-                    <View style={style.nameView}>
-                        <Text style={style.nameVal}>姓名:{rowData.u_name}</Text>
-                    </View>
-                    <View style={style.nameView}>
-                        <Text style={style.nameVal}>职位:{rowData.r_name}</Text>
-                    </View>
+                    <View style={style.itemConnect}>
+                        <View style={style.nameView}>
+                            <Text style={style.nameVal}>姓名:{rowData.u_name}</Text>
+                        </View>
+                        <View style={style.nameView}>
+                            <Text style={style.nameVal}>职位:{rowData.r_name}</Text>
+                         </View>
 
-                    <TouchableOpacity
-                        style={{position:'absolute',right:20,top:18,}}
-                        onPress={()=> {
-                            this._deleteSubordinate(rowData.r_id);
-                        }}
-                    >
-                        <MyIcon sorceName={'trash-o'} sorceSize={20} sorceColor={'red'}/>
-                    </TouchableOpacity>
-
-                </View>
-                </View>
+                        <TouchableOpacity
+                             style={{position:'absolute',right:20,top:18,}}
+                             onPress={()=> {this._deleteSubordinate(rowData.r_id);}}
+                        >
+                            <MyIcon sorceName={'trash-o'} sorceSize={20} sorceColor={'red'}/>
+                         </TouchableOpacity>
+                     </View>
+                 </View>
         );
     }
 }
@@ -228,6 +225,7 @@ const style = StyleSheet.create({
         padding: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#e3e3e3',
+        marginBottom:10
     },
     statesView: {
         height: 40,
