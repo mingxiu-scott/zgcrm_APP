@@ -156,7 +156,7 @@ class HomeScene extends PureComponent {
                                       onPress={() => navigate('UserListScene')}
                     >
                         <Text style={styles.myIconText}>
-                            <MyIcon sorceName={'comments'} sorceColor={'#F1745E'} sorceSize={myIconSize}/>
+                            <MyIcon sorceName={'th-list'} sorceColor={'#F1745E'} sorceSize={myIconSize}/>
                         </Text>
                         <Text style={styles.contentText }>用户列表</Text>
                     </TouchableOpacity>
@@ -165,7 +165,7 @@ class HomeScene extends PureComponent {
                         onPress={() => navigate('Subordinate')}
                     >
                         <Text style={styles.myIconText}>
-                            <MyIcon sorceName={'comments'} sorceColor={'#F1745E'} sorceSize={myIconSize}/>
+                            <MyIcon sorceName={'list'} sorceColor={'#F1745E'} sorceSize={myIconSize}/>
                         </Text>
                         <Text style={styles.contentText }>下属列表</Text>
                     </TouchableOpacity>

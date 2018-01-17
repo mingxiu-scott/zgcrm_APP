@@ -196,9 +196,10 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderColor:'black',
         marginRight:50,
-        margin:3,
+        // margin:3,
         backgroundColor:'white',
         justifyContent: 'center',
+        lineHeight: 40,
     },
     buttonLoginView:{
         height:50,

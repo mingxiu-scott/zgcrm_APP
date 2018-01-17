@@ -97,9 +97,7 @@ class ReturnListInfoScene extends PureComponent{
                     '',
                     responseText.message
                 );
-
                 if (responseText.code == 'success'){
-
                     DeviceEventEmitter.emit('changeReturnInfo', (data) => { this._changeStateData(data) });
                     DeviceEventEmitter.emit('changeLogInfo','aa');
                     this.setState({
@@ -135,10 +133,8 @@ class ReturnListInfoScene extends PureComponent{
             )
         }else{
             return(
-
                 <ScrollView>
                     <View>
-
                         <View style={styles.valueRow}>
                             <Text style={styles.valueLabel}>回款日期*</Text>
                             <Text style={styles.valueText}>{this.state.data.o_return_date}</Text>
@@ -147,14 +143,11 @@ class ReturnListInfoScene extends PureComponent{
                             <Text style={styles.valueLabel}>客户名称*</Text>
                             <Text style={styles.valueText}>{this.state.data.c_name}</Text>
                         </View>
-
                         <View style={styles.valueRow}>
                             <Text style={styles.valueLabel}>回款金额*</Text>
                             <Text style={styles.valueText}>{this.state.data.o_return_money}</Text>
                         </View>
-
                         {this.ReturnButtonShow()}
-
                     </View>
                 </ScrollView>
             );

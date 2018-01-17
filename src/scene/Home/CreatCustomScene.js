@@ -52,7 +52,6 @@ class CreatCustomScene extends PureComponent {
             </View>
         ),
     });
-
     postRequest() {
         if (
             this.state.c_gettime == '' ||

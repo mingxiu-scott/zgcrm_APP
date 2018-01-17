@@ -35,8 +35,12 @@ class ReturnListScene extends PureComponent {
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
             </TouchableOpacity>
         ),
+        headerRight: (
+            <View>
+                <Text> </Text>
+            </View>
+        ),
     });
-
     constructor(props){
         super(props);
 
@@ -44,7 +48,6 @@ class ReturnListScene extends PureComponent {
             data: null,
         };
     }
-
     componentDidMount() {
 
         this._getSubordinateJson('','');

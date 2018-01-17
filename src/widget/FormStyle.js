@@ -87,7 +87,6 @@ const FormStyle = StyleSheet.create({
         width:'25%',
         height:40,
         flex:1,
-        // fontSize:22,
         backgroundColor:'white',
         borderRightWidth:.4,borderRightColor:'#ebebeb',
         borderBottomWidth:.4,borderBottomColor:'#ebebeb',

@@ -29,6 +29,11 @@ class ChangePassScene extends PureComponent {
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
             </TouchableOpacity>
         ),
+        headerRight: (
+            <View>
+                <Text> </Text>
+            </View>
+        ),
     });
 
     _changePassword() {
@@ -107,9 +112,7 @@ class ChangePassScene extends PureComponent {
                         />
                     </View>
                     <View style={styles.formRow}>
-                        <Text style={styles.lineHeightAll}>
-                        新密码*
-                        </Text>
+                        <Text style={styles.lineHeightAll}>新密码*</Text>
                         <TextInput
                             style={styles.TextInputs}
                             value={this.state.new_pass}
@@ -120,9 +123,7 @@ class ChangePassScene extends PureComponent {
                         />
                     </View>
                     <View style={styles.formRow}>
-                        <Text style={styles.lineHeightAll}>
-                        再次确认密码*
-                        </Text>
+                        <Text style={styles.lineHeightAll}>再次确认密码*</Text>
                         <TextInput
                             style={styles.TextInputs}
                             value={this.state.check_pass}

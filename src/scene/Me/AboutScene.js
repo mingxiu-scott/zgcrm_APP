@@ -21,22 +21,23 @@ class AboutScene extends PureComponent {
                 <MyIcon sorceName={'reply'} sorceSize={18} sorceColor={'#ffffff'}/>
             </TouchableOpacity>
         ),
+        headerRight: (
+            <View>
+                <Text> </Text>
+            </View>
+        ),
     });
     render() {
         return (
             <ScrollView>
                 <View >
                     <View style={styles.valueRow}>
-                        <Text style={styles.valueLabel}>关于软件：</Text>
-                        <Text style={styles.valueText}>测试版</Text>
+                        <Text style={styles.valueLabel}>软件名称：</Text>
+                        <Text style={styles.valueText}>客户管理工具</Text>
                     </View>
                     <View style={styles.valueRow}>
                         <Text style={styles.valueLabel}>版本号：</Text>
-                        <Text style={styles.valueText}>1.0.0.1</Text>
-                    </View>
-                    <View style={styles.valueRow}>
-                        <Text style={styles.valueLabel}>关于更新：</Text>
-                        <Text style={styles.valueText}> 敬请期待</Text>
+                        <Text style={styles.valueText}>1.0.0</Text>
                     </View>
                 </View>
             </ScrollView>
